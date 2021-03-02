@@ -28,15 +28,17 @@ jQuery.ajax({
         document.getElementById('qualidade').value = produto._qualidadeProduto;
         document.getElementById('categoria').value = produto._categoria;
         
-        $("#divPrincipal").append('<div class="card" style="width: 18rem;">'+
+        $("#divPrincipal").append(
+        '<div class="form-group col-md-4">'+
+        '<div class="card" style="width: 18rem;">'+
         '<img class="card-img-top" src="..." alt="Card image cap">'+
         '<div class="card-body">'+
-        '<h5 class="card-title">'+produto._nomeExtenso+'</h5>'+
-        '<p class="card-text">Some quick example text to build on the card title and make up the bulk of the  content.</p>'+
-        '<a href="#" class="btn btn-primary">Go somewhere</a>'+
+        '<h5 class="card-title">'+produto._nomeProduto+'</h5>'+
+        '<p class="card-text">'+produto._nomeExtenso+'</p>'+
+        '<a href="#" class="btn btn-primary">Ver mais</a>'+
+        '</div>'+
         '</div>'+
         '</div>')
-        
        // console.log(produto._imagem.caminhoImagem1);
       }
       
