@@ -1,18 +1,9 @@
-function consumoApi(){
-    console.log('Entrei no consumo da API')
-    var url1 = 'http://localhost:8080/Produtos'
-    var filtro = $("#nomePesquisa").val();
+function getProdutos(){
 
-    console.log(filtro);
-    if(!(filtro == null || filtro == '')){
-      console.log('entrei')
-      url1 += '?Nome='+filtro;
-    }
+var url = tratarDadosgetProdutos();
 
-console.log('Consumindo... ' + url1);
-
-jQuery.ajax({
-    url: url1,
+$.ajax({
+    url: url,
     type: 'GET',
     timeout: 20000,
     contentType:"application/json; charset=utf-8",
@@ -24,30 +15,42 @@ jQuery.ajax({
 
       for(i = 0; i < tamanho; i++){
         var produto = data[i];
-        document.getElementById('nomeExtenso').value = produto._nomeExtenso;
-        document.getElementById('qualidade').value = produto._qualidadeProduto;
-        document.getElementById('categoria').value = produto._categoria;
-        
-        $("#divPrincipal").append(
-        '<div class="form-group col-md-4">'+
-        '<div class="card" style="width: 18rem;">'+
-        '<img class="card-img-top" src="..." alt="Card image cap">'+
-        '<div class="card-body">'+
-        '<h5 class="card-title">'+produto._nomeProduto+'</h5>'+
-        '<p class="card-text">'+produto._nomeExtenso+'</p>'+
-        '<a href="#" class="btn btn-primary">Ver mais</a>'+
-        '</div>'+
-        '</div>'+
-        '</div>')
-       // console.log(produto._imagem.caminhoImagem1);
+    
+        retornarDiv(produto);
       }
-      
-      
     },
     error: result => {
         alert(result.status + ' ' + result.statusText);
     }
   });
+}
+
+function tratarDadosgetProdutos(dados){
+  var url1 = 'http://localhost:8080/Produtos'
+
+  var filtro = $("#nomePesquisa").val();
+    if(!(filtro == null || filtro == '')){
+      console.log('entrei')
+      url1 += '?Nome='+filtro;
+    }
+
+    return url1;
+}
 
 
+function retornarDiv(response){
+  console.log(response)
+  response._preco = response._preco+'.00'
+ return $("#divPrincipal").append(
+    '<div class="form-group col-md-4">'+
+    '<div class="card" style="width: 18rem;">'+
+    '<img class="card-img-top" src="images/teste.jpg" alt="Card image cap">'+
+    '<div class="card-body">'+
+    '<h5 class="card-title">'+response._nomeProduto+'</h5>'+
+    '<p class="card-text">'+response._descricao+'</p>'+
+    '<p class="card-text">'+response._preco+'</p>'+
+    '<a href="#" class="btn btn-primary">Ver mais</a>'+
+    '</div>'+
+    '</div>'+
+    '</div>')
 }
