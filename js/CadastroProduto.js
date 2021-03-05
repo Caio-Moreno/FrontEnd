@@ -68,6 +68,7 @@ function enviarImagens(){
             console.log(imagens);
         },
         error: result => {
+            alert('Error')
             console.log(result)
         },
         done: result => {
