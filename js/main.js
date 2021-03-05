@@ -27,16 +27,13 @@ $.ajax({
 
 function tratarDadosgetProdutos(dados){
   var url1 = 'http://localhost:8080/Produtos'
-
   var filtro = $("#nomePesquisa").val();
     if(!(filtro == null || filtro == '')){
       console.log('entrei')
       url1 += '?Nome='+filtro;
     }
-
     return url1;
 }
-
 
 function retornarDiv(response){
   console.log(response)

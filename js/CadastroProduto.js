@@ -1,6 +1,9 @@
 function enviarProduto(){
-    var dataSend = retornarObj();
+    var imagens = enviarImagens();
+    var dataSend = retornarObj(imagens);
+    
     var url = 'http://localhost:8080/Produtos'
+
     $.ajax({
         url: url,
         type: 'POST',
@@ -20,7 +23,7 @@ function enviarProduto(){
       });
 }
 
-function retornarObj(){
+function retornarObj(imagens){
     var nome = document.getElementById('nomeProduto').value;
     var descricao = document.getElementById('descricao').value;
     var qualidade = document.getElementById('ficarEscondido').value;
@@ -38,8 +41,40 @@ function retornarObj(){
         _statusProduto: estado,
         _qtdEstoque: quantidade,
         _preco: preco,
+        _imagem: imagens,
         _plataforma: plataforma
     })
 
     return json;
+}
+
+function enviarImagens(){
+    var url = 'http://localhost:8080/Produtos' //FALTA ALTERAR O CAMINHO
+    var imagens = null;
+    /*
+    AQUI PEGO AS IMAGENS NO FRONT PARA PASSAR PARA O ENDPOINT DO VITINHO
+    */
+
+    $.ajax({
+        url: url,
+        type: 'POST',
+        timeout: 20000,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: dataSend,
+        success: data => {      
+            console.log('Imagens cadastradas...');
+            imagens = data;
+            console.log(imagens);
+        },
+        error: result => {
+            console.log(result)
+        },
+        done: result => {
+            alert('finalizou')
+        }
+      });
+
+      return imagens;
+
 }
