@@ -10,11 +10,15 @@ $.ajax({
     dataType:"json",  
     success: data => {      
       console.log(data);
-      var tamanho = data.length;
+      var tamanho = data._produto.length;
+      var produtos = data._produto;
       console.log(tamanho);
+      console.log(produtos);
+      
+
 
       for(i = 0; i < tamanho; i++){
-        var produto = data[i];
+        var produto = produtos[i];
     
         retornarDiv(produto);
       }
