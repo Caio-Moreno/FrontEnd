@@ -1,6 +1,6 @@
 function enviarProduto(){
-    var imagens = enviarImagens();
-    var dataSend = retornarObj(imagens);
+    //var imagens = enviarImagens();
+    var dataSend = retornarObj();
     
     var url = 'http://localhost:8080/Produtos'
 
@@ -11,8 +11,11 @@ function enviarProduto(){
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: dataSend,
-        success: data => {      
-            alert('Produto '+data._nomeProduto + ' foi cadastrado');
+        success: data => {
+            console.log(data);
+            var produto = data._produto[0];
+            console.log(produto)      
+            alert('Produto '+produto._nomeProduto + ' foi cadastrado');
         },
         error: result => {
             console.log(result)
@@ -23,7 +26,7 @@ function enviarProduto(){
       });
 }
 
-function retornarObj(imagens){
+function retornarObj(){
     var nome = document.getElementById('nomeProduto').value;
     var descricao = document.getElementById('descricao').value;
     var qualidade = document.getElementById('ficarEscondido').value;
@@ -41,7 +44,7 @@ function retornarObj(imagens){
         _statusProduto: estado,
         _qtdEstoque: quantidade,
         _preco: preco,
-        _imagem: imagens,
+        //_imagem: imagens,
         _plataforma: plataforma
     })
 
