@@ -206,9 +206,9 @@
 
                     <h1>Cadastrar Imagem</h1>
 
-                    <form id="formulario" method="post" enctype="multipart/form-data">
+                    <form method="post" action="" enctype="multipart/form-data" id="myform">
 
-                        <input type="file" multiple id="gallery-photo-add" name="foto">
+                        <input type="file" multiple id="gallery-photo-add" name="foto" onchange="enviarImagem()">
                         <div class="gallery"></div>
 
 

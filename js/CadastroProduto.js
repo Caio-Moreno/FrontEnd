@@ -51,36 +51,42 @@ function retornarObj() {
     return json;
 }
 
-function enviarImagens(responseProduto) {
-    var url = 'http://localhost:8080/imagem?id=' + responseProduto._idProduto; //FALTA ALTERAR O CAMINHO
-    var imagens = null;
-    console.log(url);
-    var data = new FormData();
-    data.append('fileimagem', $('#exampleFormControlFile1')[0].files[0]);
-    console.log('minha imagem' + data);
-    /*
-    AQUI PEGO AS IMAGENS NO FRONT PARA PASSAR PARA O ENDPOINT DO VITINHO
-    */
+function enviarImagens(id) {
+
+    // Read selected files
+
+
+    //var foto = document.querySelector('#gallery-photo-add').files[0];
+    var formData = new FormData();
+    var foto = document.querySelector('#gallery-photo-add').files.length;
+    /*if (id == 1) {
+        var foto = document.querySelector('#gallery-photo-add').files.length;
+    } else if (id == 2) {
+        var foto = document.querySelector('#input1').files.length;
+    } else if (id == 3) {
+        var foto = document.querySelector('#input2').files.length;
+    } else if (id == 4) {
+        var foto = document.querySelector('#input3').files.length;
+    }*/
+    for (var index = 0; index < foto; index++) {
+        formData.append("foto", document.querySelector('#gallery-photo-add').files[index]);
+    }
+    //formData.append("foto", foto);
 
     $.ajax({
-        url: url,
-        type: 'POST',
-        timeout: 20000,
-        processData: false,
+        url: 'http://localhost:8080/imagem?id=3',
+        type: 'post',
+        data: formData,
         contentType: false,
-        data: data,
-        success: data => {
-            console.log('Imagens cadastradas...');
+        processData: false,
+        success: function(response) {
+            alert("produto Inserido com sucesso!" + response);
         },
-        error: result => {
-            alert('Error')
-            console.log(result)
-        },
-        done: result => {
-            alert('finalizou')
+        error: data => {
+            alert("Erro ao inserir imagem" + data.statusText);
         }
     });
 
-    return imagens;
+
 
 }
