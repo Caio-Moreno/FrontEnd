@@ -20,11 +20,17 @@
 
   <!-- Custom styles for this page -->
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/listaProdutos.css">
+  <link rel="stylesheet" href="css/star.css">
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="js/listaProdutos.js"></script>
 <script>
     console.log('Vou buscar os produtos')
     getProdutosLista();
+
+    function atribuirValor(a){
+          document.getElementById('ficarEscondido').value = a;
+      }
 
 </script>
 </head>
@@ -385,20 +391,6 @@
                     </tr>
                   </tfoot>
                   <tbody>
-                    <tr>
-                      <td>ID teste</td>
-                      <td>GTA V</td>
-                      <td>New York</td>
-                      <td>5</td>
-                      <td>Crime</td>
-                      <td>A</td>
-                      <td>20</td>
-                      <td>20.00</td>
-                      <td>http://imagem.com</td>
-                      <td>PS4</td>
-                      <td><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
-                      <td><a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
-                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -407,7 +399,7 @@
 
         </div>
         <!-- /.container-fluid -->
-
+        <button onclick="mostrarFloat()"> mostrar</button>
       </div>
       <!-- End of Main Content -->
 
@@ -467,6 +459,154 @@
 
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
+
+
+  <div class="modal fade" id="modalExclusao" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Confirmar Exclusão</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            Confirmar exclusão do produto <strong><label id="nomeProduto"></label></strong>  ?
+            <input id="codProduto" hidden="true" />
+         
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" onclick="excluirProduto()">Confirmar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Editar registro</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            
+          <div class="container-fluid">
+
+            <!--PAGINA CADASTRO-->
+           
+            <form>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="nomeProduto">Nome do Produto</label>
+                  <input type="text" class="form-control" id="nomeProdutoAlterar" placeholder="Nome do Produto">
+                </div>
+              
+              </div>
+              <div class="form-row">
+                  <div class="form-group col-md-6">
+                      <label for="descricao">Descrição</label>
+                      <input type="text" class="form-control" id="descricaoProdutoAlterar" placeholder="Descrição do produto">
+                    </div>
+                </div>
+              <div class="form-row">
+                  <div class="form-group col-md-6">
+                      <label>Qualidade do produto</label>
+                      <div id="half-stars-example">
+                          <div class="rating-group">
+                              <input class="rating__input rating__input--none" checked name="rating2" id="rating2-0" value="0" type="radio" onclick="atribuirValor(0)">
+                              <label aria-label="0 stars" class="rating__label" for="rating2-0">&nbsp;</label>
+                              <label aria-label="0.5 stars" class="rating__label rating__label--half" for="rating2-05"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+                              <input class="rating__input" name="rating2" id="rating2-05" value="0.5" type="radio" onclick="atribuirValor(0.5)">
+                              <label aria-label="1 star" class="rating__label" for="rating2-10"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                              <input class="rating__input" name="rating2" id="rating2-10" value="1" type="radio" onclick="atribuirValor(1)">
+                              <label aria-label="1.5 stars" class="rating__label rating__label--half" for="rating2-15"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+                              <input class="rating__input" name="rating2" id="rating2-15" value="1.5" type="radio" onclick="atribuirValor(1.5)">
+                              <label aria-label="2 stars" class="rating__label" for="rating2-20"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                              <input class="rating__input" name="rating2" id="rating2-20" value="2" type="radio" onclick="atribuirValor(2)">
+                              <label aria-label="2.5 stars" class="rating__label rating__label--half" for="rating2-25"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+                              <input class="rating__input" name="rating2" id="rating2-25" value="2.5" type="radio" checked onclick="atribuirValor(2.5)">
+                              <label aria-label="3 stars" class="rating__label" for="rating2-30"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                              <input class="rating__input" name="rating2" id="rating2-30" value="3" type="radio" onclick="atribuirValor(3)">
+                              <label aria-label="3.5 stars" class="rating__label rating__label--half" for="rating2-35"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+                              <input class="rating__input" name="rating2" id="rating2-35" value="3.5" type="radio" onclick="atribuirValor(3.5)">
+                              <label aria-label="4 stars" class="rating__label" for="rating2-40"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                              <input class="rating__input" name="rating2" id="rating2-40" value="4" type="radio" onclick="atribuirValor(4)">
+                              <label aria-label="4.5 stars" class="rating__label rating__label--half" for="rating2-45"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+                              <input class="rating__input" name="rating2" id="rating2-45" value="4.5" type="radio" onclick="atribuirValor(4.5)">
+                              <label aria-label="5 stars" class="rating__label" for="rating2-50"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                              <input class="rating__input" name="rating2" id="rating2-50" value="5" type="radio" onclick="atribuirValor(5)">
+                          </div>
+                      </div>
+                  </div>
+                </div>
+              <div class="form-row">
+                  <div class="form-group col-md-6">
+                      <label for="categoriaProduto">Categoria</label>
+                      <input type="text" class="form-control" id="categoriaProdutoAlterar" placeholder="Categoria do produto">
+                    </div>
+             </div>
+             <div class="form-row">
+                  <div class="form-group col-md-3">
+                          <label for="quantidadeProduto">Quantidade</label>
+                          <input type="number" class="form-control" id="quantidadeProdutoAlterar" placeholder="1">
+                        
+                  </div>
+                  <div class="form-group col-md-3">
+                      <label for="quantidadeProduto">Estado</label>
+                      <select class="custom-select" id="estadoProdutoAlterar">
+                          <option value="A">Ativo</option>
+                          <option value="I">Inativo</option>
+                      </select>
+                    
+                  </div>
+             </div>
+             <div class="form-row">
+                  <div class="form-group col-md-3">
+                      <label for="preco">Preço</label>
+                      <input type="text" class="form-control" id="precoProdutoAlterar" placeholder="Ex: 20.00">  
+                  </div>
+                  <div class="form-group col-md-3">
+                      <label for="preco">Plataforma</label>
+                      <select class="custom-select" id="plataformaProdutoAlterar">
+                          <option value="PS4">PS4</option>
+                          <option value="XBOX">XBOX</option>
+                          <option value="PC">PC</option>
+                      </select> 
+                      
+                  </div>
+             </div>
+             <div class="form-row">
+                  <div class="form-group col-md-4">
+                          <label for="addImagens">Adicionar imagens</label>
+                          <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                        
+                  </div>
+             </div>
+             <!--<input type="text">-->
+              <!--<a class="btn btn-primary" onclick="enviarProduto()" style="margin-left: 215px;">Adicionar produto</a>-->
+            </form>
+            <input type="hidden" id="ficarEscondido" value="2.5">
+            <input id="idProdutoAlterar"/>
+            <br>
+            <div class="alert alert-success" role="alert" id="alertaAtualizado">
+              Produto atualizado com sucesso
+            </div>
+          </div>
+         
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" onclick="atualizarProduto()">Confirmar</button>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+
 
 </body>
 

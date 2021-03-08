@@ -14,9 +14,6 @@ function getProdutos() {
             var produtos = data._produto;
             console.log(tamanho);
             console.log(produtos);
-
-
-
             for (i = 0; i < 4; i++) {
                 var produto = produtos[i];
 
@@ -30,7 +27,7 @@ function getProdutos() {
     });
 }
 
-function tratarDadosgetProdutos(dados) {
+function tratarDadosgetProdutos() {
     var url1 = 'http://localhost:8080/Produtos'
     var filtro = $("#nomePesquisa").val();
     if (!(filtro == null || filtro == '')) {

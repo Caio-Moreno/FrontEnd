@@ -49,18 +49,19 @@ function getProdutosLista(){
         //armazeno em uma variavel a linha tr = linha
         var tr = $('<tr></tr>')
         //cada coluna da linha eu armazeno numa var também
-        var td1 = $('<td></td>');
-        var td2 = $('<td></td>');
-        var td3 = $('<td></td>');
-        var td4 = $('<td></td>');
-        var td5 = $('<td></td>');
-        var td6 = $('<td></td>');
-        var td7 = $('<td></td>');
-        var td8 = $('<td></td>');
-        var td9 = $('<td><img src="'+response._imagem+'"></td>'); 
-        var td10 = $('<td></td>');
-        var td11 = $('<td><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>')
-        var td12 = $('<td><a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></td>')
+        var td1 = $('<td class="customerIDCell" data-id="'+response._idProduto+'"></td>');
+        var td2 = $('<td data-nome="'+response._nomeProduto+'"></td>');
+        var td3 = $('<td data-descricao="'+response._descricao+'"></td>');
+        var td4 = $('<td data-qualidade="'+response._qualidadeProduto+'"></td>');
+        var td5 = $('<td data-categoria="'+response._categoria+'"></td>');
+        var td6 = $('<td data-status="'+response._statusProduto+'"></td>');
+        var td7 = $('<td data-status="'+response._qtdEstoque+'"></td>');
+        var td8 = $('<td data-estoque="'+response._qtdEstoque+'"></td>');
+        //var td9 = $('<td data-imagem="'+response._imagem+'"><img src="'+response._imagem+'"></td>'); 
+        var td9 = $('<td data-imagem="'+response._imagem+'"><img src="images/no-image.png" class="tratarImage"></td>'); //por enquanto pra teste
+        var td10 = $('<td data-plataforma="'+response._plataforma+'"></td>');
+        var td11 = $('<td onclick="mostrarModalEditar('+response._idProduto+')"><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>')
+        var td12 = $('<td onclick="mostrarModalExclusao('+response._idProduto+')" ><a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></td>')
         //passo os valores de cada coluna
         td1.text(response._idProduto);
         td2.text(response._nomeProduto)
@@ -89,4 +90,138 @@ function getProdutosLista(){
         body.append(tr);
         
         return;
+    }
+
+    function mostrarModalExclusao(idProduto){
+      $("#nomeProduto").html(idProduto);
+      $("#codProduto").val(idProduto);
+      $('#modalExclusao').modal('show');
+    }
+    function mostrarModalEditar(idProduto){
+      mostrarProduto(idProduto);
+      $('#modalEditar').modal('show');
+    }
+
+    function excluirProduto(){
+      var idProduto = $('#codProduto').val();
+      idProduto = parseInt(idProduto);
+
+      console.log(typeof(idProduto));
+      
+
+      var url = 'http://localhost:8080/Produtos?Id='+idProduto;
+      console.log('URL'+url);
+      $.ajax({
+        url: url,
+        type: 'DELETE',
+        timeout: 20000,
+        contentType:"application/json; charset=utf-8",
+        dataType:"json",  
+        success: data => {
+          var mensagem = data._message;
+          $('#modalExclusao').modal('hide')
+          alert(mensagem);
+          window.location.reload();
+        },
+        error: result => {
+            alert(result.status + ' ' + result.statusText);
+        }
+      });
+    }
+
+    function mostrarProduto(id){
+      $('#alertaAtualizado').hide();
+      var url = 'http://localhost:8080/Produtos?Id='+id;
+      console.log('Consumindo para o modal'+url);
+
+      $.ajax({
+        url: url,
+        type: 'GET',
+        timeout: 20000,
+        contentType:"application/json; charset=utf-8",
+        dataType:"json",  
+        success: data => {
+          var produto = data._produto[0];
+          console.log(produto);
+
+          $('#nomeProdutoAlterar').val(produto._nomeProduto);
+          $('#descricaoProdutoAlterar').val(produto._descricao);
+          $('#qualidadeProdutoAlterar').val(produto._qualidadeProduto);
+          $('#categoriaProdutoAlterar').val(produto._categoria);
+          $('#statusProdutoAlterar').val(produto._statusProduto);
+          $('#quantidadeProdutoAlterar').val(produto._qtdEstoque);
+          $('#precoProdutoAlterar').val(produto._preco);
+          $('#idProdutoAlterar').val(id);
+          
+          $('#plataformaProdutoAlterar').val(produto._plataforma);
+
+        },
+        error: result => {
+            alert(result.status + ' ' + result.statusText);
+        }
+      });
+
+    }
+
+
+    function atualizarProduto(){
+          var data = retornarObjUpdate();
+          var id = $('#idProdutoAlterar').val();
+          id = parseInt(id);
+          console.log('ID'+id);
+          var url = 'http://localhost:8080/Produtos?Id='+id
+
+          console.log('MEU OBJ'+data)
+
+          $.ajax({
+            url: url,
+            type: 'PUT',
+            timeout: 20000,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: data,
+            success: _ => {
+                var mensagem = _._message;
+                $('#modalEditar').modal('hide');
+                alert(mensagem);
+                window.location.reload();
+            },
+            error: result => {
+                console.log(result)
+            },
+            done: _ => {
+                alert('finalizou')
+            }
+        });
+    }
+
+    function retornarObjUpdate() {
+      var nome = $('#nomeProdutoAlterar').val();
+      var descricao = $('#descricaoProdutoAlterar').val();
+      var qualidade = $('#qualidadeProdutoAlterar').val();
+      var categoria = $('#categoriaProdutoAlterar').val();
+      var quantidade = $('#quantidadeProdutoAlterar').val();
+      var status = $('#estadoProdutoAlterar').val();
+      var preco = $('#precoProdutoAlterar').val();
+      var plataforma = $('#plataformaProdutoAlterar').val();
+      var imagens = {
+                caminhoImagem1: "COM IMAGEM",
+                caminhoImagem2: "COM IMAGEM",
+                caminhoImagem3: "COM IMAGEM",
+                caminhoImagem4: "COM IMAGEM"
+      }
+  
+      var json = JSON.stringify({
+          _nomeProduto: nome,
+          _descricao: descricao,
+          _qualidadeProduto: qualidade,
+          _categoria: categoria,
+          _statusProduto: status,
+          _qtdEstoque: quantidade,
+          _preco: preco,
+          _imagem: imagens,
+          _plataforma: plataforma
+      })
+  
+      return json;
     }
