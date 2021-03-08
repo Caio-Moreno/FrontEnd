@@ -12,10 +12,10 @@ function enviarProduto(){
         dataType: "json",
         data: dataSend,
         success: data => {
-            console.log(data);
             var produto = data._produto[0];
-            console.log(produto)      
             alert('Produto '+produto._nomeProduto + ' foi cadastrado');
+
+            enviarImagens(produto);
         },
         error: result => {
             console.log(result)
@@ -24,6 +24,7 @@ function enviarProduto(){
             alert('finalizou')
         }
       });
+      
 }
 
 function retornarObj(){
@@ -51,9 +52,13 @@ function retornarObj(){
     return json;
 }
 
-function enviarImagens(){
-    var url = 'http://localhost:8080/Produtos' //FALTA ALTERAR O CAMINHO
+function enviarImagens(responseProduto){
+    var url = 'http://localhost:8080/imagem?id='+responseProduto._idProduto; //FALTA ALTERAR O CAMINHO
     var imagens = null;
+    console.log(url);
+    var data = new FormData();
+    data.append('fileimagem', $('#exampleFormControlFile1')[0].files[0]);
+    console.log('minha imagem'+data);
     /*
     AQUI PEGO AS IMAGENS NO FRONT PARA PASSAR PARA O ENDPOINT DO VITINHO
     */
@@ -62,9 +67,9 @@ function enviarImagens(){
         url: url,
         type: 'POST',
         timeout: 20000,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: dataSend,
+        processData: false,
+        contentType: false,
+        data: data,
         success: data => {      
             console.log('Imagens cadastradas...');
             imagens = data;
