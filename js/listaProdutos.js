@@ -14,7 +14,7 @@ function getProdutosLista(){
           var tamanho = data._produto.length;
           var produtos = data._produto;
           console.log(tamanho);
-          console.log(produtos);
+          //console.log(produtos);
           for(i = 0; i < tamanho; i++){
             var produto = produtos[i];
         
@@ -28,12 +28,7 @@ function getProdutosLista(){
     }
     
     function tratarDadosgetProdutos(){
-      var url1 = 'http://localhost:8080/Produtos'
-      var filtro = $("#nomePesquisa").val();
-        if(!(filtro == null || filtro == '')){
-          console.log('entrei')
-          url1 += '?Nome='+filtro;
-        }
+      var url1 = 'http://localhost:8080/Produtos?status=A'
         return url1;
     }
     
@@ -49,12 +44,18 @@ function getProdutosLista(){
         //armazeno em uma variavel a linha tr = linha
         var tr = $('<tr></tr>')
         //cada coluna da linha eu armazeno numa var também
-        var td1 = $('<td class="customerIDCell" data-id="'+response._idProduto+'"></td>');
+        var td1 = $('<td data-id="'+response._idProduto+'"></td>');
         var td2 = $('<td data-nome="'+response._nomeProduto+'"></td>');
         var td3 = $('<td data-descricao="'+response._descricao+'"></td>');
         var td4 = $('<td data-qualidade="'+response._qualidadeProduto+'"></td>');
         var td5 = $('<td data-categoria="'+response._categoria+'"></td>');
-        var td6 = $('<td data-status="'+response._statusProduto+'"></td>');
+        if(response._statusProduto == 'A'){
+          var td6 = $('<td ondblclick="mostrarModalAtualizar('+response._idProduto+',\'A\')">  <i class="fa fa-check-square-o" aria-hidden="true"></i> </td>');
+          //console.log('<td ondblclick="mostrarModalAtualizar('+response._idProduto+',\'A\')">   <i class="fa fa-check-square-o" aria-hidden="true"></i> </td>')
+  
+        }else if(response._statusProduto == 'I'){
+          var td6 = $('<td ondblclick="mostrarModalAtualizar('+response._idProduto+',\'I\')" data-status="'+response._statusProduto+'"> <i class="fa fa-ban" aria-hidden="true"></i></td>');
+        }
         var td7 = $('<td data-status="'+response._qtdEstoque+'"></td>');
         var td8 = $('<td data-estoque="'+response._qtdEstoque+'"></td>');
         //var td9 = $('<td data-imagem="'+response._imagem+'"><img src="'+response._imagem+'"></td>'); 
@@ -67,8 +68,8 @@ function getProdutosLista(){
         td2.text(response._nomeProduto)
         td3.text(response._descricao);
         td4.text(response._qualidadeProduto);
-        td5.text(response._categoria);
-        td6.text(response._statusProduto);
+        td5.text(response._categoria);  
+        //td6.text(response._statusProduto);
         td7.text(response._qtdEstoque);
         td8.text(response._preco);
         //td9.text(response._imagem);
@@ -100,6 +101,13 @@ function getProdutosLista(){
     function mostrarModalEditar(idProduto){
       mostrarProduto(idProduto);
       $('#modalEditar').modal('show');
+    }
+
+    function mostrarModalAtualizar(idProduto, StatusAtual){
+      console.log('ENTREI'+idProduto+StatusAtual)
+      $('#idProdutoAtualizarStatus').val(idProduto);
+      $('#statusAtualizarProduto').val(StatusAtual);
+      $('#modalAtualizaStatus').modal('show');
     }
 
     function excluirProduto(){
@@ -224,4 +232,47 @@ function getProdutosLista(){
       })
   
       return json;
+    }
+
+    function atualizaStatus(){
+      var id = $('#idProdutoAtualizarStatus').val();
+      id= parseInt(id);
+      console.log(id)
+      var status = $('#statusAtualizarProduto').val();
+
+      if(status == 'A'){
+        status = 'I'
+      }else {
+        status = 'A'
+      }
+
+      var json = JSON.stringify({
+        _id: id,
+        _status: status
+      })
+      
+      var url = 'http://localhost:8080/Produtos'
+
+
+      $.ajax({
+        url: url,
+        type: 'PUT',
+        timeout: 20000,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: json,
+        success: _ => {
+            var mensagem = _._message;
+            $('#modalAtualizaStatus').modal('hide');
+            alert(mensagem);
+            window.location.reload();
+        },
+        error: result => {
+            console.log(result)
+        },
+        done: _ => {
+            alert('finalizou')
+        }
+      });
+
     }

@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Tables</title>
+  <title>Brazukas</title>
 
   <!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -399,7 +399,7 @@
 
         </div>
         <!-- /.container-fluid -->
-        <button onclick="mostrarFloat()"> mostrar</button>
+
       </div>
       <!-- End of Main Content -->
 
@@ -459,6 +459,34 @@
 
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
+
+
+
+  <div class="modal fade" id="modalAtualizaStatus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Confirmar atualização</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+              Confirma a atualização do status deste produto?
+            <input id="idProdutoAtualizarStatus" hidden="true" />
+            <input id="statusAtualizarProduto" hidden="true" />
+         
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" onclick="atualizaStatus()">Confirmar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
 
 
   <div class="modal fade" id="modalExclusao" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -590,7 +618,7 @@
               <!--<a class="btn btn-primary" onclick="enviarProduto()" style="margin-left: 215px;">Adicionar produto</a>-->
             </form>
             <input type="hidden" id="ficarEscondido" value="2.5">
-            <input id="idProdutoAlterar"/>
+            <input id="idProdutoAlterar" type="hidden"/>
             <br>
             <div class="alert alert-success" role="alert" id="alertaAtualizado">
               Produto atualizado com sucesso
