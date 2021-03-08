@@ -159,6 +159,8 @@ nav.nav-produtos ul.nav li ul.nav li {
 
 .produtos .produtos-container .produtos-itens .produtos-stars {
     font-size: 10px;
+    color: #ffc107;
+    text-shadow: 2px 2px black;
 }
 
 .produtos .produtos-container .produtos-itens .produtos-stars svg {

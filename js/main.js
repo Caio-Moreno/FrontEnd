@@ -61,9 +61,9 @@ function mostrarEstrelas(qtdEstrela) {
 
 function retornarDiv(response) {
     console.log(response)
-    response._preco = response._preco + '.00'
+    response._preco = response._preco.toFixed(2);
     return $("#divPrincipal").append(
-        '<a href="#" class="produtos-container col-md-3">' +
+        '<a href="' + 'produto-especifico.html' + '" class="produtos-container col-md-3">' +
         '<img src="./assets/images/cropped-rosa.jpg" class="img-fluid" alt="Cropped rosa">' +
         '<article class="produtos-itens">' +
         '<h2>' + response._nomeProduto + '</h2>' +
