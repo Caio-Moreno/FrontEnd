@@ -11,8 +11,8 @@ $(function() {
                 reader.onload = function(event) {
                     $($.parseHTML('<img>'))
                         .attr('src', event.target.result)
-                        .attr('style', 'width: 300px')
-                        .attr('style', 'height: 300px')
+                        .attr('style', 'width: 100px')
+                        .attr('style', 'height: 100px')
                         .appendTo(placeToInsertImagePreview);
                 }
 

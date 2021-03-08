@@ -13,7 +13,7 @@ function enviarProduto() {
         data: dataSend,
         success: data => {
             var produto = data._produto[0];
-            alert('Produto ' + produto._nomeProduto + ' foi cadastrado');
+            console.log(produto);
 
             enviarImagens(produto);
         },
@@ -51,36 +51,29 @@ function retornarObj() {
     return json;
 }
 
-function enviarImagens(id) {
+function enviarImagens(produto) {
 
     // Read selected files
-
+    console.log(produto);
 
     //var foto = document.querySelector('#gallery-photo-add').files[0];
     var formData = new FormData();
     var foto = document.querySelector('#gallery-photo-add').files.length;
-    /*if (id == 1) {
-        var foto = document.querySelector('#gallery-photo-add').files.length;
-    } else if (id == 2) {
-        var foto = document.querySelector('#input1').files.length;
-    } else if (id == 3) {
-        var foto = document.querySelector('#input2').files.length;
-    } else if (id == 4) {
-        var foto = document.querySelector('#input3').files.length;
-    }*/
+
     for (var index = 0; index < foto; index++) {
         formData.append("foto", document.querySelector('#gallery-photo-add').files[index]);
     }
     //formData.append("foto", foto);
 
     $.ajax({
-        url: 'http://localhost:8080/imagem?id=3',
+        url: 'http://localhost:8080/imagem?id=' + produto._idProduto,
         type: 'post',
         data: formData,
         contentType: false,
         processData: false,
         success: function(response) {
-            alert("produto Inserido com sucesso!" + response);
+            alert('Produto ' + produto._nomeProduto + ' foi cadastrado');
+            window.location.reload();
         },
         error: data => {
             alert("Erro ao inserir imagem" + data.statusText);
