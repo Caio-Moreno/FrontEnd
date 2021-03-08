@@ -1,0 +1,9 @@
+input[type=file] {
+    float: left;
+    display: block;
+}
+
+.galery {
+    display: none;
+    float: left;
+}
