@@ -21,6 +21,7 @@ function getProdutos() {
                 var produto = produtos[i];
 
                 retornarDiv(produto);
+
             }
         },
         error: result => {
@@ -39,6 +40,25 @@ function tratarDadosgetProdutos(dados) {
     return url1;
 }
 
+function mostrarEstrelas(qtdEstrela) {
+
+    let fullStar = '<i class="fas fa-star"></i>';
+    let halfStar = '<i class="fas fa-star-half"></i>';
+    let estrela = '';
+    let x = Math.floor(qtdEstrela);
+    for (let i = 0; i < x; i++) {
+        estrela += fullStar;
+    }
+    if (x != qtdEstrela) {
+        estrela += halfStar;
+    }
+
+    console.log(estrela);
+    return estrela;
+
+
+}
+
 function retornarDiv(response) {
     console.log(response)
     response._preco = response._preco + '.00'
@@ -47,7 +67,7 @@ function retornarDiv(response) {
         '<img src="./assets/images/cropped-rosa.jpg" class="img-fluid" alt="Cropped rosa">' +
         '<article class="produtos-itens">' +
         '<h2>' + response._nomeProduto + '</h2>' +
-        '<div class="produtos-stars">' + response._qualidadeProduto + '</div>' +
+        '<div class="produtos-stars">' + mostrarEstrelas(response._qualidadeProduto) + '</div>' +
         '<strong class="produtos-preco"> R$ ' + response._preco + '</strong>' +
         '</article>' +
         '</a>'
@@ -65,4 +85,5 @@ function retornarDiv(response) {
          '</div>' +
          '</div>'*/
     )
+
 }
