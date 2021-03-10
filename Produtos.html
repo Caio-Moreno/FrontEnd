@@ -24,9 +24,12 @@
   <link rel="stylesheet" href="css/star.css">
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="js/listaProdutos.js"></script>
+  <script src="js/cadastrarImagem.js"></script>
 <script>
        $(document).ready(request => {
-      
+        $('#loading').hide()
+            $('#alertaSucesso').hide()
+            $('#alertaErro').hide()
       $('#dataTable').DataTable({
           language : {
           "zeroRecords": " "             
@@ -407,20 +410,20 @@
 
             <!--PAGINA CADASTRO-->
            
-            <form>
+            <form id="formulario">
               <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="nomeProduto">Nome do Produto</label>
-                  <input type="text" class="form-control" id="nomeProdutoAlterar" placeholder="Nome do Produto">
-                </div>
-              
+                  <div class="form-group col-md-6">
+                      <label for="nomeProduto">Nome do Produto</label>
+                      <input type="text" class="form-control" id="nomeProduto" placeholder="Nome do Produto">
+                  </div>
+
               </div>
               <div class="form-row">
                   <div class="form-group col-md-6">
                       <label for="descricao">Descrição</label>
-                      <input type="text" class="form-control" id="descricaoProdutoAlterar" placeholder="Descrição do produto">
-                    </div>
-                </div>
+                      <input type="text" class="form-control" id="descricao" placeholder="Descrição do produto">
+                  </div>
+              </div>
               <div class="form-row">
                   <div class="form-group col-md-6">
                       <label>Qualidade do produto</label>
@@ -451,53 +454,64 @@
                           </div>
                       </div>
                   </div>
-                </div>
+              </div>
               <div class="form-row">
                   <div class="form-group col-md-6">
                       <label for="categoriaProduto">Categoria</label>
-                      <input type="text" class="form-control" id="categoriaProdutoAlterar" placeholder="Categoria do produto">
-                    </div>
-             </div>
-             <div class="form-row">
+                      <input type="text" class="form-control" id="categoria" placeholder="Categoria do produto">
+                  </div>
+              </div>
+              <div class="form-row">
                   <div class="form-group col-md-3">
-                          <label for="quantidadeProduto">Quantidade</label>
-                          <input type="number" class="form-control" id="quantidadeProdutoAlterar" placeholder="1">
-                        
+                      <label for="quantidadeProduto">Quantidade</label>
+                      <input type="number" class="form-control" id="quantidade" placeholder="1">
+
                   </div>
                   <div class="form-group col-md-3">
-                      <label for="quantidadeProduto">Estado</label>
-                      <select class="custom-select" id="estadoProdutoAlterar">
-                          <option value="A">Ativo</option>
-                          <option value="I">Inativo</option>
-                      </select>
-                    
+                      <label for="quantidadeProduto">Estado do produto</label>
+                      <select class="custom-select" id="estado">
+              <option value="A">Ativo</option>
+              <option value="I">Inativo</option>
+          </select>
+
                   </div>
-             </div>
-             <div class="form-row">
+              </div>
+              <div class="form-row">
                   <div class="form-group col-md-3">
                       <label for="preco">Preço</label>
-                      <input type="text" class="form-control" id="precoProdutoAlterar" placeholder="Ex: 20.00">  
+                      <input type="text" class="form-control" id="preco" placeholder="Ex: 20.00">
                   </div>
                   <div class="form-group col-md-3">
                       <label for="preco">Plataforma</label>
-                      <select class="custom-select" id="plataformaProdutoAlterar">
-                          <option value="PS4">PS4</option>
-                          <option value="XBOX">XBOX</option>
-                          <option value="PC">PC</option>
-                      </select> 
-                      
+                      <select class="custom-select" id="plataforma">
+              <option value="PS4">PS4</option>
+              <option value="XBOX">XBOX</option>
+              <option value="PC">PC</option>
+          </select>
+
                   </div>
-             </div>
-             <div class="form-row">
+              </div>
+              <div class="form-row">
                   <div class="form-group col-md-4">
-                          <label for="addImagens">Adicionar imagens</label>
-                          <input type="file" class="form-control-file" id="exampleFormControlFile1">
-                        
+                      <label for="addImagens">Adicionar imagens</label>
+
+                      <input type="file" class="form-control-file" multiple id="gallery-photo-add" name="foto">
+                      <div class="gallery" id="gallery"></div>
+
                   </div>
-             </div>
-             <!--<input type="text">-->
-              <!--<a class="btn btn-primary" onclick="enviarProduto()" style="margin-left: 215px;">Adicionar produto</a>-->
-            </form>
+              </div>
+              <div class="alert alert-success" role="alert" id="alertaSucesso">
+                  <span>Produto adicionado com sucesso</span>
+              </div>
+              <div class="alert alert-danger" role="alert" id="alertaErro">
+                  <span>Erro para adicionar o produto, por favor contatar o suporte</span>
+              </div>
+             <!-- <a class="btn btn-primary"  onclick="enviarProduto()" id="addProduct" style="margin-left: 215px; color: white; cursor: pointer;">Adicionar produto</a>-->
+              
+              <div class="load-10" id="loading">
+                  <div class="bar"></div>
+              </div>
+          </form>
             <input type="hidden" id="ficarEscondido" value="2.5">
             <input id="idProdutoAlterar" type="hidden"/>
             <br>
