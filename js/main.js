@@ -57,16 +57,6 @@ function popularTelaPrdutoEspecifico(produto){
     $('#estrelas').append(mostrarEstrelas(produto._qualidadeProduto));
     console.log('aqui')
     var imagens = produto._imagem;
-    
-   /* for (var imagem in imagens){
-        console.log(imagem);
-        if(imagem != null){
-            $('#imagensCarousel').append('<div class="carousel-item active">'+
-            '<img class="d-block w-100" src="'+imagem+'" alt="First slide">'+
-            '</div>');
-        }
-    }*/
-
     Object.keys(imagens).forEach(function(item){
         console.log(item + " = " + imagens[item]);
         if(imagens[item] != null){
