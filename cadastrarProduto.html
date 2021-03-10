@@ -19,14 +19,23 @@
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/star.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/loading.css">
     <script src="js/jQuery.min.js"></script>
     <script src="js/CadastroProduto.js"></script>
     <script src="js/cadastrarImagem.js"></script>
 
     <script>
+        $(document).ready(function esconder(){
+            $('#loading').hide()
+            $('#alertaSucesso').hide()
+            $('#alertaErro').hide()
+        });
+
         function atribuirValor(a) {
             document.getElementById('ficarEscondido').value = a;
         }
+
+        
     </script>
 
 </head>
@@ -214,7 +223,7 @@
 
                     <!--PAGINA CADASTRO-->
 
-                    <form>
+                    <form id="formulario">
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="nomeProduto">Nome do Produto</label>
@@ -300,11 +309,21 @@
                                 <label for="addImagens">Adicionar imagens</label>
 
                                 <input type="file" class="form-control-file" multiple id="gallery-photo-add" name="foto">
-                                <div class="gallery"></div>
+                                <div class="gallery" id="gallery"></div>
 
                             </div>
                         </div>
-                        <a class="btn btn-primary" onclick="enviarProduto()" style="margin-left: 215px;">Adicionar produto</a>
+                        <div class="alert alert-success" role="alert" id="alertaSucesso">
+                            <span>Produto adicionado com sucesso</span>
+                        </div>
+                        <div class="alert alert-danger" role="alert" id="alertaErro">
+                            <span>Erro para adicionar o produto, por favor contatar o suporte</span>
+                        </div>
+                        <a class="btn btn-primary"  onclick="enviarProduto()" id="addProduct" style="margin-left: 215px; color: white; cursor: pointer;">Adicionar produto</a>
+                        
+                        <div class="load-10" id="loading">
+                            <div class="bar"></div>
+                        </div>
                     </form>
                     <input type="hidden" id="ficarEscondido" value="2.5">
 

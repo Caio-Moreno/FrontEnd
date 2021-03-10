@@ -1,4 +1,8 @@
 function enviarProduto() {
+    $('#loading').show(200)
+    $('#addProduct').hide(100)
+    $('#alertaErro').hide()
+    $('#alertaSucesso').hide()
     //var imagens = enviarImagens();
     var dataSend = retornarObj();
 
@@ -14,14 +18,14 @@ function enviarProduto() {
         success: data => {
             var produto = data._produto[0];
             console.log(produto);
-
             enviarImagens(produto);
         },
         error: result => {
             console.log(result)
-        },
-        done: result => {
-            alert('finalizou')
+            $('#loading').hide(100)
+            $('#alertaErro').show(200)
+            $('#addProduct').show(100)
+            $("#gallery").empty();
         }
     });
 }
@@ -72,11 +76,22 @@ function enviarImagens(produto) {
         contentType: false,
         processData: false,
         success: function(response) {
-            alert('Produto ' + produto._nomeProduto + ' foi cadastrado');
-            window.location.reload();
+            //alert('Produto ' + produto._nomeProduto + ' foi cadastrado');
+            $('#loading').hide(100)
+            $('#alertaSucesso').show(200)
+            $('#addProduct').show(200)
+
+            $('#formulario').each (function(){
+                this.reset();
+              });
+              $("#gallery").empty();
+            //window.location.reload();
         },
         error: data => {
-            alert("Erro ao inserir imagem" + data.statusText);
+            $('#alertaErro').show(200)
+            $('#loading').hide(100)
+            $('#addProduct').show(100)
+            $("#gallery").empty();
         }
     });
 
