@@ -27,6 +27,35 @@ function getProdutos() {
     });
 }
 
+function getProdutosFull() {
+
+    var url = tratarDadosgetProdutos();
+
+    $.ajax({
+        url: url,
+        type: 'GET',
+        timeout: 20000,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: data => {
+            console.log(data);
+            var tamanho = data._produto.length;
+            var produtos = data._produto;
+            console.log(tamanho);
+            console.log(produtos);
+            for (i = 0; i < tamanho; i++) {
+                var produto = produtos[i];
+
+                retornarDiv(produto);
+
+            }
+        },
+        error: result => {
+            alert(result.status + ' ' + result.statusText);
+        }
+    });
+}
+
 function tratarDadosgetProdutos() {
     var url1 = 'http://localhost:8080/Produtos'
     var filtro = $("#nomePesquisa").val();
@@ -61,7 +90,7 @@ function retornarDiv(response) {
     response._preco = response._preco.toFixed(2);
     return $("#divPrincipal").append(
         '<a href="' + 'produto-especifico.html' + '" class="produtos-container col-md-3">' +
-        '<img src="./assets/images/cropped-rosa.jpg" class="img-fluid" alt="Cropped rosa">' +
+        '<img src="'+response._imagem+'" class="img-fluid" alt="Cropped rosa">' +
         '<article class="produtos-itens">' +
         '<h2>' + response._nomeProduto + '</h2>' +
         '<div class="produtos-stars">' + mostrarEstrelas(response._qualidadeProduto) + '</div>' +
