@@ -1,268 +1,278 @@
-
-
-function getProdutosLista(){
+function getProdutosLista() {
 
     var url = tratarDadosgetProdutos();
-    
+
     $.ajax({
         url: url,
         type: 'GET',
         timeout: 20000,
-        contentType:"application/json; charset=utf-8",
-        dataType:"json",  
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
         success: data => {
-          var tamanho = data._produto.length;
-          var produtos = data._produto;
-          console.log(tamanho);
-          //console.log(produtos);
-          for(i = 0; i < tamanho; i++){
-            var produto = produtos[i];
-        
-            retornarLinha(produto);
-          }
+            var tamanho = data._produto.length;
+            var produtos = data._produto;
+            console.log(tamanho);
+            //console.log(produtos);
+            for (i = 0; i < tamanho; i++) {
+                var produto = produtos[i];
 
- 
+                retornarLinha(produto);
+            }
+
+
         },
         error: result => {
             alert(result.status + ' ' + result.statusText);
         }
-      });
+    });
+}
+
+function tratarDadosgetProdutos() {
+    var url1 = 'http://localhost:8080/Produtos?status=A'
+    return url1;
+}
+
+function retornarLinha(response) {
+
+    if (response._descricao.length > 11) {
+        //Para não deixar muito grande a descrição
+        response._descricao = response._descricao.substr(0, 11) + '...'
     }
-    
-    function tratarDadosgetProdutos(){
-      var url1 = 'http://localhost:8080/Produtos?status=A'
-        return url1;
-    }
-    
-    function retornarLinha(response){
-      
-        if(response._descricao.length > 11){
-            //Para não deixar muito grande a descrição
-            response._descricao = response._descricao.substr(0,11)+'...'
-        }
-        //instacio a tabela
-        var tabela = $('#dataTable');
-        //procuro o corpo da tabela e armazeno em uma variavel
-        var body = tabela.find('tbody');
-        //armazeno em uma variavel a linha tr = linha
-        var tr = $('<tr></tr>')
+    //instacio a tabela
+    var tabela = $('#dataTable');
+    //procuro o corpo da tabela e armazeno em uma variavel
+    var body = tabela.find('tbody');
+    //armazeno em uma variavel a linha tr = linha
+    var tr = $('<tr></tr>')
         //cada coluna da linha eu armazeno numa var também
-        var td1 = $('<td data-id="'+response._idProduto+'"></td>');
-        var td2 = $('<td data-nome="'+response._nomeProduto+'"></td>');
-        var td3 = $('<td data-descricao="'+response._descricao+'"></td>');
-        var td4 = $('<td data-qualidade="'+response._qualidadeProduto+'"></td>');
-        var td5 = $('<td data-categoria="'+response._categoria+'"></td>');
-        if(response._statusProduto == 'A'){
-          var td6 = $('<td ondblclick="mostrarModalAtualizar('+response._idProduto+',\'A\')">  <i class="fa fa-check-square-o" aria-hidden="true"></i> </td>');
-          //console.log('<td ondblclick="mostrarModalAtualizar('+response._idProduto+',\'A\')">   <i class="fa fa-check-square-o" aria-hidden="true"></i> </td>')
-  
-        }else if(response._statusProduto == 'I'){
-          var td6 = $('<td ondblclick="mostrarModalAtualizar('+response._idProduto+',\'I\')" data-status="'+response._statusProduto+'"> <i class="fa fa-ban" aria-hidden="true"></i></td>');
-        }
-        var td7 = $('<td data-status="'+response._qtdEstoque+'"></td>');
-        var td8 = $('<td data-estoque="'+response._qtdEstoque+'"></td>');
-        //console.log(response._imagem);
-        //var td9 = $('<td data-imagem="'+response._imagem+'"><img src="'+response._imagem+'"></td>'); 
-        var td9 = $('<td data-imagem="'+response._imagem+'"><img src="'+response._imagem+'" class="tratarImage"></td>'); //por enquanto pra teste
-        var td10 = $('<td data-plataforma="'+response._plataforma+'"></td>');
-        var td11 = $('<td onclick="mostrarModalEditar('+response._idProduto+')"><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>')
-        var td12 = $('<td onclick="mostrarModalExclusao('+response._idProduto+')" ><a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></td>')
-        var td13 = $('<td> <a href="produto-especifico.html?Id='+response._idProduto+'" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a> </td>')
+    var td1 = $('<td data-id="' + response._idProduto + '"></td>');
+    var td2 = $('<td data-nome="' + response._nomeProduto + '"></td>');
+    var td3 = $('<td data-descricao="' + response._descricao + '"></td>');
+    var td4 = $('<td data-qualidade="' + response._qualidadeProduto + '"></td>');
+    var td5 = $('<td data-categoria="' + response._categoria + '"></td>');
+    if (response._statusProduto == 'A') {
+        var td6 = $('<td ondblclick="mostrarModalAtualizar(' + response._idProduto + ',\'A\')">  <i class="fa fa-check-square-o" aria-hidden="true"></i> </td>');
+        //console.log('<td ondblclick="mostrarModalAtualizar('+response._idProduto+',\'A\')">   <i class="fa fa-check-square-o" aria-hidden="true"></i> </td>')
+
+    } else if (response._statusProduto == 'I') {
+        var td6 = $('<td ondblclick="mostrarModalAtualizar(' + response._idProduto + ',\'I\')" data-status="' + response._statusProduto + '"> <i class="fa fa-ban" aria-hidden="true"></i></td>');
+    }
+    var td7 = $('<td data-status="' + response._qtdEstoque + '"></td>');
+    var td8 = $('<td data-estoque="' + response._qtdEstoque + '"></td>');
+    //console.log(response._imagem);
+    //var td9 = $('<td data-imagem="'+response._imagem+'"><img src="'+response._imagem+'"></td>'); 
+    var td9 = $('<td data-imagem="' + response._imagem + '"><img src="' + response._imagem + '" class="tratarImage"></td>'); //por enquanto pra teste
+    var td10 = $('<td data-plataforma="' + response._plataforma + '"></td>');
+    var td11 = $('<td onclick="mostrarModalEditar(' + response._idProduto + ')"><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>')
+    var td12 = $('<td onclick="mostrarModalExclusao(' + response._idProduto + ')" ><a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></td>')
+    var td13 = $('<td> <a href="produto-especifico.html?Id=' + response._idProduto + '" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a> </td>')
         //passo os valores de cada coluna
-        td1.text(response._idProduto);
-        td2.text(response._nomeProduto)
-        td3.text(response._descricao);
-        td4.text(response._qualidadeProduto);
-        td5.text(response._categoria);  
-        //td6.text(response._statusProduto);
-        td7.text(response._qtdEstoque);
-        td8.text(response._preco);
-        //td9.text(response._imagem);
-        td10.text(response._plataforma)
+    td1.text(response._idProduto);
+    td2.text(response._nomeProduto)
+    td3.text(response._descricao);
+    td4.text(response._qualidadeProduto);
+    td5.text(response._categoria);
+    //td6.text(response._statusProduto);
+    td7.text(response._qtdEstoque);
+    td8.text(response._preco);
+    //td9.text(response._imagem);
+    td10.text(response._plataforma)
         //insiro na linhas todas colunas preenchidas
-        tr.append(td1)
-        tr.append(td2)
-        tr.append(td3)
-        tr.append(td4)
-        tr.append(td5)
-        tr.append(td6)
-        tr.append(td7)
-        tr.append(td8)
-        tr.append(td9)
-        tr.append(td10)
-        tr.append(td11)
-        tr.append(td12)
-        tr.append(td13)
+    tr.append(td1)
+    tr.append(td2)
+    tr.append(td3)
+    tr.append(td4)
+    tr.append(td5)
+    tr.append(td6)
+    tr.append(td7)
+    tr.append(td8)
+    tr.append(td9)
+    tr.append(td10)
+    tr.append(td11)
+    tr.append(td12)
+    tr.append(td13)
         //insiro no corpo a linha
-        body.append(tr);
+    body.append(tr);
 
-        
-        
-        return;
-    }
 
-    function mostrarModalExclusao(idProduto){
-      $("#nomeProduto").html(idProduto);
-      $("#codProduto").val(idProduto);
-      $('#modalExclusao').modal('show');
-    }
-    function mostrarModalEditar(idProduto){
-      mostrarProduto(idProduto);
-      $('#modalEditar').modal('show');
-    }
 
-    function mostrarModalAtualizar(idProduto, StatusAtual){
-      console.log('ENTREI'+idProduto+StatusAtual)
-      $('#idProdutoAtualizarStatus').val(idProduto);
-      $('#statusAtualizarProduto').val(StatusAtual);
-      $('#modalAtualizaStatus').modal('show');
-    }
+    return;
+}
 
-    function excluirProduto(){
-      var idProduto = $('#codProduto').val();
-      idProduto = parseInt(idProduto);
+function mostrarModalExclusao(idProduto) {
+    $("#nomeProduto").html(idProduto);
+    $("#codProduto").val(idProduto);
+    $('#modalExclusao').modal('show');
+}
 
-      console.log(typeof(idProduto));
-      
+function mostrarModalEditar(idProduto) {
+    mostrarProduto(idProduto);
+    $('#modalEditar').modal('show');
+}
 
-      var url = 'http://localhost:8080/Produtos?Id='+idProduto;
-      console.log('URL'+url);
-      $.ajax({
+function mostrarModalAtualizar(idProduto, StatusAtual) {
+    console.log('ENTREI' + idProduto + StatusAtual)
+    $('#idProdutoAtualizarStatus').val(idProduto);
+    $('#statusAtualizarProduto').val(StatusAtual);
+    $('#modalAtualizaStatus').modal('show');
+}
+
+function excluirProduto() {
+    var idProduto = $('#codProduto').val();
+
+    var nome = $('#nomeProdutoAlterar').val();
+    idProduto = parseInt(idProduto);
+    console.log(nome);
+
+    console.log(typeof(idProduto));
+
+
+    var url = 'http://localhost:8080/Produtos?Id=' + idProduto;
+    console.log('URL' + url);
+    $.ajax({
         url: url,
         type: 'DELETE',
         timeout: 20000,
-        contentType:"application/json; charset=utf-8",
-        dataType:"json",  
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
         success: data => {
-          var mensagem = data._message;
-          $('#modalExclusao').modal('hide')
-          alert(mensagem);
-          window.location.reload();
+            var mensagem = data._message;
+            $('#modalExclusao').modal('hide')
+            alert(mensagem);
+            window.location.reload();
         },
         error: result => {
             alert(result.status + ' ' + result.statusText);
         }
-      });
-    }
+    });
+}
 
-    function mostrarProduto(id){
-      $('#alertaAtualizado').hide();
-      var url = 'http://localhost:8080/Produtos?Id='+id;
-      console.log('Consumindo para o modal'+url);
+function mostrarProduto(id) {
+    $('#alertaAtualizado').hide();
+    var url = 'http://localhost:8080/Produtos?Id=' + id;
+    console.log('Consumindo para o modal' + url);
 
-      $.ajax({
+    $.ajax({
         url: url,
         type: 'GET',
         timeout: 20000,
-        contentType:"application/json; charset=utf-8",
-        dataType:"json",  
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
         success: data => {
-          var produto = data._produto[0];
-          console.log(produto);
+            var produto = data._produto[0];
+            console.log(produto);
 
-          $('#nomeProdutoAlterar').val(produto._nomeProduto);
-          $('#descricaoProdutoAlterar').val(produto._descricao);
-          $('#qualidadeProdutoAlterar').val(produto._qualidadeProduto);
-          $('#categoriaProdutoAlterar').val(produto._categoria);
-          $('#statusProdutoAlterar').val(produto._statusProduto);
-          $('#quantidadeProdutoAlterar').val(produto._qtdEstoque);
-          $('#precoProdutoAlterar').val(produto._preco);
-          $('#idProdutoAlterar').val(id);
-          
-          $('#plataformaProdutoAlterar').val(produto._plataforma);
+            $('#nomeProdutoAlterar').val(produto._nomeProduto);
+            $('#descricaoProdutoAlterar').val(produto._descricao);
+            $('#qualidadeProdutoAlterar').val(produto._qualidadeProduto);
+            $('#categoriaProdutoAlterar').val(produto._categoria);
+            $('#statusProdutoAlterar').val(produto._statusProduto);
+            $('#quantidadeProdutoAlterar').val(produto._qtdEstoque);
+            $('#precoProdutoAlterar').val(produto._preco);
+            $('#plataformaProdutoAlterar').val(produto._plataforma);
+            $('#caminhoImagem1ProdutoAlterar').val(produto._imagem.caminhoImagem1);
+            $('#caminhoImagem2ProdutoAlterar').val(produto._imagem.caminhoImagem2);
+            $('#caminhoImagem3ProdutoAlterar').val(produto._imagem.caminhoImagem3);
+            $('#caminhoImagem4ProdutoAlterar').val(produto._imagem.caminhoImagem4);
+            $('#idProdutoAlterar').val(id);
+
+
 
         },
         error: result => {
             alert(result.status + ' ' + result.statusText);
         }
-      });
+    });
 
+}
+
+
+function atualizarProduto() {
+    var data = retornarObjUpdate();
+    var id = $('#idProdutoAlterar').val();
+    id = parseInt(id);
+    console.log('ID' + id);
+    var url = 'http://localhost:8080/Produtos?Id=' + id
+
+    console.log('MEU OBJ' + data)
+
+    $.ajax({
+        url: url,
+        type: 'PUT',
+        timeout: 20000,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: data,
+        success: _ => {
+            var mensagem = _._message;
+            $('#modalEditar').modal('hide');
+            alert(mensagem);
+            window.location.reload();
+        },
+        error: result => {
+            console.log(result)
+        },
+        done: _ => {
+            alert('finalizou')
+        }
+    });
+}
+
+function retornarObjUpdate() {
+    var nome = $('#nomeProdutoAlterar').val();
+    console.log('No Retorno ->> ' + nome);
+    var descricao = $('#descricaoProdutoAlterar').val();
+    var qualidade = $('#qualidadeProdutoAlterar').val();
+
+    console.log('No Retorno ->> ' + qualidade);
+    var categoria = $('#categoriaProdutoAlterar').val();
+    var quantidade = $('#quantidadeProdutoAlterar').val();
+    var status = $('#estadoProdutoAlterar').val();
+    var preco = $('#precoProdutoAlterar').val();
+    var plataforma = $('#plataformaProdutoAlterar').val();
+    var imagens = {
+        caminhoImagem1: $('#caminhoImagem1ProdutoAlterar').val(),
+        caminhoImagem2: $('#caminhoImagem2ProdutoAlterar').val(),
+        caminhoImagem3: $('#caminhoImagem3ProdutoAlterar').val(),
+        caminhoImagem4: $('#caminhoImagem4ProdutoAlterar').val()
     }
 
+    var json = JSON.stringify({
+        _nomeProduto: nome,
+        _descricao: descricao,
+        _qualidadeProduto: qualidade,
+        _categoria: categoria,
+        _statusProduto: status,
+        _qtdEstoque: quantidade,
+        _preco: preco,
+        _imagem: imagens,
+        _plataforma: plataforma
+    })
 
-    function atualizarProduto(){
-          var data = retornarObjUpdate();
-          var id = $('#idProdutoAlterar').val();
-          id = parseInt(id);
-          console.log('ID'+id);
-          var url = 'http://localhost:8080/Produtos?Id='+id
+    return json;
+}
 
-          console.log('MEU OBJ'+data)
+function atualizaStatus() {
+    var id = $('#idProdutoAtualizarStatus').val();
+    id = parseInt(id);
+    console.log(id)
+    var status = $('#statusAtualizarProduto').val();
 
-          $.ajax({
-            url: url,
-            type: 'PUT',
-            timeout: 20000,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            data: data,
-            success: _ => {
-                var mensagem = _._message;
-                $('#modalEditar').modal('hide');
-                alert(mensagem);
-                window.location.reload();
-            },
-            error: result => {
-                console.log(result)
-            },
-            done: _ => {
-                alert('finalizou')
-            }
-        });
-    }
-
-    function retornarObjUpdate() {
-      var nome = $('#nomeProdutoAlterar').val();
-      var descricao = $('#descricaoProdutoAlterar').val();
-      var qualidade = $('#qualidadeProdutoAlterar').val();
-      var categoria = $('#categoriaProdutoAlterar').val();
-      var quantidade = $('#quantidadeProdutoAlterar').val();
-      var status = $('#estadoProdutoAlterar').val();
-      var preco = $('#precoProdutoAlterar').val();
-      var plataforma = $('#plataformaProdutoAlterar').val();
-      var imagens = {
-                caminhoImagem1: "COM IMAGEM",
-                caminhoImagem2: "COM IMAGEM",
-                caminhoImagem3: "COM IMAGEM",
-                caminhoImagem4: "COM IMAGEM"
-      }
-  
-      var json = JSON.stringify({
-          _nomeProduto: nome,
-          _descricao: descricao,
-          _qualidadeProduto: qualidade,
-          _categoria: categoria,
-          _statusProduto: status,
-          _qtdEstoque: quantidade,
-          _preco: preco,
-          _imagem: imagens,
-          _plataforma: plataforma
-      })
-  
-      return json;
-    }
-
-    function atualizaStatus(){
-      var id = $('#idProdutoAtualizarStatus').val();
-      id= parseInt(id);
-      console.log(id)
-      var status = $('#statusAtualizarProduto').val();
-
-      if(status == 'A'){
+    if (status == 'A') {
         status = 'I'
-      }else {
+    } else {
         status = 'A'
-      }
+    }
 
-      var json = JSON.stringify({
+    var json = JSON.stringify({
         _id: id,
         _status: status
-      })
-      
-      var url = 'http://localhost:8080/Produtos'
+    })
+
+    var url = 'http://localhost:8080/Produtos'
 
 
-      $.ajax({
+    $.ajax({
         url: url,
         type: 'PUT',
         timeout: 20000,
@@ -281,9 +291,9 @@ function getProdutosLista(){
         done: _ => {
             alert('finalizou')
         }
-      });
+    });
 
-    }
+}
 
 /*
     function getProdutoEspecifico() {
