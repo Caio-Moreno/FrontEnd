@@ -49,11 +49,38 @@ function getProdutoEspecifico() {
 }
 
 function popularTelaPrdutoEspecifico(produto){
+    console.log('aqui')
     $('#nomeProdutoActive').text(produto._nomeProduto);
     $('#nomeProduto').text(produto._nomeProduto);
     $('#descricao').text(produto._descricao);
-    $('#estrelas').val(mostrarEstrelas(produto._qualidadeProduto))
+    $('#preco').text(produto._preco.toFixed(2));
+    $('#estrelas').append(mostrarEstrelas(produto._qualidadeProduto));
+    console.log('aqui')
+    var imagens = produto._imagem;
+    
+   /* for (var imagem in imagens){
+        console.log(imagem);
+        if(imagem != null){
+            $('#imagensCarousel').append('<div class="carousel-item active">'+
+            '<img class="d-block w-100" src="'+imagem+'" alt="First slide">'+
+            '</div>');
+        }
+    }*/
 
+    Object.keys(imagens).forEach(function(item){
+        console.log(item + " = " + imagens[item]);
+        if(imagens[item] != null){
+            if(item == 'caminhoImagem1'){
+                $('#imagensCarousel').append('<div class="carousel-item active">'+
+                '<img class="d-block w-100" src="'+imagens[item]+'" alt="First slide">'+
+                '</div>');
+            }else{
+                $('#imagensCarousel').append('<div class="carousel-item">'+
+                '<img class="d-block w-100" src="'+imagens[item]+'" alt="Second slide">'+
+                '</div>')
+            }
+        }
+       });
 }
 
 function tratarDadosgetProdutos() {
