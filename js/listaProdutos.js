@@ -20,6 +20,8 @@ function getProdutosLista(){
         
             retornarLinha(produto);
           }
+
+ 
         },
         error: result => {
             alert(result.status + ' ' + result.statusText);
@@ -33,6 +35,7 @@ function getProdutosLista(){
     }
     
     function retornarLinha(response){
+      
         if(response._descricao.length > 11){
             //Para não deixar muito grande a descrição
             response._descricao = response._descricao.substr(0,11)+'...'
@@ -58,11 +61,13 @@ function getProdutosLista(){
         }
         var td7 = $('<td data-status="'+response._qtdEstoque+'"></td>');
         var td8 = $('<td data-estoque="'+response._qtdEstoque+'"></td>');
+        //console.log(response._imagem);
         //var td9 = $('<td data-imagem="'+response._imagem+'"><img src="'+response._imagem+'"></td>'); 
-        var td9 = $('<td data-imagem="'+response._imagem+'"><img src="images/no-image.png" class="tratarImage"></td>'); //por enquanto pra teste
+        var td9 = $('<td data-imagem="'+response._imagem+'"><img src="'+response._imagem+'" class="tratarImage"></td>'); //por enquanto pra teste
         var td10 = $('<td data-plataforma="'+response._plataforma+'"></td>');
         var td11 = $('<td onclick="mostrarModalEditar('+response._idProduto+')"><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>')
         var td12 = $('<td onclick="mostrarModalExclusao('+response._idProduto+')" ><a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></td>')
+        var td13 = $('<td> <a href="produto-especifico.html?Id='+response._idProduto+'" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a> </td>')
         //passo os valores de cada coluna
         td1.text(response._idProduto);
         td2.text(response._nomeProduto)
@@ -87,8 +92,11 @@ function getProdutosLista(){
         tr.append(td10)
         tr.append(td11)
         tr.append(td12)
+        tr.append(td13)
         //insiro no corpo a linha
         body.append(tr);
+
+        
         
         return;
     }
@@ -276,3 +284,35 @@ function getProdutosLista(){
       });
 
     }
+
+/*
+    function getProdutoEspecifico() {
+
+      var url = urlProdutoPorID();
+  
+      $.ajax({
+          url: url,
+          type: 'GET',
+          timeout: 20000,
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          success: data => {
+              console.log(data);
+              var produto = data._produto[0];
+              popularTelaPrdutoEspecifico(produto);
+          },
+          error: result => {
+              alert(result.status + ' ' + result.statusText);
+          }
+      });
+  }
+
+
+function urlProdutoPorID() {
+
+  var url = 'http://localhost:8080/Produtos?Id=';
+  var queryString = window.location.search;
+  var id = queryString.replace(/[^0-9]/g, '');
+  return url + id;
+
+}*/

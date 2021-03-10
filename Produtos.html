@@ -25,7 +25,16 @@
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="js/listaProdutos.js"></script>
 <script>
-    console.log('Vou buscar os produtos')
+       $(document).ready(request => {
+      
+      $('#dataTable').DataTable({
+          language : {
+          "zeroRecords": " "             
+      }
+    });
+    
+
+  });
     getProdutosLista();
 
     function atribuirValor(a){
@@ -242,6 +251,7 @@
                       <th>Plataforma</th>
                       <th>Editar</th>
                       <th>Apagar</th>
+                      <th>Visualizar</th>
                     </tr>
                   </thead>
                   <tfoot>
@@ -258,6 +268,7 @@
                       <th>Plataforma</th>
                       <th>Editar</th>
                       <th>Apagar</th>
+                      <th>Visualizar</th>
                     </tr>
                   </tfoot>
                   <tbody>
