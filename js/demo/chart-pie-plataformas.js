@@ -2,7 +2,7 @@
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
-var url = "http://localhost:8080/Produtos?estado=estado";
+var url = "http://localhost:8080/Produtos?plataforma=plataforma";
 
 $.ajax({
   url: url,
@@ -11,20 +11,18 @@ $.ajax({
   contentType: "application/json; charset=utf-8",
   dataType: "json",
   success: data => {
-      var status = data._status;
-      console.log(status)
-      var meuArray = [parseInt(status._ativo), parseInt(status._inativo)];
-      console.log(status._ativo);
+      var produto = data.prod;
+      var meuArray = [parseInt(produto._ps4), parseInt(produto._ps5), parseInt(produto._pc), parseInt(produto._xbox), parseInt(produto._outros)];
 
-      var ctx = document.getElementById("myPieChart");
-      var myPieChart = new Chart(ctx, {
+      var ctx = document.getElementById("myPieChartPlataforma");
+      var myPieChartPlataforma = new Chart(ctx, {
             type: 'doughnut',
             data: {
-            labels: ["Ativo", "Inativo"],
+            labels: ["PS4", "PS5", "PC", "XBOX", "OUTROS"],
             datasets: [{
             data: meuArray,
-            backgroundColor: ['#4e73df', '#1cc88a'],
-            hoverBackgroundColor: ['#2e59d9', '#17a673'],
+            backgroundColor: ['#4e73df', '#ffff21', '#000000', '#ff2626','#2dfc12'],
+            hoverBackgroundColor: ['#2e59d9', '#fcfcbd', '#363636','#ff7070', '#9cff8f'],
             hoverBorderColor: "rgba(234, 236, 244, 1)",
         }],
       },
