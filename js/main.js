@@ -116,7 +116,7 @@ function retornarDiv(response) {
     response._preco = response._preco.toFixed(2);
     return $("#divPrincipal").append(
         '<a href="' + 'produto-especifico.html?Id=' + response._idProduto + '" class="produtos-container col-md-3">' +
-        '<img src="' + response._imagem + '"class="img-fluid" alt=' + response._nomeProduto + '>' +
+        '<img src="' + response._imagem + '"class="img-home" alt=' + response._nomeProduto + '>' +
         '<article class="produtos-itens">' +
         '<h2>' + response._nomeProduto + '</h2>' +
         '<div class="produtos-stars">' + mostrarEstrelas(response._qualidadeProduto) + '</div>' +

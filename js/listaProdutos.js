@@ -205,7 +205,7 @@ function atualizarProduto() {
     $.ajax({
         url: url,
         type: 'PUT',
-        timeout: 20000,
+        timeout: 2000000,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: data,
