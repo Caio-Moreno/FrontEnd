@@ -53,7 +53,7 @@ function popularTelaPrdutoEspecifico(produto) {
     $('#nomeProdutoActive').text(produto._nomeProduto);
     $('#nomeProduto').text(produto._nomeProduto);
     $('#descricao').text(produto._descricao);
-    $('#preco').text(produto._preco.toFixed(2));
+    $('#preco').text('R$ ' + produto._preco.toFixed(2));
     $('#estrelas').append(mostrarEstrelas(produto._qualidadeProduto));
     console.log('aqui')
     var imagens = produto._imagem;
