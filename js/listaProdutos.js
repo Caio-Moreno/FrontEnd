@@ -160,7 +160,7 @@ function mostrarProduto(id) {
         dataType: "json",
         success: data => {
             var produto = data._produto[0];
-            console.log(produto);
+            console.log('get Produto ' + produto._imagem.caminhoImagem4);
 
             $('#nomeProdutoAlterar').val(produto._nomeProduto);
             $('#descricaoProdutoAlterar').val(produto._descricao);
@@ -171,11 +171,16 @@ function mostrarProduto(id) {
             $('#precoProdutoAlterar').val(produto._preco);
             $('#plataformaProdutoAlterar').val(produto._plataforma);
 
-            $('#caminhoImagem1ProdutoAlterar').val(produto._imagem.caminhoImagem1);
-            $('#caminhoImagem2ProdutoAlterar').val(produto._imagem.caminhoImagem2);
-            $('#caminhoImagem3ProdutoAlterar').val(produto._imagem.caminhoImagem3);
-            $('#caminhoImagem4ProdutoAlterar').val(produto._imagem.caminhoImagem4);
+            $('#imagemProdutoAlterar').append(
+
+                '<img class="img-fluid" width="100px" height="100px" src="' + produto._imagem.caminhoImagem1 + '" alt="#">' +
+                '<img class="img-fluid" width="100px" height="100px" src="' + produto._imagem.caminhoImagem2 + '" alt="#">' +
+                '<img class="img-fluid" width="100px" height="100px" src="' + produto._imagem.caminhoImagem3 + '" alt="#">' +
+                '<img class="img-fluid" width="100px" height="100px" src="' + produto._imagem.caminhoImagem4 + '" alt="#">'
+
+            );
             $('#idProdutoAlterar').val(id);
+
 
 
 

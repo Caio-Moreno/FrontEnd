@@ -766,6 +766,11 @@ mark {
     height: auto;
 }
 
+.img-mini {
+    width: 75px;
+    height: 75px;
+}
+
 .img-thumbnail {
     padding: 0.25rem;
     background-color: #fff;
