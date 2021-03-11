@@ -170,7 +170,7 @@ function mostrarProduto(id) {
             $('#quantidadeProdutoAlterar').val(produto._qtdEstoque);
             $('#precoProdutoAlterar').val(produto._preco);
             $('#plataformaProdutoAlterar').val(produto._plataforma);
-            
+
             $('#caminhoImagem1ProdutoAlterar').val(produto._imagem.caminhoImagem1);
             $('#caminhoImagem2ProdutoAlterar').val(produto._imagem.caminhoImagem2);
             $('#caminhoImagem3ProdutoAlterar').val(produto._imagem.caminhoImagem3);
@@ -206,6 +206,9 @@ function atualizarProduto() {
         data: data,
         success: _ => {
             var mensagem = _._message;
+            var produto = _._produto[0];
+            console.log(produto + 'to aqui no produto')
+            enviarImagens(produto);
             $('#modalEditar').modal('hide');
             alert(mensagem);
             window.location.reload();
@@ -228,15 +231,9 @@ function retornarObjUpdate() {
     console.log('No Retorno ->> ' + qualidade);
     var categoria = $('#categoriaProdutoAlterar').val();
     var quantidade = $('#quantidadeProdutoAlterar').val();
-    var status = $('#estadoProdutoAlterar').val();
+    var status = $('#statusProdutoAlterar').val();
     var preco = $('#precoProdutoAlterar').val();
     var plataforma = $('#plataformaProdutoAlterar').val();
-    var imagens = {
-        caminhoImagem1: $('#caminhoImagem1ProdutoAlterar').val(),
-        caminhoImagem2: $('#caminhoImagem2ProdutoAlterar').val(),
-        caminhoImagem3: $('#caminhoImagem3ProdutoAlterar').val(),
-        caminhoImagem4: $('#caminhoImagem4ProdutoAlterar').val()
-    }
 
     var json = JSON.stringify({
         _nomeProduto: nome,
@@ -246,7 +243,6 @@ function retornarObjUpdate() {
         _statusProduto: status,
         _qtdEstoque: quantidade,
         _preco: preco,
-        _imagem: imagens,
         _plataforma: plataforma
     })
 
@@ -293,6 +289,51 @@ function atualizaStatus() {
             alert('finalizou')
         }
     });
+
+}
+
+
+function enviarImagens(produto) {
+
+    // Read selected files
+    console.log(produto);
+
+    //var foto = document.querySelector('#gallery-photo-add').files[0];
+    var formData = new FormData();
+    var foto = document.querySelector('#gallery-photo-add').files.length;
+
+    for (var index = 0; index < foto; index++) {
+        formData.append("foto", document.querySelector('#gallery-photo-add').files[index]);
+    }
+    //formData.append("foto", foto);
+
+    $.ajax({
+        url: 'http://localhost:8080/imagem?id=' + produto._idProduto,
+        type: 'post',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            //alert('Produto ' + produto._nomeProduto + ' foi cadastrado');
+            $('#loading').hide(100)
+            $('#alertaSucesso').show(200)
+            $('#addProduct').show(200)
+
+            $('#formulario').each(function() {
+                this.reset();
+            });
+            $("#gallery").empty();
+            //window.location.reload();
+        },
+        error: data => {
+            $('#alertaErro').show(200)
+            $('#loading').hide(100)
+            $('#addProduct').show(100)
+            $("#gallery").empty();
+        }
+    });
+
+
 
 }
 
