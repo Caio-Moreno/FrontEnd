@@ -170,6 +170,7 @@ function mostrarProduto(id) {
             $('#quantidadeProdutoAlterar').val(produto._qtdEstoque);
             $('#precoProdutoAlterar').val(produto._preco);
             $('#plataformaProdutoAlterar').val(produto._plataforma);
+            
             $('#caminhoImagem1ProdutoAlterar').val(produto._imagem.caminhoImagem1);
             $('#caminhoImagem2ProdutoAlterar').val(produto._imagem.caminhoImagem2);
             $('#caminhoImagem3ProdutoAlterar').val(produto._imagem.caminhoImagem3);
