@@ -236,6 +236,7 @@ function retornarObjUpdate() {
     console.log('No Retorno ->> ' + qualidade);
     var categoria = $('#categoriaProdutoAlterar').val();
     var quantidade = $('#quantidadeProdutoAlterar').val();
+    console.log('No Retorno ->> ' + quantidade);
     var status = $('#statusProdutoAlterar').val();
     var preco = $('#precoProdutoAlterar').val();
     var plataforma = $('#plataformaProdutoAlterar').val();
