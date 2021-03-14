@@ -108,6 +108,7 @@ function mostrarModalExclusao(idProduto) {
 function mostrarModalEditar(idProduto) {
     mostrarProduto(idProduto);
     $('#modalEditar').modal('show');
+
 }
 
 function mostrarModalAtualizar(idProduto, StatusAtual) {
@@ -170,7 +171,6 @@ function mostrarProduto(id) {
             $('#quantidadeProdutoAlterar').val(produto._qtdEstoque);
             $('#precoProdutoAlterar').val(produto._preco);
             $('#plataformaProdutoAlterar').val(produto._plataforma);
-
             $('#imagemProdutoAlterar').append(
 
                 '<img class="img-fluid" width="100px" height="100px" src="' + produto._imagem.caminhoImagem1 + '" alt="#">' +
@@ -180,8 +180,7 @@ function mostrarProduto(id) {
 
             );
             $('#idProdutoAlterar').val(id);
-
-
+            mostrarEstrela();
 
 
         },
@@ -191,6 +190,8 @@ function mostrarProduto(id) {
     });
 
 }
+
+
 
 
 function atualizarProduto() {
@@ -251,6 +252,7 @@ function retornarObjUpdate() {
         _preco: preco,
         _plataforma: plataforma
     })
+
 
     return json;
 }
@@ -341,6 +343,12 @@ function enviarImagens(produto) {
 
 
 
+}
+
+function mostrarEstrela() {
+    let star = document.getElementById('qualidadeProdutoAlterar').value;
+    $("input[name=rating2][value='" + star + "']").prop('checked', true);
+    console.log("Berimbola " + star);
 }
 
 /*
