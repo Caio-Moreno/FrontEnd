@@ -14,18 +14,54 @@ function getProdutos() {
             var produtos = data._produto;
             console.log(tamanho);
             console.log(produtos);
-            for (i = 0; i < tamanho; i++) {
+            for (i = 0; i < 4; i++) {
                 var produto = produtos[i];
 
                 retornarDiv(produto);
-
             }
+
+
         },
         error: result => {
             alert(result.status + ' ' + result.statusText);
         }
     });
 }
+
+function getProdutosTotal() {
+
+    var url = tratarDadosgetProdutos();
+
+    $.ajax({
+        url: url,
+        type: 'GET',
+        timeout: 20000,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: data => {
+            console.log(data);
+            var tamanho = data._produto.length;
+            var produtos = data._produto;
+            console.log(tamanho);
+            console.log(produtos);
+
+            $("#botaoVejaMais").click(function() {
+                for (i = 4; i < tamanho; i++) {
+                    var produto = produtos[i];
+
+                    retornarDiv(produto);
+                }
+            });
+
+
+        },
+        error: result => {
+            alert(result.status + ' ' + result.statusText);
+        }
+    });
+}
+
+
 
 function getProdutoEspecifico() {
 
@@ -110,6 +146,8 @@ function mostrarEstrelas(qtdEstrela) {
 
 
 }
+
+
 
 function retornarDiv(response) {
     console.log(response)

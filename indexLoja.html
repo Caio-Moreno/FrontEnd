@@ -217,7 +217,7 @@
             <!-- listagem dos produtos -->
 
             <div class="d-flex justify-content-center">
-                <a href="./camisetas.html" class="btn btn-warning col-md-2">VEJA MAIS</a>
+                <a id="botaoVejaMais" class="btn btn-warning col-md-2">VEJA MAIS</a>
             </div>
         </section>
         <!-- end container produtos -->
@@ -338,6 +338,11 @@
     <script>
         $(document).ready(function() {
             getProdutos();
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            getProdutosTotal();
         });
     </script>
 </body>
