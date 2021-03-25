@@ -64,7 +64,7 @@ function retornarLinha(response) {
     var td9 = $('<td data-imagem="' + response._imagem + '"><img src="' + response._imagem + '" class="tratarImage"></td>'); //por enquanto pra teste
     var td10 = $('<td data-plataforma="' + response._plataforma + '"></td>');
     var td11 = $('<td onclick="mostrarModalEditar(' + response._idProduto + ')"><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>')
-    var td12 = $('<td onclick="mostrarModalExclusao(' + response._idProduto + ')" ><a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></td>')
+        //var td12 = $('<td onclick="mostrarModalExclusao(' + response._idProduto + ')" ><a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></td>')
     var td13 = $('<td> <a href="produto-especifico.html?Id=' + response._idProduto + '" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a> </td>')
         //passo os valores de cada coluna
     td1.text(response._idProduto);
@@ -89,7 +89,7 @@ function retornarLinha(response) {
     tr.append(td9)
     tr.append(td10)
     tr.append(td11)
-    tr.append(td12)
+        // tr.append(td12)
     tr.append(td13)
         //insiro no corpo a linha
     body.append(tr);
@@ -99,11 +99,11 @@ function retornarLinha(response) {
     return;
 }
 
-function mostrarModalExclusao(idProduto) {
+/*function mostrarModalExclusao(idProduto) {
     $("#nomeProduto").html(idProduto);
     $("#codProduto").val(idProduto);
     $('#modalExclusao').modal('show');
-}
+}*/
 
 function mostrarModalEditar(idProduto) {
     mostrarProduto(idProduto);
@@ -118,7 +118,7 @@ function mostrarModalAtualizar(idProduto, StatusAtual) {
     $('#modalAtualizaStatus').modal('show');
 }
 
-function excluirProduto() {
+/*function excluirProduto() {
     var idProduto = $('#codProduto').val();
 
     var nome = $('#nomeProdutoAlterar').val();
@@ -146,7 +146,7 @@ function excluirProduto() {
             alert(result.status + ' ' + result.statusText);
         }
     });
-}
+}*/
 
 function mostrarProduto(id) {
     $('#alertaAtualizado').hide();
