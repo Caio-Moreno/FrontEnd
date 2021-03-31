@@ -17,11 +17,13 @@
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <script src="js/login.js"></script>
   
 <script>
-  function limparStorage(){
-      
-    localStorage.clear();
+ var dados = localStorage.getItem('dadosUsuario');
+    console.log(dados);
+    if(dados == null || dados == '' || dados == undefined){
+        window.location.href = 'login.html';
     }
 </script>
 </head>
@@ -466,7 +468,7 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" id="deslogar" href="login.html" onclick="limparStorage()">Logout</a>
+          <a class="btn btn-primary" id="deslogar" href="#" onclick="logout()">Logout</a>
         </div>
       </div>
     </div>

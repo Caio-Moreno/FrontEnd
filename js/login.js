@@ -120,7 +120,7 @@ $(document).ready(function () {
 
 function autenticarLogin(){
 
-    var url = 'http://localhost:8080/Users';
+    var url = 'http://localhost:8080/Login';
     var login = $('#loginemail').val();
     var senha = $('#loginPassword').val();
 
@@ -142,11 +142,10 @@ function autenticarLogin(){
             } 
             else {
                 var user = data._users[0];
-                var token = data._authenticationSid;
-
-                localStorage.setItem('dadosUsuario', user._login);
-                localStorage.setItem('token', token);
-
+                var dadosUsuario = [user._id, user._login, user._password,user._permission, user._token, user._idCliente];
+                
+                localStorage.setItem('dadosUsuario', dadosUsuario);
+                localStorage.setItem('token', dadosUsuario[4]);
                 window.location.href = 'index.html';
             }   
         },
@@ -201,19 +200,19 @@ function criarLogin(){
 
 function autenticarAfter(){
 
-    var url = 'http://localhost:8080/Users';
+    var url = 'http://localhost:8080/Login';
 
     var login = localStorage.getItem('loginTemp');
     var senha = localStorage.getItem('passTemp');
 
     localStorage.removeItem('loginTemp');
     localStorage.removeItem('passTemp');
-    
+    //alert(json)
     var json = JSON.stringify({
         _username: login,
         _password: senha,
     })
-    alert(json)
+
     $.ajax({
         url: url,
         type: 'POST',
@@ -227,12 +226,11 @@ function autenticarAfter(){
             } 
             else {
                 var user = data._users[0];
-                var token = data._authenticationSid;
-
-                localStorage.setItem('dadosUsuario', user._login);
-                localStorage.setItem('token', token);
-
-                window.location.href = 'index.html';
+                var dadosUsuario = [user._id, user._login, user._password,user._permission, user._token, user._idCliente];
+                
+                localStorage.setItem('dadosUsuario', dadosUsuario);
+                localStorage.setItem('token', dadosUsuario[4]);
+                 window.location.href = 'index.html';            
             }   
         },
         error: result => {
@@ -240,4 +238,45 @@ function autenticarAfter(){
         },
     });
 
+}
+
+function logout(){
+    console.log('entrei logout')
+    var url = 'http://localhost:8080/Login/logout';
+    var dados = localStorage.getItem('dadosUsuario');
+    dados = dados.split(',');
+
+    var json = JSON.stringify({
+        _id: dados[0],
+        _login: dados[1],
+        _password: dados[2],
+        _permission: dados[3],
+        _token: dados[4],
+        _idCliente: dados[5]
+    });
+
+    $.ajax({
+        url: url,
+        type: 'POST',
+        timeout: 20000,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: json,
+        success: data => {
+            if(data._codigo != 200) {
+                alert(data._message);
+            } 
+            else {
+                limparStorage();
+                window.location.href = 'login.html';
+            }   
+        },
+        error: result => {
+            console.log(result)
+        },
+    });
+}
+
+function limparStorage(){
+    localStorage.clear();
 }

@@ -25,6 +25,8 @@
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="js/listaProdutos.js"></script>
     <script src="js/cadastrarImagem.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/utils.js"></script>
     <script>
         $(document).ready(request => {
             $('#loading').hide()
@@ -45,6 +47,14 @@
 
         }
     </script>
+
+<script>
+    var dados = localStorage.getItem('dadosUsuario');
+       console.log(dados);
+       if(dados == null || dados == '' || dados == undefined){
+           window.location.href = 'login.html';
+       }
+   </script>
 </head>
 
 <body id="page-top">
@@ -118,7 +128,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Admin
+                <label style="margin-top: 15px;" id="LoginName1"></label>
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -195,7 +205,7 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><label style="margin-top: 15px;" id="LoginName2"></label></span>
                                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
                             </a>
                             <!-- Dropdown - User Information -->
@@ -318,7 +328,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="#"  onclick="logout()">Logout</a>
                 </div>
             </div>
         </div>
