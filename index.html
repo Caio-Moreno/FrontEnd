@@ -20,11 +20,11 @@
   <script src="js/login.js"></script>
   
 <script>
- var dados = localStorage.getItem('dadosUsuario');
-    console.log(dados);
-    if(dados == null || dados == '' || dados == undefined){
-        window.location.href = 'login.html';
-    }
+  var dados = localStorage.getItem('dadosUsuario');
+     console.log(dados);
+     if(dados == null || dados == '' || dados == undefined || dados[3] == 'C'){
+         window.location.href = 'login.html';
+     }
 </script>
 </head>
 

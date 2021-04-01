@@ -33,6 +33,7 @@ function tratarDadosgetProdutos() {
 }
 
 function retornarLinha(response) {
+    console.log(response);
 
     if (response._descricao.length > 11) {
         //Para não deixar muito grande a descrição

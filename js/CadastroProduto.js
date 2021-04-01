@@ -51,7 +51,7 @@ function retornarObj() {
         //_imagem: imagens,
         _plataforma: plataforma
     })
-
+    alert(json);
     return json;
 }
 

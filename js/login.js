@@ -143,10 +143,10 @@ function autenticarLogin(){
             else {
                 var user = data._users[0];
                 var dadosUsuario = [user._id, user._login, user._password,user._permission, user._token, user._idCliente];
-                
                 localStorage.setItem('dadosUsuario', dadosUsuario);
                 localStorage.setItem('token', dadosUsuario[4]);
-                window.location.href = 'index.html';
+
+                (user._permission == 'C') ? window.location.href = 'indexLoja.html' : window.location.href = 'index.html';
             }   
         },
         error: result => {
@@ -230,7 +230,7 @@ function autenticarAfter(){
                 
                 localStorage.setItem('dadosUsuario', dadosUsuario);
                 localStorage.setItem('token', dadosUsuario[4]);
-                 window.location.href = 'index.html';            
+                 (user._permission == 'C') ? window.location.href = 'indexLoja.html' : window.location.href = 'index.html';          
             }   
         },
         error: result => {
