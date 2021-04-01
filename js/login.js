@@ -142,7 +142,7 @@ function autenticarLogin(){
             } 
             else {
                 var user = data._users[0];
-                var dadosUsuario = [user._id, user._login, user._password,user._permission, user._token, user._idCliente];
+                var dadosUsuario = [user._id, user._email, user._password,user._permission, user._token];
                 localStorage.setItem('dadosUsuario', dadosUsuario);
                 localStorage.setItem('token', dadosUsuario[4]);
 
@@ -160,20 +160,18 @@ function criarLogin(){
     var url = 'http://localhost:8080/Users/criar';
     var name = $('#name').val();
     var username = $('#username').val();
-    var email = $('#email').val();
     var phone = $('#phone').val();
     var password = $('#password').val();
 
     var json = JSON.stringify({
         _name: name,
-        _login: username,
-        _email: email,
+        _email: username,
         _phone: phone,
         _permission: "C",
         _password: password,
     })
 
-    //alert(json);
+    alert(json);
 
     $.ajax({
         url: url,
@@ -188,7 +186,7 @@ function criarLogin(){
             }else{
                 var user = data._users[0];
                 localStorage.setItem('loginTemp', user._login);
-                localStorage.setItem('passTemp', user._password);
+                localStorage.setItem('passTemp', password);
 
             }
         },
@@ -226,7 +224,7 @@ function autenticarAfter(){
             } 
             else {
                 var user = data._users[0];
-                var dadosUsuario = [user._id, user._login, user._password,user._permission, user._token, user._idCliente];
+                var dadosUsuario = [user._id, user._email, user._password,user._permission, user._token];
                 
                 localStorage.setItem('dadosUsuario', dadosUsuario);
                 localStorage.setItem('token', dadosUsuario[4]);
