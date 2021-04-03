@@ -35,10 +35,6 @@ function tratarDadosgetProdutos() {
 function retornarLinha(response) {
     console.log(response);
 
-    if (response._descricao.length > 11) {
-        //Para não deixar muito grande a descrição
-        response._descricao = response._descricao.substr(0, 11) + '...'
-    }
     //instacio a tabela
     var tabela = $('#dataTable');
     //procuro o corpo da tabela e armazeno em uma variavel
@@ -46,9 +42,9 @@ function retornarLinha(response) {
     //armazeno em uma variavel a linha tr = linha
     var tr = $('<tr></tr>')
         //cada coluna da linha eu armazeno numa var também
-    var td1 = $('<td data-id="' + response._idProduto + '"></td>');
-    var td2 = $('<td data-nome="' + response._nomeProduto + '"></td>');
-    var td3 = $('<td data-descricao="' + response._descricao + '"></td>');
+    var td1 = $('<td data-nome="' + response._idProduto + '"></td>');
+    var td2 = $('<td data-Cargo="' + response._nomeProduto + '"></td>');
+    var td3 = $('<td data-Status="' + response._descricao + '"></td>');
     var td4 = $('<td data-qualidade="' + response._qualidadeProduto + '"></td>');
     var td5 = $('<td data-categoria="' + response._categoria + '"></td>');
     if (response._statusProduto == 'A') {
@@ -162,6 +158,7 @@ function mostrarProduto(id) {
         dataType: "json",
         success: data => {
             var produto = data._produto[0];
+            console.log('get Produto ' + produto._imagem.caminhoImagem4);
 
             $('#nomeProdutoAlterar').val(produto._nomeProduto);
             $('#descricaoProdutoAlterar').val(produto._descricao);
@@ -179,10 +176,8 @@ function mostrarProduto(id) {
                 '<img class="img-fluid" width="100px" height="100px" src="' + produto._imagem.caminhoImagem4 + '" alt="#">'
 
             );
-
             $('#idProdutoAlterar').val(id);
             mostrarEstrela();
-
 
 
         },
