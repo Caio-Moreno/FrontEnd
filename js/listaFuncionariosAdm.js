@@ -1,6 +1,6 @@
-function getProdutosLista() {
+function getFuncionariosLista() {
 
-    var url = tratarDadosgetProdutos();
+    var url = tratarDadosgetFuncionarios()
 
     $.ajax({
         url: url,
@@ -9,14 +9,13 @@ function getProdutosLista() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: data => {
-            var tamanho = data._produto.length;
-            var produtos = data._produto;
-            console.log(tamanho);
-            //console.log(produtos);
-            for (i = 0; i < tamanho; i++) {
-                var produto = produtos[i];
+            var total = data._usuario.length;
+            var funcionarios = data._usuario;
+            console.log(total);
+            for (i = 0; i < total; i++) {
+                var funcionario = funcionarios[i];
 
-                retornarLinha(produto);
+                retornarLinha(funcionario);
             }
 
 
@@ -27,8 +26,8 @@ function getProdutosLista() {
     });
 }
 
-function tratarDadosgetProdutos() {
-    var url1 = 'http://localhost:8080/Produtos?status=A'
+function tratarDadosgetFuncionarios() {
+    var url1 = 'http://localhost:8080/administrador/listarFuncionarios'
     return url1;
 }
 
@@ -42,52 +41,28 @@ function retornarLinha(response) {
     //armazeno em uma variavel a linha tr = linha
     var tr = $('<tr></tr>')
         //cada coluna da linha eu armazeno numa var também
-    var td1 = $('<td data-nome="' + response._idProduto + '"></td>');
-    var td2 = $('<td data-Cargo="' + response._nomeProduto + '"></td>');
-    var td3 = $('<td data-Status="' + response._descricao + '"></td>');
-    var td4 = $('<td data-qualidade="' + response._qualidadeProduto + '"></td>');
-    var td5 = $('<td data-categoria="' + response._categoria + '"></td>');
-    if (response._statusProduto == 'A') {
-        var td6 = $('<td ondblclick="mostrarModalAtualizar(' + response._idProduto + ',\'A\')">  <i class="fa fa-check-square-o" aria-hidden="true"></i> </td>');
+    var td1 = $('<td data-nome="' + response._nomeUsuarioInterno + '"></td>');
+    var td2 = $('<td data-Cargo="' + response._tipoUsuarioInternoEnum + '"></td>');
+    if (response._statusEnum == 'A') {
+        var td3 = $('<td ondblclick="mostrarModalAtualizar(' + response._idUsuario + ',\'A\')">  <i class="fa fa-check-square-o" aria-hidden="true"></i> </td>');
         //console.log('<td ondblclick="mostrarModalAtualizar('+response._idProduto+',\'A\')">   <i class="fa fa-check-square-o" aria-hidden="true"></i> </td>')
 
-    } else if (response._statusProduto == 'I') {
-        var td6 = $('<td ondblclick="mostrarModalAtualizar(' + response._idProduto + ',\'I\')" data-status="' + response._statusProduto + '"> <i class="fa fa-ban" aria-hidden="true"></i></td>');
+    } else if (response._statusEnum == 'I') {
+        var td3 = $('<td ondblclick="mostrarModalAtualizar(' + response._idUsuario + ',\'I\')" data-status="' + response._statusEnum + '"> <i class="fa fa-ban" aria-hidden="true"></i></td>');
     }
-    var td7 = $('<td data-status="' + response._qtdEstoque + '"></td>');
-    var td8 = $('<td data-estoque="' + response._qtdEstoque + '"></td>');
-    //console.log(response._imagem);
-    //var td9 = $('<td data-imagem="'+response._imagem+'"><img src="'+response._imagem+'"></td>'); 
-    var td9 = $('<td data-imagem="' + response._imagem + '"><img src="' + response._imagem + '" class="tratarImage"></td>'); //por enquanto pra teste
-    var td10 = $('<td data-plataforma="' + response._plataforma + '"></td>');
-    var td11 = $('<td onclick="mostrarModalEditar(' + response._idProduto + ')"><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>')
+
+    var td4 = $('<td onclick="mostrarModalEditar(' + response._idUsuario + ')"><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>')
         //var td12 = $('<td onclick="mostrarModalExclusao(' + response._idProduto + ')" ><a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></td>')
-    var td13 = $('<td> <a href="produto-especifico.html?Id=' + response._idProduto + '" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a> </td>')
         //passo os valores de cada coluna
-    td1.text(response._idProduto);
-    td2.text(response._nomeProduto)
-    td3.text(response._descricao);
-    td4.text(response._qualidadeProduto);
-    td5.text(response._categoria);
-    //td6.text(response._statusProduto);
-    td7.text(response._qtdEstoque);
-    td8.text(response._preco);
-    //td9.text(response._imagem);
-    td10.text(response._plataforma)
-        //insiro na linhas todas colunas preenchidas
+    td1.text(response._nomeUsuarioInterno);
+    td2.text(response._tipoUsuarioInternoEnum)
+    td3.text(response._statusEnum);
+
+    //insiro na linhas todas colunas preenchidas
     tr.append(td1)
     tr.append(td2)
     tr.append(td3)
     tr.append(td4)
-    tr.append(td5)
-    tr.append(td6)
-    tr.append(td7)
-    tr.append(td8)
-    tr.append(td9)
-    tr.append(td10)
-    tr.append(td11)
-        // tr.append(td12)
-    tr.append(td13)
         //insiro no corpo a linha
     body.append(tr);
 
@@ -255,10 +230,10 @@ function retornarObjUpdate() {
 }
 
 function atualizaStatus() {
-    var id = $('#idProdutoAtualizarStatus').val();
+    var id = $('#idUsuarioAtualizarStatus').val();
     id = parseInt(id);
     console.log(id)
-    var status = $('#statusAtualizarProduto').val();
+    var status = $('#statusAtualizarUsuario').val();
 
     if (status == 'A') {
         status = 'I'
@@ -267,11 +242,11 @@ function atualizaStatus() {
     }
 
     var json = JSON.stringify({
-        _id: id,
-        _status: status
+        _idUsuario: id,
+        _statusEnum: status
     })
 
-    var url = 'http://localhost:8080/Produtos'
+    var url = 'http://localhost:8080/administrador/atualizaStatus'
 
 
     $.ajax({
@@ -296,86 +271,3 @@ function atualizaStatus() {
     });
 
 }
-
-
-function enviarImagens(produto) {
-
-    // Read selected files
-    console.log(produto);
-
-    //var foto = document.querySelector('#gallery-photo-add').files[0];
-    var formData = new FormData();
-    var foto = document.querySelector('#gallery-photo-add').files.length;
-
-    for (var index = 0; index < foto; index++) {
-        formData.append("foto", document.querySelector('#gallery-photo-add').files[index]);
-    }
-    //formData.append("foto", foto);
-
-    $.ajax({
-        url: 'http://localhost:8080/imagem?id=' + produto._idProduto,
-        type: 'post',
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function(response) {
-            //alert('Produto ' + produto._nomeProduto + ' foi cadastrado');
-            $('#loading').hide(100)
-            $('#alertaSucesso').show(200)
-            $('#addProduct').show(200)
-
-            $('#formulario').each(function() {
-                this.reset();
-            });
-            $("#gallery").empty();
-            //window.location.reload();
-        },
-        error: data => {
-            $('#alertaErro').show(200)
-            $('#loading').hide(100)
-            $('#addProduct').show(100)
-            $("#gallery").empty();
-        }
-    });
-
-
-
-}
-
-function mostrarEstrela() {
-    let star = document.getElementById('qualidadeProdutoAlterar').value;
-    $("input[name=rating2][value='" + star + "']").prop('checked', true);
-    console.log("Berimbola " + star);
-}
-
-/*
-    function getProdutoEspecifico() {
-
-      var url = urlProdutoPorID();
-  
-      $.ajax({
-          url: url,
-          type: 'GET',
-          timeout: 20000,
-          contentType: "application/json; charset=utf-8",
-          dataType: "json",
-          success: data => {
-              console.log(data);
-              var produto = data._produto[0];
-              popularTelaPrdutoEspecifico(produto);
-          },
-          error: result => {
-              alert(result.status + ' ' + result.statusText);
-          }
-      });
-  }
-
-
-function urlProdutoPorID() {
-
-  var url = 'http://localhost:8080/Produtos?Id=';
-  var queryString = window.location.search;
-  var id = queryString.replace(/[^0-9]/g, '');
-  return url + id;
-
-}*/

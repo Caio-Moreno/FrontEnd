@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="css/listaProdutos.css">
     <link rel="stylesheet" href="css/star.css">
     <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="js/listaProdutos.js"></script>
+    <script src="js/listaFuncionariosAdm.js"></script>
     <script src="js/cadastrarImagem.js"></script>
     <script src="js/login.js"></script>
     <script src="js/utils.js"></script>
@@ -40,12 +40,7 @@
 
 
         });
-        getProdutosLista();
-
-        function atribuirValor(a) {
-            document.getElementById('qualidadeProdutoAlterar').value = a;
-
-        }
+        getFuncionariosLista()
     </script>
 
     <script>
@@ -349,9 +344,9 @@
           </button>
                 </div>
                 <div class="modal-body">
-                    Confirma a atualização do status deste produto?
-                    <input id="idProdutoAtualizarStatus" hidden="true" />
-                    <input id="statusAtualizarProduto" hidden="true" />
+                    Confirma a atualização do status deste usuario?
+                    <input id="idUsuarioAtualizarStatus" hidden="true" />
+                    <input id="statusAtualizarUsuario" hidden="true" />
 
                 </div>
                 <div class="modal-footer">
