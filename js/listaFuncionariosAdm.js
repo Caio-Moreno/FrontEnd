@@ -56,7 +56,6 @@ function retornarLinha(response) {
         //passo os valores de cada coluna
     td1.text(response._nomeUsuarioInterno);
     td2.text(response._tipoUsuarioInternoEnum)
-    td3.text(response._statusEnum);
 
     //insiro na linhas todas colunas preenchidas
     tr.append(td1)
@@ -77,16 +76,16 @@ function retornarLinha(response) {
     $('#modalExclusao').modal('show');
 }*/
 
-function mostrarModalEditar(idProduto) {
-    mostrarProduto(idProduto);
+function mostrarModalEditar(idUsuario) {
+    mostrarProduto(idUsuario);
     $('#modalEditar').modal('show');
 
 }
 
-function mostrarModalAtualizar(idProduto, StatusAtual) {
-    console.log('ENTREI' + idProduto + StatusAtual)
-    $('#idProdutoAtualizarStatus').val(idProduto);
-    $('#statusAtualizarProduto').val(StatusAtual);
+function mostrarModalAtualizar(idUsuario, StatusAtual) {
+    console.log('ENTREI' + idUsuario + StatusAtual)
+    $('#idUsuarioAtualizarStatus').val(idUsuario);
+    $('#statusAtualizarUsuario').val(StatusAtual);
     $('#modalAtualizaStatus').modal('show');
 }
 
@@ -122,7 +121,7 @@ function mostrarModalAtualizar(idProduto, StatusAtual) {
 
 function mostrarProduto(id) {
     $('#alertaAtualizado').hide();
-    var url = 'http://localhost:8080/Produtos?Id=' + id;
+    var url = 'http://localhost:8080/administrador?Id=' + id;
     console.log('Consumindo para o modal' + url);
 
     $.ajax({
@@ -132,27 +131,14 @@ function mostrarProduto(id) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: data => {
-            var produto = data._produto[0];
-            console.log('get Produto ' + produto._imagem.caminhoImagem4);
+            var funcionario = data._idUsuario[0];
 
-            $('#nomeProdutoAlterar').val(produto._nomeProduto);
-            $('#descricaoProdutoAlterar').val(produto._descricao);
-            $('#qualidadeProdutoAlterar').val(produto._qualidadeProduto);
-            $('#categoriaProdutoAlterar').val(produto._categoria);
-            $('#statusProdutoAlterar').val(produto._statusProduto);
-            $('#quantidadeProdutoAlterar').val(produto._qtdEstoque);
-            $('#precoProdutoAlterar').val(produto._preco);
-            $('#plataformaProdutoAlterar').val(produto._plataforma);
-            $('#imagemProdutoAlterar').append(
 
-                '<img class="img-fluid" width="100px" height="100px" src="' + produto._imagem.caminhoImagem1 + '" alt="#">' +
-                '<img class="img-fluid" width="100px" height="100px" src="' + produto._imagem.caminhoImagem2 + '" alt="#">' +
-                '<img class="img-fluid" width="100px" height="100px" src="' + produto._imagem.caminhoImagem3 + '" alt="#">' +
-                '<img class="img-fluid" width="100px" height="100px" src="' + produto._imagem.caminhoImagem4 + '" alt="#">'
+            $('#nomeUsuarioAlterar').val(funcionario._nome);
+            $('#cargoUsuarioAlterar').val(funcionario._tipoUsuarioInternoEnum);
+            $('#senhaUsuarioAlterar').val(funcionario._password);
 
-            );
-            $('#idProdutoAlterar').val(id);
-            mostrarEstrela();
+            $('#idUsuarioAlterar').val(id);
 
 
         },
@@ -166,12 +152,12 @@ function mostrarProduto(id) {
 
 
 
-function atualizarProduto() {
-    var data = retornarObjUpdate();
-    var id = $('#idProdutoAlterar').val();
+function atualizarFuncionario() {
+    var data = retornarUserUpdate();
+    var id = $('#idUsuarioAlterar').val();
     id = parseInt(id);
     console.log('ID' + id);
-    var url = 'http://localhost:8080/Produtos?Id=' + id
+    var url = 'http://localhost:8080/administrador?Id=' + id
 
     console.log('MEU OBJ' + data)
 
@@ -184,9 +170,8 @@ function atualizarProduto() {
         data: data,
         success: _ => {
             var mensagem = _._message;
-            var produto = _._produto[0];
-            console.log(produto + 'to aqui no produto')
-            enviarImagens(produto);
+            var usuario = _._funcionarios[0];
+            console.log(usuario + 'to aqui no produto')
             $('#modalEditar').modal('hide');
             alert(mensagem);
             window.location.reload();
@@ -200,29 +185,21 @@ function atualizarProduto() {
     });
 }
 
-function retornarObjUpdate() {
-    var nome = $('#nomeProdutoAlterar').val();
+function retornarUserUpdate() {
+    var nome = $('#nomeUsuarioAlterar').val();
     console.log('No Retorno ->> ' + nome);
-    var descricao = $('#descricaoProdutoAlterar').val();
-    var qualidade = $('#qualidadeProdutoAlterar').val();
 
-    console.log('No Retorno ->> ' + qualidade);
-    var categoria = $('#categoriaProdutoAlterar').val();
-    var quantidade = $('#quantidadeProdutoAlterar').val();
-    console.log('No Retorno ->> ' + quantidade);
-    var status = $('#statusProdutoAlterar').val();
-    var preco = $('#precoProdutoAlterar').val();
-    var plataforma = $('#plataformaProdutoAlterar').val();
+    var tipoUser = $('#cargoUsuarioAlterar').val();
+    console.log('No Retorno ->> ' + tipoUser);
+
+    var password = $('#senhaUsuarioAlterar').val();
+    console.log('No Retorno ->> ' + password);
+
 
     var json = JSON.stringify({
-        _nomeProduto: nome,
-        _descricao: descricao,
-        _qualidadeProduto: qualidade,
-        _categoria: categoria,
-        _statusProduto: status,
-        _qtdEstoque: quantidade,
-        _preco: preco,
-        _plataforma: plataforma
+        _nome: nome,
+        _tipoUser: tipoUser,
+        _password: password
     })
 
 
@@ -234,6 +211,7 @@ function atualizaStatus() {
     id = parseInt(id);
     console.log(id)
     var status = $('#statusAtualizarUsuario').val();
+    console.log(status)
 
     if (status == 'A') {
         status = 'I'
@@ -242,8 +220,8 @@ function atualizaStatus() {
     }
 
     var json = JSON.stringify({
-        _idUsuario: id,
-        _statusEnum: status
+        _id: id,
+        _status: status
     })
 
     var url = 'http://localhost:8080/administrador/atualizaStatus'

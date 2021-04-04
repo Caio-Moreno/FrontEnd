@@ -402,107 +402,25 @@
                         <form id="formulario">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="nomeProduto">Nome do Produto</label>
-                                    <input type="text" class="form-control" id="nomeProdutoAlterar" placeholder="Nome do Produto">
+                                    <label for="nomeProduto">Nome do Funcionário</label>
+                                    <input type="text" class="form-control" id="nomeUsuarioAlterar" placeholder="Nome do Funcionário">
                                 </div>
 
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="descricao">Descrição</label>
-                                    <input type="text" class="form-control" id="descricaoProdutoAlterar" placeholder="Descrição do produto">
+                                    <label for="descricao">Cargo</label>
+                                    <input type="text" class="form-control" id="cargoUsuarioAlterar" placeholder="Cargo">
                                 </div>
                             </div>
+
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label>Qualidade do produto</label>
-                                    <div id="half-stars-example">
-                                        <div class="rating-group">
-                                            <input class="rating__input rating__input--none" name="rating2" id="rating2-0" value="0" type="radio" onclick="atribuirValor(0)">
-                                            <label aria-label="0 stars" class="rating__label" for="rating2-0">&nbsp;</label>
-
-                                            <label aria-label="0.5 stars" class="rating__label rating__label--half" for="rating2-05"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
-                                            <input class="rating__input" name="rating2" id="rating2-05" value="0.5" type="radio" onclick="atribuirValor(0.5)">
-
-                                            <label aria-label="1 star" class="rating__label" for="rating2-10"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                            <input class="rating__input" name="rating2" id="rating2-10" value="1" type="radio" onclick="atribuirValor(1)">
-
-                                            <label aria-label="1.5 stars" class="rating__label rating__label--half" for="rating2-15"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
-                                            <input class="rating__input" name="rating2" id="rating2-15" value="1.5" type="radio" onclick="atribuirValor(1.5)">
-
-                                            <label aria-label="2 stars" class="rating__label" for="rating2-20"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                            <input class="rating__input" name="rating2" id="rating2-20" value="2" type="radio" onclick="atribuirValor(2)">
-
-                                            <label aria-label="2.5 stars" class="rating__label rating__label--half" for="rating2-25"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
-                                            <input class="rating__input" name="rating2" id="rating2-25" value="2.5" type="radio" onclick="atribuirValor(2.5)">
-
-                                            <label aria-label="3 stars" class="rating__label" for="rating2-30"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                            <input class="rating__input" name="rating2" id="rating2-30" value="3" type="radio" onclick="atribuirValor(3)">
-
-                                            <label aria-label="3.5 stars" class="rating__label rating__label--half" for="rating2-35"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
-                                            <input class="rating__input" name="rating2" id="rating2-35" value="3.5" type="radio" onclick="atribuirValor(3.5)">
-
-                                            <label aria-label="4 stars" class="rating__label" for="rating2-40"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                            <input class="rating__input" name="rating2" id="rating2-40" value="4" type="radio" onclick="atribuirValor(4)">
-
-                                            <label aria-label="4.5 stars" class="rating__label rating__label--half" for="rating2-45"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
-                                            <input class="rating__input" name="rating2" id="rating2-45" value="4.5" type="radio" onclick="atribuirValor(4.5)">
-
-                                            <label aria-label="5 stars" class="rating__label" for="rating2-50"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                            <input class="rating__input" name="rating2" id="rating2-50" value="5" type="radio" onclick="atribuirValor(5)">
-
-                                        </div>
-                                    </div>
+                                    <label for="categoriaProduto">Senha</label>
+                                    <input type="text" class="form-control" id="senhaUsuarioAlterar" placeholder="Password do Usuario">
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="categoriaProduto">Categoria</label>
-                                    <input type="text" class="form-control" id="categoriaProdutoAlterar" placeholder="Categoria do produto">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-3">
-                                    <label for="quantidadeProduto">Quantidade</label>
-                                    <input type="number" class="form-control" id="quantidadeProdutoAlterar" placeholder="1">
 
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="statusProduto">Estado do produto</label>
-                                    <select class="custom-select" id="statusProdutoAlterar">
-              <option value="A">Ativo</option>
-              <option value="I">Inativo</option>
-          </select>
-
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-3">
-                                    <label for="preco">Preço</label>
-                                    <input type="text" class="form-control" id="precoProdutoAlterar" placeholder="Ex: 20.00">
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="preco">Plataforma</label>
-                                    <select class="custom-select" id="plataformaProdutoAlterar">
-              <option value="PS4">PS4</option>
-              <option value="XBOX">XBOX</option>
-              <option value="PC">PC</option>
-          </select>
-
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-20">
-                                    <label for="addImagens">Adicionar imagens</label>
-
-                                    <input type="file" class="form-control-file" multiple id="gallery-photo-add" name="foto">
-                                    <label for="">Imagens Novas</label>
-                                    <div class="gallery" id="gallery"></div>
-
-                                    <label for="">Imagens Anteriores</label>
-                                    <div class="teste" id="imagemProdutoAlterar"></div>
-                                </div>
-                            </div>
                             <div class="alert alert-success" role="alert" id="alertaSucesso">
                                 <span>Produto adicionado com sucesso</span>
                             </div>
@@ -515,18 +433,17 @@
                                 <div class="bar"></div>
                             </div>
                         </form>
-                        <input type="hidden" id="qualidadeProdutoAlterar">
-                        <input id="idProdutoAlterar" type="hidden" />
+                        <input id="idUsuarioAlterar" type="hidden" />
                         <br>
                         <div class="alert alert-success" role="alert" id="alertaAtualizado">
-                            Produto atualizado com sucesso
+                            Funcionário atualizado com sucesso
                         </div>
                     </div>
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="atualizarProduto()">Confirmar</button>
+                    <button type="button" class="btn btn-primary" onclick="atualizarFuncionario()">Confirmar</button>
                 </div>
 
             </div>
