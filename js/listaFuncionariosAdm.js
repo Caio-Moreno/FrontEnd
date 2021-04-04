@@ -44,14 +44,14 @@ function retornarLinha(response) {
     var td1 = $('<td data-nome="' + response._nomeUsuarioInterno + '"></td>');
     var td2 = $('<td data-Cargo="' + response._tipoUsuarioInternoEnum + '"></td>');
     if (response._statusEnum == 'A') {
-        var td3 = $('<td ondblclick="mostrarModalAtualizar(' + response._idUsuario + ',\'A\')">  <i class="fa fa-check-square-o" aria-hidden="true"></i> </td>');
+        var td3 = $('<td ondblclick="mostrarModalAtualizar(' + response._id + ',\'A\')">  <i class="fa fa-check-square-o" aria-hidden="true"></i> </td>');
         //console.log('<td ondblclick="mostrarModalAtualizar('+response._idProduto+',\'A\')">   <i class="fa fa-check-square-o" aria-hidden="true"></i> </td>')
 
     } else if (response._statusEnum == 'I') {
-        var td3 = $('<td ondblclick="mostrarModalAtualizar(' + response._idUsuario + ',\'I\')" data-status="' + response._statusEnum + '"> <i class="fa fa-ban" aria-hidden="true"></i></td>');
+        var td3 = $('<td ondblclick="mostrarModalAtualizar(' + response._id + ',\'I\')" data-status="' + response._statusEnum + '"> <i class="fa fa-ban" aria-hidden="true"></i></td>');
     }
 
-    var td4 = $('<td onclick="mostrarModalEditar(' + response._idUsuario + ')"><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>')
+    var td4 = $('<td onclick="mostrarModalEditar(' + response._id + ')"><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>')
         //var td12 = $('<td onclick="mostrarModalExclusao(' + response._idProduto + ')" ><a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></td>')
         //passo os valores de cada coluna
     td1.text(response._nomeUsuarioInterno);
@@ -131,11 +131,11 @@ function mostrarProduto(id) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: data => {
-            var funcionario = data._idUsuario[0];
+            var funcionario = data._usuario[0];
 
 
             $('#nomeUsuarioAlterar').val(funcionario._nome);
-            $('#cargoUsuarioAlterar').val(funcionario._tipoUsuarioInternoEnum);
+            $('#cargoUsuarioAlterar').val(funcionario._tipoUser);
             $('#senhaUsuarioAlterar').val(funcionario._password);
 
             $('#idUsuarioAlterar').val(id);
@@ -170,8 +170,8 @@ function atualizarFuncionario() {
         data: data,
         success: _ => {
             var mensagem = _._message;
-            var usuario = _._funcionarios[0];
-            console.log(usuario + 'to aqui no produto')
+            var usuario = _._usuario[0];
+            console.log(usuario + 'to aqui no usuario')
             $('#modalEditar').modal('hide');
             alert(mensagem);
             window.location.reload();
@@ -189,17 +189,16 @@ function retornarUserUpdate() {
     var nome = $('#nomeUsuarioAlterar').val();
     console.log('No Retorno ->> ' + nome);
 
-    var tipoUser = $('#cargoUsuarioAlterar').val();
-    console.log('No Retorno ->> ' + tipoUser);
-
     var password = $('#senhaUsuarioAlterar').val();
     console.log('No Retorno ->> ' + password);
 
+    var tipoUser = $('#cargoUsuarioAlterar').val();
+    console.log('No Retorno ->> ' + tipoUser);
 
     var json = JSON.stringify({
         _nome: nome,
-        _tipoUser: tipoUser,
-        _password: password
+        _password: password,
+        _tipoUser: tipoUser
     })
 
 

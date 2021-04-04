@@ -24,7 +24,6 @@
     <link rel="stylesheet" href="css/star.css">
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="js/listaFuncionariosAdm.js"></script>
-    <script src="js/cadastrarImagem.js"></script>
     <script src="js/login.js"></script>
     <script src="js/utils.js"></script>
     <script>
@@ -388,7 +387,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editar registro</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Editar registro do usuário</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -397,35 +396,35 @@
 
                     <div class="container-fluid">
 
-                        <!--PAGINA CADASTRO-->
+                        <!--MODAL ALTERAR-->
 
                         <form id="formulario">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="nomeProduto">Nome do Funcionário</label>
+                                    <label for="nomeFuncionario">Nome do Funcionário</label>
                                     <input type="text" class="form-control" id="nomeUsuarioAlterar" placeholder="Nome do Funcionário">
                                 </div>
 
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="descricao">Cargo</label>
+                                    <label for="Cargo">Cargo</label>
                                     <input type="text" class="form-control" id="cargoUsuarioAlterar" placeholder="Cargo">
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="categoriaProduto">Senha</label>
+                                    <label for="Password">Senha</label>
                                     <input type="text" class="form-control" id="senhaUsuarioAlterar" placeholder="Password do Usuario">
                                 </div>
                             </div>
 
                             <div class="alert alert-success" role="alert" id="alertaSucesso">
-                                <span>Produto adicionado com sucesso</span>
+                                <span>Funcionário adicionado com sucesso</span>
                             </div>
                             <div class="alert alert-danger" role="alert" id="alertaErro">
-                                <span>Erro para adicionar o produto, por favor contatar o suporte</span>
+                                <span>Erro ao adicionar o novo usuário, por favor contatar o suporte</span>
                             </div>
                             <!-- <a class="btn btn-primary"  onclick="enviarProduto()" id="addProduct" style="margin-left: 215px; color: white; cursor: pointer;">Adicionar produto</a>-->
 
@@ -436,7 +435,7 @@
                         <input id="idUsuarioAlterar" type="hidden" />
                         <br>
                         <div class="alert alert-success" role="alert" id="alertaAtualizado">
-                            Funcionário atualizado com sucesso
+                            Funcionário Atualizado com sucesso!
                         </div>
                     </div>
 
