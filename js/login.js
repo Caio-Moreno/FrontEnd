@@ -225,10 +225,10 @@ function autenticarAfter(){
             else {
                 var user = data._users[0];
                 var dadosUsuario = [user._id, user._email, user._password,user._permission, user._token];
-                
                 localStorage.setItem('dadosUsuario', dadosUsuario);
                 localStorage.setItem('token', dadosUsuario[4]);
-                 (user._permission == 'C') ? window.location.href = 'indexLoja.html' : window.location.href = 'index.html';          
+
+                (user._permission == 'C') ? window.location.href = 'indexLoja.html' : window.location.href = 'index.html';
             }   
         },
         error: result => {
