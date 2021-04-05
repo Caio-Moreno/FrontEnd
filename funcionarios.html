@@ -22,6 +22,7 @@
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/listaProdutos.css">
     <link rel="stylesheet" href="css/star.css">
+    <link rel="stylesheet" href="css/listaFuncionario.css">
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="js/listaFuncionariosAdm.js"></script>
     <script src="js/login.js"></script>
@@ -31,14 +32,36 @@
             $('#loading').hide()
             $('#alertaSucesso').hide()
             $('#alertaErro').hide()
+
+            var dadosUsuario = localStorage.getItem('dadosUsuario');
+            dadosUsuario = dadosUsuario.split(',');
+            
+            if(!(dadosUsuario[3] == 'ADMIN')){
+
             $('#dataTable').DataTable({
                 language: {
                     "zeroRecords": " "
-                }
-            });
+                },
+                colReorder: true,
+                "columnDefs": [
+                      {
+                    "targets": [ 3 ], //Índice do vetor representa a 3º coluna
+                    "visible": false,
+                    "searchable": false
+                    }
+                ]
+                });
+            }else{
+                $('#dataTable').DataTable({
+                language: {
+                    "zeroRecords": " "
+                },
+                });
+            }
 
 
         });
+
         getFuncionariosLista()
     </script>
 

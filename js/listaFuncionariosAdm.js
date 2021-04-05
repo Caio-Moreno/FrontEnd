@@ -77,16 +77,28 @@ function retornarLinha(response) {
 }*/
 
 function mostrarModalEditar(idUsuario) {
-    mostrarProduto(idUsuario);
-    $('#modalEditar').modal('show');
+    var dadosUsario = localStorage.getItem("dadosUsuario");
+    dadosUsario = dadosUsario.split(',');
+    if(dadosUsario[3] == 'ADMIN'){
+        mostrarProduto(idUsuario);
+        $('#modalEditar').modal('show');
+    }else{
+        alert('Você não tem permissão para editar')
+    }
 
 }
 
 function mostrarModalAtualizar(idUsuario, StatusAtual) {
+    var dadosUsario = localStorage.getItem("dadosUsuario");
+    dadosUsario = dadosUsario.split(',');
+    if(dadosUsario[3] == 'ADMIN'){
     console.log('ENTREI' + idUsuario + StatusAtual)
     $('#idUsuarioAtualizarStatus').val(idUsuario);
     $('#statusAtualizarUsuario').val(StatusAtual);
     $('#modalAtualizaStatus').modal('show');
+    }else{
+        alert('Você não tem permissão para editar')
+    }
 }
 
 /*function excluirProduto() {
@@ -153,6 +165,7 @@ function mostrarProduto(id) {
 
 
 function atualizarFuncionario() {
+    var token = localStorage.getItem("token");
     var data = retornarUserUpdate();
     var id = $('#idUsuarioAlterar').val();
     id = parseInt(id);
@@ -164,6 +177,7 @@ function atualizarFuncionario() {
     $.ajax({
         url: url,
         type: 'PUT',
+        headers: {'TOKEN': token},
         timeout: 2000000,
         contentType: "application/json; charset=utf-8",
         dataType: "json",

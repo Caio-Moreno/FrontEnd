@@ -1,6 +1,6 @@
 function enviarFuncionario() {
     $('#loading').show(200)
-    $('#addProduct').hide(100)
+    $('#addFuncionario').hide(100)
     $('#alertaErro').hide()
     $('#alertaSucesso').hide()
         //var imagens = enviarImagens();
@@ -16,8 +16,15 @@ function enviarFuncionario() {
         dataType: "json",
         data: dataSend,
         success: data => {
-            var funcionario = data._usuario[0];
-            console.log(funcionario);
+            if(data._response == 200){
+                $('#alertaSucesso').show(200)
+        
+            }else{
+                $('#alertaErro').show(200)
+            }
+            $('#loading').hide(100)
+            $('#alertaSucesso').show(200)
+            $('#addFuncionario').show(200)
         },
         error: result => {
             console.log(result)
