@@ -24,17 +24,40 @@
     <script src="js/cadastrarFuncionario.js"></script>
     <script src="js/login.js"></script>
     <script src="js/utils.js"></script>
+    
 
     <script>
         $(document).ready(function esconder() {
             $('#loading').hide()
             $('#alertaSucesso').hide()
             $('#alertaErro').hide()
+
+            $('#dataNascimento').mask("00/00/0000", {placeholder: "__/__/____"});
+            $('#cpfFuncionario').mask('000.000.000-00',{placeholder: "999.999.999-99"});
+
+            $("#naoMostrar").hide();
+            
+
         });
 
         function atribuirValor(a) {
             document.getElementById('ficarEscondido').value = a;
         }
+
+        function verSenha(){
+                var senha = $('#senhaFuncionario').val();
+                $('#senhaFuncionario').prop('type', 'text');
+                $('#senhaFuncionario').val(senha);
+                $("#mostrar").hide();
+                $("#naoMostrar").show();
+            }
+         
+            
+        function esconderSenha(){
+            $('#senhaFuncionario').prop('type', 'password');
+            $("#mostrar").show();
+            $("#naoMostrar").hide();
+        }    
     </script>
 
     <script>
@@ -262,7 +285,9 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="Senha">Senha</label>
-                                <input type="text" class="form-control" id="senhaFuncionario" placeholder="Password">
+                                <input type="password" class="form-control" id="senhaFuncionario" placeholder="Password">
+                                <a onclick="verSenha()" id="mostrar"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                <a onclick="esconderSenha()" id="naoMostrar"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
                             </div>
                         </div>
 
@@ -348,9 +373,10 @@
         </div>
     </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap core JavaScript
+    <script src="vendor/jquery/jquery.min.js"></script>-->
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/JQueyMask/src/jquery.mask.js" ></script>
 
     <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
