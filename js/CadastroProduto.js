@@ -1,4 +1,6 @@
 function enviarProduto() {
+    var token = localStorage.getItem('token');
+    console.log(token)
     $('#loading').show(200)
     $('#addProduct').hide(100)
     $('#alertaErro').hide()
@@ -11,6 +13,7 @@ function enviarProduto() {
     $.ajax({
         url: url,
         type: 'POST',
+        headers: {'TOKEN': token},
         timeout: 20000,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
