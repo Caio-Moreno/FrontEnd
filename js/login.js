@@ -19,7 +19,7 @@ $(document).ready(function () {
         $(this).siblings('label').addClass('active');
     });
 
-    // Form validation
+    // validar formulario
     $('input').blur(function () {
 
         
@@ -28,8 +28,8 @@ $(document).ready(function () {
             if ($(this).val().length === 0) {
                 $(this).siblings('span.error').text('Por favor, escreva seu nome').fadeIn().parent('.form-group').addClass('hasError');
                 usernameError = true;
-            } else if ($(this).val().length > 1 && $(this).val().length < 3) {
-                $(this).siblings('span.error').text('Digite pelo menos 3 caracteres').fadeIn().parent('.form-group').addClass('hasError');
+            } else if ($(this).val().length > 1 && $(this).val().length < 5) {
+                $(this).siblings('span.error').text('Digite pelo menos 5 caracteres').fadeIn().parent('.form-group').addClass('hasError');
                 usernameError = true;
             } else {
                 $(this).siblings('.error').text('').fadeOut().parent('.form-group').removeClass('hasError');
@@ -49,8 +49,8 @@ $(document).ready(function () {
 
         // PassWord
         if ($(this).hasClass('pass')) {
-            if ($(this).val().length < 4) {
-                $(this).siblings('span.error').text('Digite pelo menos 4 caracteres').fadeIn().parent('.form-group').addClass('hasError');
+            if ($(this).val().length < 3) {
+                $(this).siblings('span.error').text('Digite pelo menos 3 caracteres').fadeIn().parent('.form-group').addClass('hasError');
                 passwordError = true;
             } else {
                 $(this).siblings('.error').text('').fadeOut().parent('.form-group').removeClass('hasError');
@@ -98,13 +98,19 @@ $(document).ready(function () {
 
 
     $('#submit').click(function (e) {
-        alert('entrei')
 
         if (usernameError == true || emailError == true || passwordError == true || passConfirm == true) {
             //aqui caso de erro
             $('.name, .email, .pass, .passConfirm').blur();
             alert('erro preencha os dados corretamente')
             return;
+        }
+        if ($('.pass').val() !== $('.passConfirm').val()) {
+            $('.passConfirm').siblings('.error').text('As senhas não coincidem').fadeIn().parent('.form-group').addClass('hasError');
+            alert('As senhas não coincidem');
+            return;
+        } else {
+            $('.passConfirm').siblings('.error').text('').fadeOut().parent('.form-group').removeClass('hasError');
         }
            
         var url = 'http://localhost:8080/Users/criar';
