@@ -3,10 +3,13 @@ Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,Bli
 Chart.defaults.global.defaultFontColor = '#858796';
 
 var url = "http://localhost:8080/Produtos?estado=estado";
+var token = localStorage.getItem('token');
+    console.log(token)
 
 $.ajax({
   url: url,
   type: 'GET',
+  headers: {'TOKEN': token},
   timeout: 20000,
   contentType: "application/json; charset=utf-8",
   dataType: "json",

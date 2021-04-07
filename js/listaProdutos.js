@@ -119,35 +119,6 @@ function mostrarModalAtualizar(idProduto, StatusAtual) {
     $('#modalAtualizaStatus').modal('show');
 }
 
-/*function excluirProduto() {
-    var idProduto = $('#codProduto').val();
-
-    var nome = $('#nomeProdutoAlterar').val();
-    idProduto = parseInt(idProduto);
-    console.log(nome);
-
-    console.log(typeof(idProduto));
-
-
-    var url = 'http://localhost:8080/Produtos?Id=' + idProduto;
-    console.log('URL' + url);
-    $.ajax({
-        url: url,
-        type: 'DELETE',
-        timeout: 20000,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: data => {
-            var mensagem = data._message;
-            $('#modalExclusao').modal('hide')
-            alert(mensagem);
-            window.location.reload();
-        },
-        error: result => {
-            alert(result.status + ' ' + result.statusText);
-        }
-    });
-}*/
 
 function mostrarProduto(id) {
     $('#alertaAtualizado').hide();
@@ -194,20 +165,22 @@ function mostrarProduto(id) {
 }
 
 
-
-
 function atualizarProduto() {
+    var token = localStorage.getItem('token');
+    console.log(token);
+
     var data = retornarObjUpdate();
     var id = $('#idProdutoAlterar').val();
     id = parseInt(id);
     console.log('ID' + id);
     var url = 'http://localhost:8080/Produtos?Id=' + id
 
-    console.log('MEU OBJ' + data)
+    
 
     $.ajax({
         url: url,
         type: 'PUT',
+        headers: {'TOKEN': token},
         timeout: 2000000,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -260,6 +233,9 @@ function retornarObjUpdate() {
 }
 
 function atualizaStatus() {
+    var token = localStorage.getItem('token');
+    console.log(token)
+    
     var id = $('#idProdutoAtualizarStatus').val();
     id = parseInt(id);
     console.log(id)
@@ -282,6 +258,7 @@ function atualizaStatus() {
     $.ajax({
         url: url,
         type: 'PUT',
+        headers: {'TOKEN': token},
         timeout: 20000,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -319,7 +296,7 @@ function enviarImagens(produto) {
 
     $.ajax({
         url: 'http://localhost:8080/imagem?id=' + produto._idProduto,
-        type: 'post',
+        type: 'POST',
         data: formData,
         contentType: false,
         processData: false,

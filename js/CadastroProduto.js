@@ -5,7 +5,6 @@ function enviarProduto() {
     $('#addProduct').hide(100)
     $('#alertaErro').hide()
     $('#alertaSucesso').hide()
-    //var imagens = enviarImagens();
     var dataSend = retornarObj();
 
     var url = 'http://localhost:8080/Produtos'
@@ -54,7 +53,6 @@ function retornarObj() {
         //_imagem: imagens,
         _plataforma: plataforma
     })
-    alert(json);
     return json;
 }
 

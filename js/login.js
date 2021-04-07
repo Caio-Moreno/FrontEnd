@@ -49,8 +49,8 @@ $(document).ready(function () {
 
         // PassWord
         if ($(this).hasClass('pass')) {
-            if ($(this).val().length < 8) {
-                $(this).siblings('span.error').text('Digite pelo menos 8 caracteres').fadeIn().parent('.form-group').addClass('hasError');
+            if ($(this).val().length < 4) {
+                $(this).siblings('span.error').text('Digite pelo menos 4 caracteres').fadeIn().parent('.form-group').addClass('hasError');
                 passwordError = true;
             } else {
                 $(this).siblings('.error').text('').fadeOut().parent('.form-group').removeClass('hasError');
@@ -89,25 +89,7 @@ $(document).ready(function () {
     });
 
 
-    // Form submit
-    $('form.signup-form').submit(function (event) {
-        event.preventDefault();
 
-        if (usernameError == true || emailError == true || passwordError == true || passConfirm == true) {
-            //aqui caso de erro
-            $('.name, .email, .pass, .passConfirm').blur();
-        } else {
-            //aqui caso de certo
-            $('.signup, .login').addClass('switched');
-
-            setTimeout(function () { $('.signup, .login').hide(); }, 700);
-            setTimeout(function () { $('.brand').addClass('active'); }, 300);
-            setTimeout(function () { $('.heading').addClass('active'); }, 600);
-            setTimeout(function () { $('.success-msg p').addClass('active'); }, 900);
-            setTimeout(function () { $('.success-msg a').addClass('active'); }, 1050);
-            setTimeout(function () { $('.form').hide(); }, 700);
-        }
-    });
 
     // Reload page
     $('a.profile').on('click', function () {
@@ -115,6 +97,68 @@ $(document).ready(function () {
     });
 
 
+    $('#submit').click(function (e) {
+        alert('entrei')
+
+        if (usernameError == true || emailError == true || passwordError == true || passConfirm == true) {
+            //aqui caso de erro
+            $('.name, .email, .pass, .passConfirm').blur();
+            alert('erro preencha os dados corretamente')
+            return;
+        }
+           
+        var url = 'http://localhost:8080/Users/criar';
+        var name = $('#name').val();
+        var username = $('#username').val();
+        var phone = $('#phone').val();
+        var password = $('#password').val();
+    
+        var json = JSON.stringify({
+            _name: name,
+            _email: username,
+            _phone: phone,
+            _permission: "C",
+            _password: password,
+        })
+    
+        alert(json);
+    
+        $.ajax({
+            url: url,
+            type: 'POST',
+            timeout: 20000,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: json,
+            success: data => {
+                if(data._codigo != 200) {
+                    //alert(data._message);
+                    alert('erro para inserir, usuário já existe')
+                    //console.log(data)
+                }else{
+                     //aqui caso de certo
+                    $('.signup, .login').addClass('switched');
+    
+                    setTimeout(function () { $('.signup, .login').hide(); }, 700);
+                    setTimeout(function () { $('.brand').addClass('active'); }, 300);
+                    setTimeout(function () { $('.heading').addClass('active'); }, 600);
+                    setTimeout(function () { $('.success-msg p').addClass('active'); }, 900);
+                    setTimeout(function () { $('.success-msg a').addClass('active'); }, 1050);
+                    setTimeout(function () { $('.form').hide(); }, 700);
+    
+                    var user = data._users[0];
+                    localStorage.setItem('loginTemp', user._login);
+                    localStorage.setItem('passTemp', password);
+    
+                }
+            },
+            error: result => {
+                alert
+                console.log(result.responseJSON);
+                alert(result.responseJSON._message)
+            },
+        });
+    });
 });
 
 
@@ -150,51 +194,17 @@ function autenticarLogin(){
             }   
         },
         error: result => {
-            console.log(result)
-        },
-    });
-
-}
-
-function criarLogin(){
-    var url = 'http://localhost:8080/Users/criar';
-    var name = $('#name').val();
-    var username = $('#username').val();
-    var phone = $('#phone').val();
-    var password = $('#password').val();
-
-    var json = JSON.stringify({
-        _name: name,
-        _email: username,
-        _phone: phone,
-        _permission: "C",
-        _password: password,
-    })
-
-    alert(json);
-
-    $.ajax({
-        url: url,
-        type: 'POST',
-        timeout: 20000,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: json,
-        success: data => {
-            if(data._codigo != 200) {
+            console.log(result.responseJSON)
+            var data = result.responseJSON;
+            if(data._codigo == 401){
                 alert(data._message);
-            }else{
-                var user = data._users[0];
-                localStorage.setItem('loginTemp', user._login);
-                localStorage.setItem('passTemp', password);
-
             }
         },
-        error: result => {
-            console.log(result)
-        },
     });
+
 }
+
+
 
 function autenticarAfter(){
 
@@ -219,6 +229,7 @@ function autenticarAfter(){
         dataType: "json",
         data: json,
         success: data => {
+            console.log(data);
             if(data._codigo != 200) {
                 alert(data._message);
             } 

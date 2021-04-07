@@ -161,9 +161,6 @@ function mostrarProduto(id) {
 
 }
 
-
-
-
 function atualizarFuncionario() {
     var token = localStorage.getItem("token");
     var data = retornarUserUpdate();
