@@ -89,14 +89,6 @@ $(document).ready(function () {
     });
 
 
-
-
-    // Reload page
-    $('a.profile').on('click', function () {
-        location.reload(true);
-    });
-
-
     $('#submit').click(function (e) {
 
         if (usernameError == true || emailError == true || passwordError == true || passConfirm == true) {
@@ -219,8 +211,7 @@ function autenticarAfter(){
     var login = localStorage.getItem('loginTemp');
     var senha = localStorage.getItem('passTemp');
 
-    localStorage.removeItem('loginTemp');
-    localStorage.removeItem('passTemp');
+    
     //alert(json)
     var json = JSON.stringify({
         _username: login,
@@ -240,12 +231,16 @@ function autenticarAfter(){
                 alert(data._message);
             } 
             else {
+                
                 var user = data._users[0];
                 var dadosUsuario = [user._id, user._email, user._password,user._permission, user._token];
+                localStorage.removeItem('loginTemp');
+                localStorage.removeItem('passTemp');
                 localStorage.setItem('dadosUsuario', dadosUsuario);
                 localStorage.setItem('token', dadosUsuario[4]);
+                
 
-                (user._permission == 'C') ? window.location.href = 'indexLoja.html' : window.location.href = 'index.html';
+                 (user._permission == 'C') ? window.location.href = 'indexLoja.html' : window.location.href = 'index.html'; 
             }   
         },
         error: result => {
