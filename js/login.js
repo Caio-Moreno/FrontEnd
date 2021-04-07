@@ -127,7 +127,7 @@ $(document).ready(function () {
             _password: password,
         })
     
-        alert(json);
+        //alert(json);
     
         $.ajax({
             url: url,
