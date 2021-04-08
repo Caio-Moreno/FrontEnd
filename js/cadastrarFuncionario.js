@@ -44,7 +44,6 @@ function retornarObj() {
     var email = document.getElementById('emailFuncionario').value;
     var senha = document.getElementById('senhaFuncionario').value;
     var cargo = document.getElementById('cargoFuncionario').value;
-    var status = document.getElementById('statusFuncionario').value;
 
     var json = JSON.stringify({
         _nome: nome,
@@ -54,8 +53,6 @@ function retornarObj() {
         _email: email,
         _password: senha,
         _tipoUser: cargo,
-        _status: status
     })
-    alert(json);
     return json;
 }
