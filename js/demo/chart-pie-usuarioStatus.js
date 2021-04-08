@@ -2,7 +2,7 @@
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
-var url = "http://localhost:8080/Dashboard?tipo=status";
+var url = "http://localhost:8080/Dashboard/listaUsuario?tipo=status";
 var token = localStorage.getItem('token');
     console.log(token)
 
@@ -15,19 +15,18 @@ $.ajax({
   dataType: "json",
   success: data => {
       var status = data._status;
-      console.log(status)
-      var meuArray = [parseInt(status._ativo), parseInt(status._inativo)];
-      console.log(status._ativo);
 
-      var ctx = document.getElementById("myPieChart");
+      var meuArray = [parseInt(status._ativo), parseInt(status._inativo)];
+
+      var ctx = document.getElementById("usuarioStatus");
       var myPieChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
             labels: ["Ativo", "Inativo"],
             datasets: [{
             data: meuArray,
-            backgroundColor: ['#4e73df', '#1cc88a'],
-            hoverBackgroundColor: ['#2e59d9', '#17a673'],
+            backgroundColor: ['#fad014', '#141104'],
+            hoverBackgroundColor: ['#dbba27', '#2e2e2d'],
             hoverBorderColor: "rgba(234, 236, 244, 1)",
         }],
       },
@@ -54,37 +53,3 @@ $.ajax({
       alert(result.status + ' ' + result.statusText);
   }
 });
-
-// Pie Chart Example
-/*
-var ctx = document.getElementById("myPieChart");
-var myPieChart = new Chart(ctx, {
-  type: 'doughnut',
-  data: {
-    labels: ["Ativo", "Inativo"],
-    datasets: [{
-      data: [55, 15],
-      backgroundColor: ['#4e73df', '#1cc88a'],
-      hoverBackgroundColor: ['#2e59d9', '#17a673'],
-      hoverBorderColor: "rgba(234, 236, 244, 1)",
-    }],
-  },
-  options: {
-    maintainAspectRatio: false,
-    tooltips: {
-      backgroundColor: "rgb(255,255,255)",
-      bodyFontColor: "#858796",
-      borderColor: '#dddfeb',
-      borderWidth: 1,
-      xPadding: 15,
-      yPadding: 15,
-      displayColors: false,
-      caretPadding: 10,
-    },
-    legend: {
-      display: false
-    },
-    cutoutPercentage: 80,
-  },
-});
-*/

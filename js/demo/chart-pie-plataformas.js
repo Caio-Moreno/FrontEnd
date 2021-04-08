@@ -2,7 +2,7 @@
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
-var url = "http://localhost:8080/Produtos?plataforma=plataforma";
+var url = "http://localhost:8080/Dashboard?tipo=plataforma";
 var token = localStorage.getItem('token');
     console.log(token)
 

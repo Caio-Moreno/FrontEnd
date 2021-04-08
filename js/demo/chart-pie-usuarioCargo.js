@@ -2,7 +2,7 @@
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
-var url = "http://localhost:8080/Dashboard?tipo=status";
+var url = "http://localhost:8080/Dashboard/listaUsuario?tipo=cargo";
 var token = localStorage.getItem('token');
     console.log(token)
 
@@ -14,20 +14,20 @@ $.ajax({
   contentType: "application/json; charset=utf-8",
   dataType: "json",
   success: data => {
-      var status = data._status;
-      console.log(status)
-      var meuArray = [parseInt(status._ativo), parseInt(status._inativo)];
-      console.log(status._ativo);
+      var cargo = data._cargo;
 
-      var ctx = document.getElementById("myPieChart");
+      var meuArray = [parseInt(cargo._admin), parseInt(cargo._estoquista)];
+//      var array2 = ['Admin', 'Estoquista'];
+
+      var ctx = document.getElementById("usuarioCargo");
       var myPieChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
-            labels: ["Ativo", "Inativo"],
+            labels: ['Admin', 'Estoquista'],
             datasets: [{
             data: meuArray,
-            backgroundColor: ['#4e73df', '#1cc88a'],
-            hoverBackgroundColor: ['#2e59d9', '#17a673'],
+            backgroundColor: ['#0865fc', '#455369'],
+            hoverBackgroundColor: ['#70a5fa', '#6b7482'],
             hoverBorderColor: "rgba(234, 236, 244, 1)",
         }],
       },
@@ -54,37 +54,3 @@ $.ajax({
       alert(result.status + ' ' + result.statusText);
   }
 });
-
-// Pie Chart Example
-/*
-var ctx = document.getElementById("myPieChart");
-var myPieChart = new Chart(ctx, {
-  type: 'doughnut',
-  data: {
-    labels: ["Ativo", "Inativo"],
-    datasets: [{
-      data: [55, 15],
-      backgroundColor: ['#4e73df', '#1cc88a'],
-      hoverBackgroundColor: ['#2e59d9', '#17a673'],
-      hoverBorderColor: "rgba(234, 236, 244, 1)",
-    }],
-  },
-  options: {
-    maintainAspectRatio: false,
-    tooltips: {
-      backgroundColor: "rgb(255,255,255)",
-      bodyFontColor: "#858796",
-      borderColor: '#dddfeb',
-      borderWidth: 1,
-      xPadding: 15,
-      yPadding: 15,
-      displayColors: false,
-      caretPadding: 10,
-    },
-    legend: {
-      display: false
-    },
-    cutoutPercentage: 80,
-  },
-});
-*/
