@@ -35,52 +35,54 @@
 
             var dadosUsuario = localStorage.getItem('dadosUsuario');
             dadosUsuario = dadosUsuario.split(',');
-            
-            if(!(dadosUsuario[3] == 'ADMIN')){
 
-            $('#dataTable').DataTable({
-                language: {
-                    "zeroRecords": " "
-                },
-                colReorder: true,
-                "columnDefs": [
-                      {
-                    "targets": [ 3 ], //Índice do vetor representa a 3º coluna
-                    "visible": false,
-                    "searchable": false
-                    }
-                ]
-                });
-            }else{
+            if (!(dadosUsuario[3] == 'ADMIN')) {
+
                 $('#dataTable').DataTable({
-                language: {
-                    "zeroRecords": " "
-                },
+                    language: {
+                        "zeroRecords": " "
+                    },
+                    colReorder: true,
+                    "columnDefs": [{
+                        "targets": [3], //Índice do vetor representa a 3º coluna
+                        "visible": false,
+                        "searchable": false
+                    }]
+                });
+            } else {
+                $('#dataTable').DataTable({
+                    language: {
+                        "zeroRecords": " "
+                    },
                 });
             }
 
-            $('#dataNascimento').mask("00/00/0000", {placeholder: "__/__/____"});
-            $('#cpfFuncionario').mask('000.000.000-00',{placeholder: "999.999.999-99"});
+            $('#dataNascimento').mask("00/00/0000", {
+                placeholder: "__/__/____"
+            });
+            $('#cpfFuncionario').mask('000.000.000-00', {
+                placeholder: "999.999.999-99"
+            });
 
             $("#naoMostrar").hide();
 
 
         });
 
-        function verSenha(){
-                var senha = $('#senhaUsuarioAlterar').val();
-                $('#senhaUsuarioAlterar').prop('type', 'text');
-                $('#senhaUsuarioAlterar').val(senha);
-                $("#mostrar").hide();
-                $("#naoMostrar").show();
-            }
-         
-            
-        function esconderSenha(){
+        function verSenha() {
+            var senha = $('#senhaUsuarioAlterar').val();
+            $('#senhaUsuarioAlterar').prop('type', 'text');
+            $('#senhaUsuarioAlterar').val(senha);
+            $("#mostrar").hide();
+            $("#naoMostrar").show();
+        }
+
+
+        function esconderSenha() {
             $('#senhaUsuarioAlterar').prop('type', 'password');
             $("#mostrar").show();
             $("#naoMostrar").hide();
-        } 
+        }
 
 
 
@@ -291,6 +293,8 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
+
+                                            <th>ID</th>
                                             <th>Nome</th>
                                             <th>Cargo</th>
                                             <th>Status</th>
@@ -299,6 +303,7 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
+                                            <th>ID</th>
                                             <th>Nome</th>
                                             <th>Cargo</th>
                                             <th>Status</th>
@@ -452,9 +457,9 @@
                                 </div>
                                 <div class="alert alert-danger" id="erroNome" role="alert">
                                     O nome do funcionário deve conter 5 caracteres.
-                                  </div>
+                                </div>
                             </div>
-    
+
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="CPF">CPF</label>
@@ -468,7 +473,7 @@
                                 </select>
                                 </div>
                             </div>
-    
+
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="dataNascimento">Data de Nascimento</label>
@@ -481,18 +486,18 @@
                                     <a onclick="esconderSenha()" id="naoMostrar"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
                                     <div class="alert alert-danger" id="erroSenha" role="alert">
                                         A senha deve conter 3 caracteres.
-                                      </div>
+                                    </div>
                                 </div>
                             </div>
-    
+
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="Email">Email</label>
                                     <input type="text" class="form-control" id="emailUsuarioAlterar" placeholder="Email" disabled>
                                 </div>
                             </div>
-    
-    
+
+
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="Cargo">Cargo</label>
@@ -502,7 +507,7 @@
                                     </select>
                                 </div>
                             </div>
-    
+
                             <div class="alert alert-success" role="alert" id="alertaSucesso">
                                 <span>Funcionário cadastrado com sucesso</span>
                             </div>
@@ -510,12 +515,12 @@
                                 <span>Erro para cadastrar o novo funcionário, por favor contatar o suporte</span>
                             </div>
                             <!--<a class="btn btn-primary" onclick="enviarFuncionario()" id="addFuncionario" style="margin-left: 0px; color: white; cursor: pointer;">Cadastrar Funcionário</a>-->
-    
+
                             <div class="load-10" id="loading">
                                 <div class="bar"></div>
                             </div>
                         </form>
-                        
+
                         <input id="idUsuarioAlterar" type="hidden" />
                         <br>
                         <div class="alert alert-success" role="alert" id="alertaAtualizado">
@@ -532,7 +537,7 @@
             </div>
         </div>
     </div>
-    <script src="assets/JQueyMask/src/jquery.mask.js" ></script>
+    <script src="assets/JQueyMask/src/jquery.mask.js"></script>
 
 </body>
 

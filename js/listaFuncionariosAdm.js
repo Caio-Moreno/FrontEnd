@@ -3,25 +3,25 @@ $(document).ready(request => {
     $('#erroNome').hide();
     $('#erroSenha').hide();
 
-    $('#nomeUsuarioAlterar').blur(function(e){
+    $('#nomeUsuarioAlterar').blur(function(e) {
         var nome = $('#nomeUsuarioAlterar').val();
 
-        (nome.length < 5) ? $('#erroNome').show(500) : $('#erroNome').hide(500);
+        (nome.length < 5) ? $('#erroNome').show(500): $('#erroNome').hide(500);
 
     });
 
-    $('#senhaUsuarioAlterar').change(function(e){
+    $('#senhaUsuarioAlterar').change(function(e) {
         var senha = $('#senhaUsuarioAlterar').val();
 
-        (senha.length < 3 && senha.length > 0) ? $('#erroSenha').show(500) : $('#erroSenha').hide(500);
+        (senha.length < 3 && senha.length > 0) ? $('#erroSenha').show(500): $('#erroSenha').hide(500);
 
     });
 
-    $('#atualizarUsuario').click(function (e) {
+    $('#atualizarUsuario').click(function(e) {
         var nome = $('#nomeUsuarioAlterar').val();
         var senha = $('#senhaUsuarioAlterar').val();
 
-        (nome.length < 5 || (senha.length < 3 && senha.length > 0)) ? alert('Preencha os dados corretamente') : atualizarFuncionario();
+        (nome.length < 5 || (senha.length < 3 && senha.length > 0)) ? alert('Preencha os dados corretamente'): atualizarFuncionario();
 
     })
 
@@ -86,27 +86,32 @@ function retornarLinha(response) {
     //armazeno em uma variavel a linha tr = linha
     var tr = $('<tr></tr>')
         //cada coluna da linha eu armazeno numa var também
-    var td1 = $('<td data-nome="' + response._nomeUsuarioInterno + '"></td>');
-    var td2 = $('<td data-Cargo="' + response._tipoUsuarioInternoEnum + '"></td>');
+
+    var td1 = $('<td data-nome="' + response._id + '"></td>');
+    var td2 = $('<td data-nome="' + response._nomeUsuarioInterno + '"></td>');
+    var td3 = $('<td data-Cargo="' + response._tipoUsuarioInternoEnum + '"></td>');
     if (response._statusEnum == 'A') {
-        var td3 = $('<td ondblclick="mostrarModalAtualizar(' + response._id + ',\'A\')">  <i class="fa fa-check-square-o" aria-hidden="true"></i> </td>');
+        var td4 = $('<td ondblclick="mostrarModalAtualizar(' + response._id + ',\'A\')">  <i class="fa fa-check-square-o" aria-hidden="true"></i> </td>');
         //console.log('<td ondblclick="mostrarModalAtualizar('+response._idProduto+',\'A\')">   <i class="fa fa-check-square-o" aria-hidden="true"></i> </td>')
 
     } else if (response._statusEnum == 'I') {
-        var td3 = $('<td ondblclick="mostrarModalAtualizar(' + response._id + ',\'I\')" data-status="' + response._statusEnum + '"> <i class="fa fa-ban" aria-hidden="true"></i></td>');
+        var td4 = $('<td ondblclick="mostrarModalAtualizar(' + response._id + ',\'I\')" data-status="' + response._statusEnum + '"> <i class="fa fa-ban" aria-hidden="true"></i></td>');
     }
 
-    var td4 = $('<td onclick="mostrarModalEditar(' + response._id + ')"><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>')
+    var td5 = $('<td onclick="mostrarModalEditar(' + response._id + ')"><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>')
         //var td12 = $('<td onclick="mostrarModalExclusao(' + response._idProduto + ')" ><a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></td>')
         //passo os valores de cada coluna
-    td1.text(response._nomeUsuarioInterno);
-    td2.text(response._tipoUsuarioInternoEnum)
+
+    td1.text(response._id);
+    td2.text(response._nomeUsuarioInterno);
+    td3.text(response._tipoUsuarioInternoEnum)
 
     //insiro na linhas todas colunas preenchidas
     tr.append(td1)
     tr.append(td2)
     tr.append(td3)
     tr.append(td4)
+    tr.append(td5)
         //insiro no corpo a linha
     body.append(tr);
 
@@ -124,10 +129,10 @@ function retornarLinha(response) {
 function mostrarModalEditar(idUsuario) {
     var dadosUsario = localStorage.getItem("dadosUsuario");
     dadosUsario = dadosUsario.split(',');
-    if(dadosUsario[3] == 'ADMIN'){
+    if (dadosUsario[3] == 'ADMIN') {
         mostrarProduto(idUsuario);
         $('#modalEditar').modal('show');
-    }else{
+    } else {
         alert('Você não tem permissão para editar')
     }
 
@@ -136,12 +141,12 @@ function mostrarModalEditar(idUsuario) {
 function mostrarModalAtualizar(idUsuario, StatusAtual) {
     var dadosUsario = localStorage.getItem("dadosUsuario");
     dadosUsario = dadosUsario.split(',');
-    if(dadosUsario[3] == 'ADMIN'){
-    console.log('ENTREI' + idUsuario + StatusAtual)
-    $('#idUsuarioAtualizarStatus').val(idUsuario);
-    $('#statusAtualizarUsuario').val(StatusAtual);
-    $('#modalAtualizaStatus').modal('show');
-    }else{
+    if (dadosUsario[3] == 'ADMIN') {
+        console.log('ENTREI' + idUsuario + StatusAtual)
+        $('#idUsuarioAtualizarStatus').val(idUsuario);
+        $('#statusAtualizarUsuario').val(StatusAtual);
+        $('#modalAtualizaStatus').modal('show');
+    } else {
         alert('Você não tem permissão para realizar está ação');
     }
 }
@@ -193,7 +198,7 @@ function atualizarFuncionario() {
     $.ajax({
         url: url,
         type: 'PUT',
-        headers: {'TOKEN': token},
+        headers: { 'TOKEN': token },
         timeout: 2000000,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
