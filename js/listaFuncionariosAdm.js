@@ -1,3 +1,48 @@
+$(document).ready(request => {
+
+    $('#erroNome').hide();
+    $('#erroSenha').hide();
+
+    $('#nomeUsuarioAlterar').blur(function(e){
+        var nome = $('#nomeUsuarioAlterar').val();
+
+        (nome.length < 5) ? $('#erroNome').show(500) : $('#erroNome').hide(500);
+
+    });
+
+    $('#senhaUsuarioAlterar').change(function(e){
+        var senha = $('#senhaUsuarioAlterar').val();
+
+        (senha.length < 3 && senha.length > 0) ? $('#erroSenha').show(500) : $('#erroSenha').hide(500);
+
+    });
+
+    $('#atualizarUsuario').click(function (e) {
+        var nome = $('#nomeUsuarioAlterar').val();
+        var senha = $('#senhaUsuarioAlterar').val();
+
+        (nome.length < 5 || (senha.length < 3 && senha.length > 0)) ? alert('Preencha os dados corretamente') : atualizarFuncionario();
+
+    })
+
+
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function getFuncionariosLista() {
 
     var url = tratarDadosgetFuncionarios()
@@ -97,39 +142,9 @@ function mostrarModalAtualizar(idUsuario, StatusAtual) {
     $('#statusAtualizarUsuario').val(StatusAtual);
     $('#modalAtualizaStatus').modal('show');
     }else{
-        alert('Você não tem permissão para editar')
+        alert('Você não tem permissão para realizar está ação');
     }
 }
-
-/*function excluirProduto() {
-    var idProduto = $('#codProduto').val();
-
-    var nome = $('#nomeProdutoAlterar').val();
-    idProduto = parseInt(idProduto);
-    console.log(nome);
-
-    console.log(typeof(idProduto));
-
-
-    var url = 'http://localhost:8080/Produtos?Id=' + idProduto;
-    console.log('URL' + url);
-    $.ajax({
-        url: url,
-        type: 'DELETE',
-        timeout: 20000,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: data => {
-            var mensagem = data._message;
-            $('#modalExclusao').modal('hide')
-            alert(mensagem);
-            window.location.reload();
-        },
-        error: result => {
-            alert(result.status + ' ' + result.statusText);
-        }
-    });
-}*/
 
 function mostrarProduto(id) {
     $('#alertaAtualizado').hide();
@@ -144,12 +159,16 @@ function mostrarProduto(id) {
         dataType: "json",
         success: data => {
             var funcionario = data._usuario[0];
+            console.log(funcionario);
 
 
             $('#nomeUsuarioAlterar').val(funcionario._nome);
             $('#cargoUsuarioAlterar').val(funcionario._tipoUser);
             $('#senhaUsuarioAlterar').val(funcionario._password);
-
+            $('#cpfUsuarioAlterar').val(funcionario._cpf);
+            $('#sexoUsuarioAlterar').val(funcionario._sexo);
+            $('#dataNascimentoUsuarioAlterar').val(funcionario._dataNascimento);
+            $('#emailUsuarioAlterar').val(funcionario._email);
             $('#idUsuarioAlterar').val(id);
 
 
