@@ -24,7 +24,7 @@
     <script src="js/cadastrarFuncionario.js"></script>
     <script src="js/login.js"></script>
     <script src="js/utils.js"></script>
-    
+
 
     <script>
         $(document).ready(function esconder() {
@@ -32,11 +32,15 @@
             $('#alertaSucesso').hide()
             $('#alertaErro').hide()
 
-            $('#dataNascimento').mask("00/00/0000", {placeholder: "__/__/____"});
-            $('#cpfFuncionario').mask('000.000.000-00',{placeholder: "999.999.999-99"});
+            $('#dataNascimento').mask("00/00/0000", {
+                placeholder: "__/__/____"
+            });
+            $('#cpfFuncionario').mask('000.000.000-00', {
+                placeholder: "999.999.999-99"
+            });
 
             $("#naoMostrar").hide();
-            
+
 
         });
 
@@ -44,22 +48,22 @@
             document.getElementById('ficarEscondido').value = a;
         }
 
-        function verSenha(){
-                var senha = $('#senhaFuncionario').val();
-                $('#senhaFuncionario').prop('type', 'text');
-                $('#senhaFuncionario').val(senha);
-                $("#mostrar").hide();
-                $("#naoMostrar").show();
-            }
-         
-            
-        function esconderSenha(){
+        function verSenha() {
+            var senha = $('#senhaFuncionario').val();
+            $('#senhaFuncionario').prop('type', 'text');
+            $('#senhaFuncionario').val(senha);
+            $("#mostrar").hide();
+            $("#naoMostrar").show();
+        }
+
+
+        function esconderSenha() {
             $('#senhaFuncionario').prop('type', 'password');
             $("#mostrar").show();
             $("#naoMostrar").hide();
-        }    
+        }
     </script>
-    
+
     <script>
         var dados = localStorage.getItem('dadosUsuario');
         console.log(dados);
@@ -302,7 +306,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <label for="Cargo">Cargo</label>
-                                
+
                                 <select class="custom-select" id="cargoFuncionario">
                                     <option value="ADMIN">ADMIN</option>
                                     <option value="ESTOQUISTA">ESTOQUISTA</option>
@@ -310,10 +314,9 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="Status">Status</label>
-                                <select class="custom-select" id="statusFuncionario">
+                                <select class="custom-select" id="statusFuncionario" disabled>
                                 <option value="A">Ativo</option>
-                                <option value="I">Inativo</option>
-                            </select>
+                                </select>
                             </div>
                         </div>
 
@@ -380,7 +383,7 @@
     <!-- Bootstrap core JavaScript
     <script src="vendor/jquery/jquery.min.js"></script>-->
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/JQueyMask/src/jquery.mask.js" ></script>
+    <script src="assets/JQueyMask/src/jquery.mask.js"></script>
 
     <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
