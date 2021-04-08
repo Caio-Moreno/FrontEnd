@@ -1,3 +1,5 @@
+const { src } = require("gulp");
+
 function getProdutosLista() {
 
     var url = tratarDadosgetProdutos();
@@ -142,18 +144,15 @@ function mostrarProduto(id) {
             $('#quantidadeProdutoAlterar').val(produto._qtdEstoque);
             $('#precoProdutoAlterar').val(produto._preco);
             $('#plataformaProdutoAlterar').val(produto._plataforma);
-            $('#imagemProdutoAlterar').append(
-
-                '<img class="img-fluid" width="100px" height="100px" src="' + produto._imagem.caminhoImagem1 + '" alt="#">' +
-                '<img class="img-fluid" width="100px" height="100px" src="' + produto._imagem.caminhoImagem2 + '" alt="#">' +
-                '<img class="img-fluid" width="100px" height="100px" src="' + produto._imagem.caminhoImagem3 + '" alt="#">' +
-                '<img class="img-fluid" width="100px" height="100px" src="' + produto._imagem.caminhoImagem4 + '" alt="#">'
-
-            );
+            $('#image1').attr('src', produto._imagem.caminhoImagem1);
+            $('#image2').attr('src', produto._imagem.caminhoImagem2);
+            $('#image3').attr('src', produto._imagem.caminhoImagem3);
+            $('#image4').attr('src', produto._imagem.caminhoImagem4);
 
             $('#idProdutoAlterar').val(id);
             mostrarEstrela();
 
+            console.log(produto);
 
 
         },
@@ -175,12 +174,12 @@ function atualizarProduto() {
     console.log('ID' + id);
     var url = 'http://localhost:8080/Produtos?Id=' + id
 
-    
+
 
     $.ajax({
         url: url,
         type: 'PUT',
-        headers: {'TOKEN': token},
+        headers: { 'TOKEN': token },
         timeout: 2000000,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -235,7 +234,7 @@ function retornarObjUpdate() {
 function atualizaStatus() {
     var token = localStorage.getItem('token');
     console.log(token)
-    
+
     var id = $('#idProdutoAtualizarStatus').val();
     id = parseInt(id);
     console.log(id)
@@ -258,7 +257,7 @@ function atualizaStatus() {
     $.ajax({
         url: url,
         type: 'PUT',
-        headers: {'TOKEN': token},
+        headers: { 'TOKEN': token },
         timeout: 20000,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
