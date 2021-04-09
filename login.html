@@ -4,120 +4,55 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="css/login.css">
-    <script src="js/login.js"></script>
-    <title>Brazukas - Login</title>
+    <title>Brazukas technology - Login</title>
+    <link rel="stylesheet" href="css/Login/login.css">
+    <script src="js/jQuery.min.js"></script>
+    
 </head>
 <body>
-
-
-<div class="container">
-    <section id="formHolder">
- 
-       <div class="row">
- 
-          <!-- Brand Box -->
-          <div class="col-sm-6 brand">
-             <!--<a href="#" class="logo"> <span>.</span></a>-->
- 
-             <div class="heading">
-                <span class="letterImprovement" >Brazukas technology</span>
-                <p>Sua escolha certa</p>
-             </div>
- 
-             <div class="success-msg">
-                <p>Perfil criado com sucesso</p>
-                <a href="#" class="profile" onclick="autenticarAfter()" id="entrarLogin">Entrar</a>
-             </div>
-          </div>
- 
- 
-          <!-- Form Box -->
-          <div class="col-sm-6 form">
- 
-             <!-- Login Form -->
-             <div class="login form-peice switched">
-                <form class="login-form">
-                   <div class="form-group">
-                      <label for="loginemail">Email</label>
-                      <input type="text" name="loginemail" id="loginemail" required>
-                   </div>
- 
-                   <div class="form-group">
-                      <label for="loginPassword">Senha</label>
-                      <input type="password" name="loginPassword" id="loginPassword" required>
-                   </div>
- 
-                   <div class="CTA">
-                      <button type="button" class="buttonClass" onclick="autenticarLogin()">Login</button>
-                      <a href="#" class="switch">Sou novo, criar login</a>
-                   </div>
-                </form>
-             </div>
-             <!-- End Login Form -->
- 
-             <!-- Signup Form -->
-             <div class="signup form-peice">
-                <form class="signup-form">
- 
-                   <div class="form-group">
-                      <label for="name">Nome</label>
-                      <input type="text" name="name" id="name" class="name">
-                      <span class="error"></span>
-                   </div>
-
-             <!--      <div class="form-group">
-                    <label for="username">Login de acesso</label>
-                    <input type="text" name="username" id="username" class="name">
-                    <span class="error"></span>
-                 </div>
-            -->
- 
-                   <div class="form-group">
-                      <label for="email">E-mail</label>
-                      <input type="email" name="username" id="username" class="email">
-                      <span class="error"></span>
-                   </div>
- 
-                   <div class="form-group">
-                      <label for="phone">Telefone <small style="margin-left: 205px;">opcional</small></label>
-                      <input type="text" name="phone" id="phone">
-                   </div>
- 
-                   <div class="form-group">
-                      <label for="password">Senha</label>
-                      <input type="password" name="password" id="password" class="pass">
-                      <span class="error"></span>
-                   </div>
- 
-                   <div class="form-group">
-                      <label for="passwordCon">Confirma senha</label>
-                      <input type="password" name="passwordCon" id="passwordCon" class="passConfirm">
-                      <span class="error"></span>
-                   </div>
- 
-                   <div class="CTA">
-                      <input type="button" class="cadastrarClass" value="Cadastrar" id="submit" >
-                      <a href="#" class="switch">Eu já tenho uma conta</a>
-                   </div>
-                </form>
-             </div><!-- End Signup Form -->
-          </div>
-       </div>
- 
-    </section>
- 
- 
-    <footer>
-       <p>
-          <span>Copyright &copy; Brazukas 2021</span>
-       </p>
-    </footer>
- 
- </div>
     
+    <div class="wrapper">
+        <div class="container">
+            <h1 id="bemVindo">Bem-vindo</h1>
+            <h1 id="BemVindoSuccess"></h1>
+            
+            <form class="form">
+                <input type="text" id="username" placeholder="Username">
+                <input type="password" id="password" placeholder="Password">
+                <button type="submit" id="login-button">Login</button>
+            </form>
+        </div>
+        
+        <ul class="bg-bubbles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+
+
+    <script src="js/login.js"></script>
 </body>
+
 </html>

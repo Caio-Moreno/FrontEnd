@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../js/jQuery.min.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap_4_3/css/bootstrap.css">
+    <link rel="stylesheet" href="../css/Loja/cadastro.css">
+    <script src="../js/cadastroCliente.js"></script>
+    <link rel="stylesheet" href="../css/Loja/styleCadastro.css">
+    
+    <title>Document</title>
+</head>
+<body>
+    <body class="index">
+        <nav> 
+            <img src="../assets/images/logo.svg" class="img-fluid image" alt="Logo da empresa - Bomba patch"> 
+        </nav>
+        <div id="feature"></div>
+    
+    
+        <!-- SERVICOS -->
+        <section class="intranet-section">
+            
+    
+            <div class="intranet-body panel panel-default">
+                <!-- Steps form -->
+                <div class="card">
+                    <div class="card-body mb-4">
+    
+                        <h2 class="text-center font-weight-bold pt-4 pb-5">
+                          
+                        </h2>
+    
+                        <!-- PASSOS  -->
+                        <div class="steps-form">
+                            <div class="steps-row setup-panel">
+                                <div class="steps-step">
+                                    <a href="#step-1" type="button" class="btn btn-indigo btn-circle">1</a>
+                                    <p>Dados Pessoais</p>
+                                </div>
+                                <div class="steps-step">
+                                    <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+                                    <p>Endereço</p>
+                                </div>
+                                <div class="steps-step">
+                                    <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+                                    <p>Dados Pagamento</p>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <form role="form" id="frmCadastro" name="frmCadastro" class="form" action="" >
+    
+                            <!-- PASSO 1. DADOS PESSOAIS -->
+                            <div class="row setup-content" id="step-1">
+                                <div class="col-md-12">
+                                    <h3 class="font-weight-bold pl-0 my-4">
+                                        <strong>Dados Pessoais</strong>
+                                    </h3>
+    
+                                    <div class="form-group">
+                                        <!-- NOME -->
+                                        <div class="controls full">
+                                            <span>Nome e sobrenome</span>
+                                            <input type="text" id="nome" class="floatLabel" name="nome" placeholder="Nome">
+                                            
+                                        </div>
+                                    
+                                        <div class="error error-nomeUsuario">
+                                            <strong>Nome</strong> inválido, informe o seu nome e sobrenome.
+                                        </div>
+                                    
+                                        <!-- CPF -->
+                                        <div class="controls full">
+                                            <span>CPF</span>
+                                             <span id="cpfInvalido" style="color: red; margin-left: 848px;">CPF inválido</span>
+                                            <input type="text" class="floatLabel" id="cpf" name="cpf" size="12" maxlength="11" placeholder="CPF">  
+                                        </div>
+                                    
+                                        <!-- Password -->
+                                        <div class="controls full">
+                                            <span>Senha</span>
+                                            <input type="text" id="password" class="floatLabel" name="password" placeholder="Senha">
+                                            
+                                        </div>
+                                        
+                                        <!-- CELULAR  / WHATSAPP -->
+                                        <div class="controls half">
+                                            <span>Celular</span>
+                                            <input type="text" name="celularUsuario" class="floatLabel" placeholder="Celular"/>           
+                                            
+                                        </div>
+                                         <!-- DATANASICMENTO  -->
+                                         <div class="controls half">
+                                             <span>Data de nascimento</span>
+                                            <input type="text" name="dataNascimento" class="floatLabel" placeholder="Data de nascimento"/>           
+                                        </div>
+
+                                        <div class="controls half">
+                                            <span>Sexo</span>
+                                            <select id="sexo">
+                                                <option value="M">Masculino</option>
+                                                <option value="F">Feminino</option>
+                                            </select>          
+                                        </div>
+
+
+                                      <!-- DATANASICMENTO  -->
+                                      <div class="controls half">
+                                          <span>Tipo</span>
+                                        <input type="text" value="Cliente" class="floatLabel" disabled />       
+                                    </div>
+
+                                        
+                                        
+                                    </div>
+    
+                                    <div class="pull-right controls half">
+                                        <button class="btn full nextBtn btnAvancarPasso1" type="button">Avançar &#10095;</button>
+                                    </div>
+    
+                                </div>
+                            </div>
+    
+                            
+                            
+                            <!-- PASSO 2. ENDERECO -->
+                            <div class="row setup-content" id="step-2">
+                                <h3 class="font-weight-bold pl-0 my-4">
+                                    <strong>Endereço</strong>
+                                </h3>
+                            
+                                <div class="form-group">
+    
+                                    <!-- CEP -->
+                                    <div class="controls half">
+                                        <span>CEP</span>
+                                        <span id="cepInvalido" style="color: red; margin-left: 360px;">CEP inválido</span>
+                                        <input type="text" id="cep" class="floatLabel" name="cep" fo>
+                                       
+                                    </div>
+    
+                                    <!-- RUA -->
+                                    <div class="controls half">
+                                        <span>Rua</span>
+                                        <input type="text" id="rua" class="floatLabel" name="rua" disabled>
+                                        
+                                    </div>
+    
+                                    
+                                    <div class="controls half">
+                                        <span>Número</span>
+                                        <input type="text" id="numero" class="floatLabel" name="numero">
+                                        
+                                    </div>
+
+                                    
+                                    <div class="controls half">
+                                        <span>Complemento</span>
+                                        <input type="text" id="complemento" class="floatLabel" name="complemento">
+                                        
+                                    </div>
+    
+                                    <!-- BAIRRO -->
+                                    <div class="controls half">
+                                        <span>Bairro</span>
+                                        <input type="text" id="bairro" class="floatLabel" name="bairro" disabled>
+                                        
+                                    </div>
+                                                            
+                                    <!-- ESTADO -->
+                                    <div class="controls half">
+                                        <Span>Estado</Span>
+                                        <input type="text" id="estado" class="floatLabel" name="estado" disabled>
+                                       
+                                    </div>
+                                                            
+                                    <!-- CIDADE -->
+                                    <div class="controls half">
+                                        <span>Cidade</span>
+                                        <input type="text" id="cidade" class="floatLabel" name="cidade" disabled>
+                                    
+                                    </div>
+
+                                    <div class="controls half" style="margin-bottom: 50px; margin-top: 30px;">
+                                        
+                                        <input type="checkbox" id="numero" class="floatLabel" name="numero" checked>
+                                        <span>O Endereço é o mesmo da fatura?</span>
+                              
+                                    </div>
+           
+                                    <div class="controls half">
+                                        <button class="btn half prevBtn" type="button">&#10094; Anterior</button>
+                                    </div>
+                                    <div class="controls half">
+                                        <button class="btn full nextBtn" type="button">Avançar &#10095;</button>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <!-- PASSO 3. PAGAMENTO -->
+                            <div class="row setup-content" id="step-3">
+                                <h3 class="font-weight-bold pl-0 my-4">
+                                    <strong>Pagamento</strong>
+                                </h3>
+                            
+                                <div class="form-group">                            
+                                    <!-- PAGAMENTO -->
+    
+                                    <div class="controls half">
+                                        <label for="">Valor da inscrição
+                                            <strong> <h4> R$ 50,00 </h4></strong>
+                                        </label>
+                                    </div>
+    
+                                    <br><br><br><br><br><br>
+                                    <p></p><p></p><p></p><p></p><p></p>
+    
+                                    <div class="clearfix"></div>
+    
+                                    <div class="controls half">
+                                        <button class="btn half prevBtn" type="button">&#10094; Anterior</button>
+                                    </div>
+                                    <div class="controls half">
+                                        <button class="btn half nextBtn" type="submit">Finalizar &#10004; </button>
+                                    </div>
+                                </div>
+                            </div>
+    
+                        </form>
+    
+                    </div>
+                </div>
+                <!-- Steps form -->
+    
+            </div>
+       </section>
+    
+    
+    
+       <script src="../js/tratamentosCadastro.js"></script>
+    </body>
+    
+</body>
+</html>

@@ -12,20 +12,20 @@
     <title>Brazukas - Admin</title>
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/dashboard.css">
-    <script src="js/jQuery.min.js"></script>
-    <script src="js/login.js"></script>
+    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <script src="../js/jQuery.min.js"></script>
+    
 
     <script>
         var dados = localStorage.getItem('dadosUsuario');
         console.log(dados);
         if (dados == null || dados == '' || dados == undefined) {
-            window.location.href = 'login.html';
+            window.location.href = '../login.html';
         }
 
         $(document).ready(function _ () {
@@ -52,7 +52,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="./index.html">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -64,7 +64,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="./index.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -138,13 +138,13 @@
                         <!--<a class="collapse-item" href="blank.html">Página em branco</a>-->
                         <a class="collapse-item" href="Produtos.html">Listar</a>
 
-                        <div class="collapse-divider"></div>
+                          
                         <h6 class="collapse-header">Funcionários:</h6>
                         <a id="cadastroDoFuncionario" class="collapse-item" href="cadastrarFuncionarios.html">Cadastrar</a>
                         <a class="collapse-item" href="funcionarios.html">Listar</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Loja:</h6>
-                        <a class="collapse-item" href="indexLoja.html">Visualizar</a>
+                        <a class="collapse-item" href="../Loja/indexLoja.html">Visualizar</a>
                     </div>
                 </div>
             </li>
@@ -541,25 +541,26 @@
             </div>
 
             <!-- Bootstrap core JavaScript-->
-            <script src="vendor/jquery/jquery.min.js"></script>
-            <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <script src="../vendor/jquery/jquery.min.js"></script>
+            <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
             <!-- Core plugin JavaScript-->
-            <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+            <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
             <!-- Custom scripts for all pages-->
-            <script src="js/sb-admin-2.min.js"></script>
+            <script src="../js/sb-admin-2.min.js"></script>
 
             <!-- Page level plugins -->
-            <script src="vendor/chart.js/Chart.min.js"></script>
+            <script src="../vendor/chart.js/Chart.min.js"></script>
 
             <!-- Page level custom scripts -->
-            <script src="js/demo/chart-area-demo.js"></script>
-            <script src="js/demo/chart-pie-demo.js"></script>
-            <script src="js/demo/chart-pie-plataformas.js"></script>
-            <script src="js/demo/chart-pie-usuarioStatus.js"></script>
-            <script src="js/demo/chart-pie-usuarioCargo.js"></script>
-            <script src="js/utils.js"></script>
+            <script src="../js/demo/chart-area-demo.js"></script>
+            <script src="../js/demo/chart-pie-demo.js"></script>
+            <script src="../js/demo/chart-pie-plataformas.js"></script>
+            <script src="../js/demo/chart-pie-usuarioStatus.js"></script>
+            <script src="../js/demo/chart-pie-usuarioCargo.js"></script>
+            <script src="../js/utils.js"></script>
+            <script src="../js/login.js"></script>
 
 </body>
 

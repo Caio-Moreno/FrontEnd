@@ -12,40 +12,81 @@
     <title>Brazukas</title>
 
     <!-- Custom fonts for this template -->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/font-awesome-4.7.0/css/font-awesome.min.css">
     <!-- Custom styles for this template -->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
 
     <!-- Custom styles for this page -->
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/listaProdutos.css">
-    <link rel="stylesheet" href="css/star.css">
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="js/listaProdutos.js"></script>
-    <script src="js/cadastrarImagem.js"></script>
-    <script src="js/login.js"></script>
-    <script src="js/utils.js"></script>
+    <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/listaProdutos.css">
+    <link rel="stylesheet" href="../css/star.css">
+    <link rel="stylesheet" href="../css/listaFuncionario.css">
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../js/listaFuncionariosAdm.js"></script>
+    <script src="../js/login.js"></script>
+    <script src="../js/utils.js"></script>
     <script>
         $(document).ready(request => {
             $('#loading').hide()
             $('#alertaSucesso').hide()
             $('#alertaErro').hide()
-            $('#dataTable').DataTable({
-                language: {
-                    "zeroRecords": " "
-                }
+
+            var dadosUsuario = localStorage.getItem('dadosUsuario');
+            dadosUsuario = dadosUsuario.split(',');
+
+            if (!(dadosUsuario[3] == 'ADMIN')) {
+
+                $('#dataTable').DataTable({
+                    language: {
+                        "zeroRecords": " "
+                    },
+                    colReorder: true,
+                    "columnDefs": [{
+                        "targets": [4], //Índice do vetor representa a 3º coluna
+                        "visible": false,
+                        "searchable": false
+                    }]
+                });
+            } else {
+                $('#dataTable').DataTable({
+                    language: {
+                        "zeroRecords": " "
+                    },
+                });
+            }
+
+            $('#dataNascimento').mask("00/00/0000", {
+                placeholder: "__/__/____"
             });
+            $('#cpfFuncionario').mask('000.000.000-00', {
+                placeholder: "999.999.999-99"
+            });
+
+            $("#naoMostrar").hide();
 
 
         });
-        getProdutosLista();
 
-        function atribuirValor(a) {
-            document.getElementById('qualidadeProdutoAlterar').value = a;
-
+        function verSenha() {
+            var senha = $('#senhaUsuarioAlterar').val();
+            $('#senhaUsuarioAlterar').prop('type', 'text');
+            $('#senhaUsuarioAlterar').val(senha);
+            $("#mostrar").hide();
+            $("#naoMostrar").show();
         }
+
+
+        function esconderSenha() {
+            $('#senhaUsuarioAlterar').prop('type', 'password');
+            $("#mostrar").show();
+            $("#naoMostrar").hide();
+        }
+
+
+
+        getFuncionariosLista()
     </script>
 
     <script>
@@ -83,46 +124,7 @@
                     <span>Dashboard</span></a>
             </li>
 
-            <!-- Divider
-      <hr class="sidebar-divider">
 
-       Heading 
-      <div class="sidebar-heading">
-        Interface
-      </div>
- -->
-            <!-- Nav Item - Pages Collapse Menu -->
-            <!--<li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Components</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Components:</h6>
-            <a class="collapse-item" href="buttons.html">Buttons</a>
-            <a class="collapse-item" href="cards.html">Cards</a>
-          </div>
-        </div>
-      </li>
-    -->
-            <!-- Nav Item - Utilities Collapse Menu 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>Utilities</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Utilities:</h6>
-            <a class="collapse-item" href="utilities-color.html">Colors</a>
-            <a class="collapse-item" href="utilities-border.html">Borders</a>
-            <a class="collapse-item" href="utilities-animation.html">Animations</a>
-            <a class="collapse-item" href="utilities-other.html">Other</a>
-          </div>
-        </div>
-      </li>
--->
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -156,7 +158,7 @@
                         <a class="collapse-item" href="funcionarios.html">Listar</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Loja:</h6>
-                        <a class="collapse-item" href="indexLoja.html">Visualizar</a>
+                        <a class="collapse-item" href="../Loja/indexLoja.html">Visualizar</a>
                     </div>
                 </div>
             </li>
@@ -245,43 +247,28 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Tabela produtos</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Tabela Funcionários</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
+
                                             <th>ID</th>
                                             <th>Nome</th>
-                                            <th>Descrição</th>
-                                            <th>Qualidade</th>
-                                            <th>Categoria</th>
+                                            <th>Cargo</th>
                                             <th>Status</th>
-                                            <th>Estoque</th>
-                                            <th>Preço(UNI)</th>
-                                            <th>Imagem</th>
-                                            <th>Plataforma</th>
                                             <th>Editar</th>
-                                            <!-- <th>Apagar</th> -->
-                                            <th>Visualizar</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>ID</th>
                                             <th>Nome</th>
-                                            <th>Descrição</th>
-                                            <th>Qualidade</th>
-                                            <th>Categoria</th>
+                                            <th>Cargo</th>
                                             <th>Status</th>
-                                            <th>Estoque</th>
-                                            <th>Preço(UNI)</th>
-                                            <th>Imagem</th>
-                                            <th>Plataforma</th>
                                             <th>Editar</th>
-                                            <!--    <th>Apagar</th> -->
-                                            <th>Visualizar</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -339,21 +326,21 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <script src="../js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/datatables-demo.js"></script>
+    <script src="../js/demo/datatables-demo.js"></script>
 
 
 
@@ -367,9 +354,9 @@
           </button>
                 </div>
                 <div class="modal-body">
-                    Confirma a atualização do status deste produto?
-                    <input id="idProdutoAtualizarStatus" hidden="true" />
-                    <input id="statusAtualizarProduto" hidden="true" />
+                    Confirma a atualização do status deste usuario?
+                    <input id="idUsuarioAtualizarStatus" hidden="true" />
+                    <input id="statusAtualizarUsuario" hidden="true" />
 
                 </div>
                 <div class="modal-footer">
@@ -381,37 +368,11 @@
     </div>
 
 
-
-
-
-    <!--  <div class="modal fade" id="modalExclusao" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Confirmar Exclusão</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-                </div>
-                <div class="modal-body">
-                    Confirmar exclusão do produto <strong><label id="nomeProduto"></label></strong> ?
-                    <input id="codProduto" hidden="true" />
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="excluirProduto()">Confirmar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    -->
-
     <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editar registro</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Editar registro do usuário</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -420,147 +381,98 @@
 
                     <div class="container-fluid">
 
-                        <!--PAGINA CADASTRO-->
+                        <!--MODAL ALTERAR-->
 
                         <form id="formulario">
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="nomeProduto">Nome do Produto</label>
-                                    <input type="text" class="form-control" id="nomeProdutoAlterar" placeholder="Nome do Produto">
-                                </div>
 
-                            </div>
                             <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="descricao">Descrição</label>
-                                    <input type="text" class="form-control" id="descricaoProdutoAlterar" placeholder="Descrição do produto">
+                                <div class="form-group col-md-12">
+                                    <label for="nomeFuncionario">Nome do Funcionário</label>
+                                    <input type="text" class="form-control" id="nomeUsuarioAlterar" placeholder="Nome">
+                                </div>
+                                <div class="alert alert-danger" id="erroNome" role="alert">
+                                    O nome do funcionário deve conter 5 caracteres.
                                 </div>
                             </div>
+
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label>Qualidade do produto</label>
-                                    <div id="half-stars-example">
-                                        <div class="rating-group">
-                                            <input class="rating__input rating__input--none" name="rating2" id="rating2-0" value="0" type="radio" onclick="atribuirValor(0)">
-                                            <label aria-label="0 stars" class="rating__label" for="rating2-0">&nbsp;</label>
+                                    <label for="CPF">CPF</label>
+                                    <input type="text" class="form-control" maxlength="11" id="cpfUsuarioAlterar" placeholder="CPF" disabled>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="Sexo">Sexo</label>
+                                    <select class="custom-select" id="sexoUsuarioAlterar" disabled>
+                                    <option value="M">Masculino</option>
+                                    <option value="F">Feminino</option>
+                                </select>
+                                </div>
+                            </div>
 
-                                            <label aria-label="0.5 stars" class="rating__label rating__label--half" for="rating2-05"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
-                                            <input class="rating__input" name="rating2" id="rating2-05" value="0.5" type="radio" onclick="atribuirValor(0.5)">
-
-                                            <label aria-label="1 star" class="rating__label" for="rating2-10"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                            <input class="rating__input" name="rating2" id="rating2-10" value="1" type="radio" onclick="atribuirValor(1)">
-
-                                            <label aria-label="1.5 stars" class="rating__label rating__label--half" for="rating2-15"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
-                                            <input class="rating__input" name="rating2" id="rating2-15" value="1.5" type="radio" onclick="atribuirValor(1.5)">
-
-                                            <label aria-label="2 stars" class="rating__label" for="rating2-20"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                            <input class="rating__input" name="rating2" id="rating2-20" value="2" type="radio" onclick="atribuirValor(2)">
-
-                                            <label aria-label="2.5 stars" class="rating__label rating__label--half" for="rating2-25"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
-                                            <input class="rating__input" name="rating2" id="rating2-25" value="2.5" type="radio" onclick="atribuirValor(2.5)">
-
-                                            <label aria-label="3 stars" class="rating__label" for="rating2-30"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                            <input class="rating__input" name="rating2" id="rating2-30" value="3" type="radio" onclick="atribuirValor(3)">
-
-                                            <label aria-label="3.5 stars" class="rating__label rating__label--half" for="rating2-35"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
-                                            <input class="rating__input" name="rating2" id="rating2-35" value="3.5" type="radio" onclick="atribuirValor(3.5)">
-
-                                            <label aria-label="4 stars" class="rating__label" for="rating2-40"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                            <input class="rating__input" name="rating2" id="rating2-40" value="4" type="radio" onclick="atribuirValor(4)">
-
-                                            <label aria-label="4.5 stars" class="rating__label rating__label--half" for="rating2-45"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
-                                            <input class="rating__input" name="rating2" id="rating2-45" value="4.5" type="radio" onclick="atribuirValor(4.5)">
-
-                                            <label aria-label="5 stars" class="rating__label" for="rating2-50"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                            <input class="rating__input" name="rating2" id="rating2-50" value="5" type="radio" onclick="atribuirValor(5)">
-
-                                        </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="dataNascimento">Data de Nascimento</label>
+                                    <input type="text" class="form-control" id="dataNascimentoUsuarioAlterar" placeholder="Data de Nascimento" disabled>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="Senha">Senha</label>
+                                    <input type="password" class="form-control" id="senhaUsuarioAlterar" placeholder="Password" autocomplete="off">
+                                    <a onclick="verSenha()" id="mostrar"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    <a onclick="esconderSenha()" id="naoMostrar"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                                    <div class="alert alert-danger" id="erroSenha" role="alert">
+                                        A senha deve conter 3 caracteres.
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="Email">Email</label>
+                                    <input type="text" class="form-control" id="emailUsuarioAlterar" placeholder="Email" disabled>
+                                </div>
+                            </div>
+
+
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="categoriaProduto">Categoria</label>
-                                    <input type="text" class="form-control" id="categoriaProdutoAlterar" placeholder="Categoria do produto">
+                                    <label for="Cargo">Cargo</label>
+                                    <select class="custom-select" id="cargoUsuarioAlterar">
+                                        <option value="ADMIN">ADMIN</option>
+                                        <option value="ESTOQUISTA">ESTOQUISTA</option>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-3">
-                                    <label for="quantidadeProduto">Quantidade</label>
-                                    <input type="number" class="form-control" id="quantidadeProdutoAlterar" placeholder="1">
 
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="statusProduto">Estado do produto</label>
-                                    <select class="custom-select" id="statusProdutoAlterar">
-              <option value="A">Ativo</option>
-              <option value="I">Inativo</option>
-          </select>
-
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-3">
-                                    <label for="preco">Preço</label>
-                                    <input type="text" class="form-control" id="precoProdutoAlterar" placeholder="Ex: 20.00">
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="preco">Plataforma</label>
-                                    <select class="custom-select" id="plataformaProdutoAlterar">
-              <option value="PS4">PS4</option>
-              <option value="XBOX">XBOX</option>
-              <option value="PC">PC</option>
-          </select>
-
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-20">
-                                    <label for="addImagens">Adicionar imagens</label>
-
-                                    <input type="file" class="form-control-file" multiple id="gallery-photo-add" name="foto">
-                                    <label for="">Imagens Novas</label>
-                                    <div class="gallery" id="gallery"></div>
-
-                                    <label for="">Imagens Anteriores</label>
-                                    <div class="teste">
-                                        <img class="img-fluid" width="100px" height="100px" src="#" id="image1" alt="#">
-                                        <img class="img-fluid" width="100px" height="100px" src="#" id="image2" alt="#">
-                                        <img class="img-fluid" width="100px" height="100px" src="#" id="image3" alt="#">
-                                        <img class="img-fluid" width="100px" height="100px" src="#" id="image4" alt="#">
-                                    </div>
-                                </div>
-                            </div>
                             <div class="alert alert-success" role="alert" id="alertaSucesso">
-                                <span>Produto adicionado com sucesso</span>
+                                <span>Funcionário cadastrado com sucesso</span>
                             </div>
                             <div class="alert alert-danger" role="alert" id="alertaErro">
-                                <span>Erro para adicionar o produto, por favor contatar o suporte</span>
+                                <span>Erro para cadastrar o novo funcionário, por favor contatar o suporte</span>
                             </div>
-                            <!-- <a class="btn btn-primary"  onclick="enviarProduto()" id="addProduct" style="margin-left: 215px; color: white; cursor: pointer;">Adicionar produto</a>-->
+                            <!--<a class="btn btn-primary" onclick="enviarFuncionario()" id="addFuncionario" style="margin-left: 0px; color: white; cursor: pointer;">Cadastrar Funcionário</a>-->
 
                             <div class="load-10" id="loading">
                                 <div class="bar"></div>
                             </div>
                         </form>
-                        <input type="hidden" id="qualidadeProdutoAlterar">
-                        <input id="idProdutoAlterar" type="hidden" />
+
+                        <input id="idUsuarioAlterar" type="hidden" />
                         <br>
                         <div class="alert alert-success" role="alert" id="alertaAtualizado">
-                            Produto atualizado com sucesso
+                            Funcionário Atualizado com sucesso!
                         </div>
                     </div>
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="atualizarProduto()">Confirmar</button>
+                    <button type="button" class="btn btn-primary" id="atualizarUsuario">Confirmar</button>
                 </div>
 
             </div>
         </div>
     </div>
-
+    <script src="../assets/JQueyMask/src/jquery.mask.js"></script>
 
 </body>
 

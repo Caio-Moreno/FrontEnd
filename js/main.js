@@ -1,6 +1,33 @@
+$(document).ready(function () {
+
+    var dadosUsuario = localStorage.getItem('dadosUsuario');
+    if(dadosUsuario == null || dadosUsuario == '' || dadosUsuario == undefined){
+        $('#clienteLogado').hide();
+        $("#entrarCliente").show();   
+    }else{
+        user = dadosUsuario.split(',')
+        $('#clienteLogado').show();
+        $("#entrarCliente").hide();   
+
+        $('#bemVindoCliente').html('Bem-vindo ' + user[5]);
+    }
+
+    
+
+    $("#entrarCliente").click(function(event){
+
+        window.location.href = "login.html";
+    
+    });
+
+
+});
+
+
 function getProdutos() {
 
     var url = tratarDadosgetProdutos();
+    console.log(url);
 
     $.ajax({
         url: url,
@@ -162,63 +189,4 @@ function retornarDiv(response) {
         '</article>' +
         '</a>'
     )
-
 }
-
-
-// ------------------------------ Função de pegar o produto especifico e mostrar na tela via JS -----------------------------------------------------
-
-/*function retornaProdutoEspecifico(response) {
-    console.log(response)
-    response._preco = response._preco.toFixed(2);
-    return $("#produtoID").append(
-        '<figure class="col-md-7 mb-3">' +
-        '<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">' +
-        '<ol class="carousel-indicators">' +
-        '<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>' +
-        '<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>' +
-        '<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>' +
-        '</ol>' +
-        '<div class="carousel-inner">' +
-        '<div class="carousel-item active">' +
-        '<img class="d-block w-100" src="http://imagens-bombapath-games.s3.amazonaws.com/9imagem0.jpg" alt="First slide">' +
-        '</div>' +
-        '<div class="carousel-item">' +
-        '<img class="d-block w-100" src="http://imagens-bombapath-games.s3.amazonaws.com/9imagem1.jpg" alt="Second slide">' +
-        '</div>' +
-        '<div class="carousel-item">' +
-        '<img class="d-block w-100" src="http://imagens-bombapath-games.s3.amazonaws.com/9imagem2.jpg" alt="Third slide">' +
-        '</div>' +
-        '<div class="carousel-item">' +
-        '<img class="d-block w-100" src="http://imagens-bombapath-games.s3.amazonaws.com/9imagem3.jpg" alt="Third slide">' +
-        '</div>' +
-        '</div>' +
-        '<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">' +
-        '<span class="carousel-control-prev-icon" aria-hidden="true"></span>' +
-        '<span class="sr-only">Previous</span>' +
-        '</a>' +
-        '<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">' +
-        '<span class="carousel-control-next-icon" aria-hidden="true"></span>' +
-        '<span class="sr-only">Next</span>' +
-        '</a>' +
-        '</div>' +
-        '</figure>' +
-        '<section class="col-md-5 mb-3 d-flex flex-column justify-content-around">' +
-        '<article class="produtos-conteudo">' +
-        '<h1>' + response._nomeProduto + '</h1>' +
-        '<p>' + response._descricao + '</p>' +
-        '<article class="produtos-preco">' +
-        '<div class="produtos-stars">' + mostrarEstrelas(response._qualidadeProduto) + '</div>' +
-        '<strong>' + response._preco + '<span class="d-block">Em até 12x sem Juros</span> </strong>' +
-        '<form action = "#" >' +
-        '<div class = "form-group" >' +
-        '<label for = "produtos-quantidade-itens" > Quantidade </label>' +
-        '<select class = "form-control" id = "produtos-quantidade-itens" >' +
-        '<option > 1 </option> <option> 2 </option> <option> 3 </option> <option> 4 </option> <option> 5 </option> </select>' +
-        '</div>' +
-        '<button type = "submit" class = "btn btn-success col-md-12" > Comprar </button>' +
-        '</form>' +
-        '</article>' +
-        '</section>'
-    )
-}*/

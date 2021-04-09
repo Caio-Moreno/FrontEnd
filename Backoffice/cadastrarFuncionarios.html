@@ -12,29 +12,55 @@
     <title>Brazukas</title>
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/star.css">
+    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/star.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/loading.css">
-    <script src="js/jQuery.min.js"></script>
-    <script src="js/CadastroProduto.js"></script>
-    <script src="js/cadastrarImagem.js"></script>
-    <script src="js/login.js"></script>
-    <script src="js/utils.js"></script>
+    <link rel="stylesheet" href="../css/loading.css">
+    <script src="../js/jQuery.min.js"></script>
+    <script src="../js/cadastrarFuncionario.js"></script>
+    <script src="../js/login.js"></script>
+    <script src="../js/utils.js"></script>
+
 
     <script>
         $(document).ready(function esconder() {
             $('#loading').hide()
             $('#alertaSucesso').hide()
             $('#alertaErro').hide()
+
+            $('#dataNascimento').mask("00/00/0000", {
+                placeholder: "__/__/____"
+            });
+            $('#cpfFuncionario').mask('000.000.000-00', {
+                placeholder: "999.999.999-99"
+            });
+
+            $("#naoMostrar").hide();
+
+
         });
 
         function atribuirValor(a) {
             document.getElementById('ficarEscondido').value = a;
+        }
+
+        function verSenha() {
+            var senha = $('#senhaFuncionario').val();
+            $('#senhaFuncionario').prop('type', 'text');
+            $('#senhaFuncionario').val(senha);
+            $("#mostrar").hide();
+            $("#naoMostrar").show();
+        }
+
+
+        function esconderSenha() {
+            $('#senhaFuncionario').prop('type', 'password');
+            $("#mostrar").show();
+            $("#naoMostrar").hide();
         }
     </script>
 
@@ -42,7 +68,7 @@
         var dados = localStorage.getItem('dadosUsuario');
         console.log(dados);
         if (dados == null || dados == '' || dados == undefined) {
-            window.location.href = 'login.html';
+            window.location.href = '../login.html';
         }
     </script>
 
@@ -57,7 +83,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="./index.html">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -69,7 +95,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="./index.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -149,7 +175,7 @@
                         <a class="collapse-item" href="funcionarios.html">Listar</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Loja:</h6>
-                        <a class="collapse-item" href="indexLoja.html">Visualizar</a>
+                        <a class="collapse-item" href="../Loja/indexLoja.html">Visualizar</a>
                     </div>
                 </div>
             </li>
@@ -234,104 +260,73 @@
                     <!--PAGINA CADASTRO-->
 
                     <form id="formulario">
+
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="nomeProduto">Nome do Produto</label>
-                                <input type="text" class="form-control" id="nomeProduto" placeholder="Nome do Produto">
+                                <label for="nomeFuncionario">Nome do Funcionário</label>
+                                <input type="text" class="form-control" id="nomeFuncionario" placeholder="Nome">
                             </div>
-
                         </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="CPF">CPF</label>
+                                <input type="text" class="form-control" maxlength="11" id="cpfFuncionario" placeholder="CPF">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="Sexo">Sexo</label>
+                                <select class="custom-select" id="sexoFuncionario">
+                                <option value="M">Masculino</option>
+                                <option value="F">Feminino</option>
+                            </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="dataNascimento">Data de Nascimento</label>
+                                <input type="text" class="form-control" id="dataNascimento" placeholder="Data de Nascimento">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="Senha">Senha</label>
+                                <input type="password" class="form-control" id="senhaFuncionario" placeholder="Password">
+                                <a onclick="verSenha()" id="mostrar"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                <a onclick="esconderSenha()" id="naoMostrar"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="descricao">Descrição</label>
-                                <input type="text" class="form-control" id="descricao" placeholder="Descrição do produto">
+                                <label for="Email">Email</label>
+                                <input type="text" class="form-control" id="emailFuncionario" placeholder="Email">
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label>Qualidade do produto</label>
-                                <div id="half-stars-example">
-                                    <div class="rating-group">
-                                        <input class="rating__input rating__input--none" checked name="rating2" id="rating2-0" value="0" type="radio" onclick="atribuirValor(0)">
-                                        <label aria-label="0 stars" class="rating__label" for="rating2-0">&nbsp;</label>
-                                        <label aria-label="0.5 stars" class="rating__label rating__label--half" for="rating2-05"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
-                                        <input class="rating__input" name="rating2" id="rating2-05" value="0.5" type="radio" onclick="atribuirValor(0.5)">
-                                        <label aria-label="1 star" class="rating__label" for="rating2-10"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                        <input class="rating__input" name="rating2" id="rating2-10" value="1" type="radio" onclick="atribuirValor(1)">
-                                        <label aria-label="1.5 stars" class="rating__label rating__label--half" for="rating2-15"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
-                                        <input class="rating__input" name="rating2" id="rating2-15" value="1.5" type="radio" onclick="atribuirValor(1.5)">
-                                        <label aria-label="2 stars" class="rating__label" for="rating2-20"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                        <input class="rating__input" name="rating2" id="rating2-20" value="2" type="radio" onclick="atribuirValor(2)">
-                                        <label aria-label="2.5 stars" class="rating__label rating__label--half" for="rating2-25"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
-                                        <input class="rating__input" name="rating2" id="rating2-25" value="2.5" type="radio" checked onclick="atribuirValor(2.5)">
-                                        <label aria-label="3 stars" class="rating__label" for="rating2-30"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                        <input class="rating__input" name="rating2" id="rating2-30" value="3" type="radio" onclick="atribuirValor(3)">
-                                        <label aria-label="3.5 stars" class="rating__label rating__label--half" for="rating2-35"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
-                                        <input class="rating__input" name="rating2" id="rating2-35" value="3.5" type="radio" onclick="atribuirValor(3.5)">
-                                        <label aria-label="4 stars" class="rating__label" for="rating2-40"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                        <input class="rating__input" name="rating2" id="rating2-40" value="4" type="radio" onclick="atribuirValor(4)">
-                                        <label aria-label="4.5 stars" class="rating__label rating__label--half" for="rating2-45"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
-                                        <input class="rating__input" name="rating2" id="rating2-45" value="4.5" type="radio" onclick="atribuirValor(4.5)">
-                                        <label aria-label="5 stars" class="rating__label" for="rating2-50"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-                                        <input class="rating__input" name="rating2" id="rating2-50" value="5" type="radio" onclick="atribuirValor(5)">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="categoriaProduto">Categoria</label>
-                                <input type="text" class="form-control" id="categoria" placeholder="Categoria do produto">
-                            </div>
-                        </div>
+
+
                         <div class="form-row">
                             <div class="form-group col-md-3">
-                                <label for="quantidadeProduto">Quantidade</label>
-                                <input type="number" class="form-control" id="quantidade" placeholder="1">
+                                <label for="Cargo">Cargo</label>
 
+                                <select class="custom-select" id="cargoFuncionario">
+                                    <option value="ADMIN">ADMIN</option>
+                                    <option value="ESTOQUISTA">ESTOQUISTA</option>
+                                </select>
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="quantidadeProduto">Estado do produto</label>
-                                <select class="custom-select" id="estado">
-                        <option value="A">Ativo</option>
-                        <option value="I">Inativo</option>
-                    </select>
-
+                                <label for="Status">Status</label>
+                            
+                                <Input type="text" class="form-control" id="statusFuncionario" value="Ativo" disabled></Input>
+                                
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-3">
-                                <label for="preco">Preço</label>
-                                <input type="text" class="form-control" id="preco" placeholder="Ex: 20.00">
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="preco">Plataforma</label>
-                                <select class="custom-select" id="plataforma">
-                        <option value="PS4">PS4</option>
-                        <option value="XBOX">XBOX</option>
-                        <option value="PC">PC</option>
-                        <option value="PS5">PS5</option>
-                        <option value="OUTROS">OUTROS</option>
-                    </select>
 
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <label for="addImagens">Adicionar imagens</label>
-
-                                <input type="file" class="form-control-file" multiple id="gallery-photo-add" name="foto">
-                                <div class="gallery" id="gallery"></div>
-
-                            </div>
-                        </div>
                         <div class="alert alert-success" role="alert" id="alertaSucesso">
-                            <span>Produto adicionado com sucesso</span>
+                            <span>Funcionário cadastrado com sucesso</span>
                         </div>
                         <div class="alert alert-danger" role="alert" id="alertaErro">
-                            <span>Erro para adicionar o produto, por favor contatar o suporte</span>
+                            <span>Erro para cadastrar o novo funcionário, por favor contatar o suporte</span>
                         </div>
-                        <a class="btn btn-primary" onclick="enviarProduto()" id="addProduct" style="margin-left: 215px; color: white; cursor: pointer;">Adicionar produto</a>
+                        <a class="btn btn-primary" onclick="enviarFuncionario()" id="addFuncionario" style="margin-left: 0px; color: white; cursor: pointer;">Cadastrar Funcionário</a>
 
                         <div class="load-10" id="loading">
                             <div class="bar"></div>
@@ -385,15 +380,16 @@
         </div>
     </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap core JavaScript
+    <script src="vendor/jquery/jquery.min.js"></script>-->
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/JQueyMask/src/jquery.mask.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <script src="../js/sb-admin-2.min.js"></script>
 
 </body>
 

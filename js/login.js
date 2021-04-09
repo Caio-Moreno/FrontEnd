@@ -1,125 +1,20 @@
 /*global $, document, window, setTimeout, navigator, console, location*/
 $(document).ready(function () {
+    $('#BemVindoSuccess').hide();
 
-    'use strict';
-
-    var usernameError = true,
-        emailError    = true,
-        passwordError = true,
-        passConfirm   = true;
-
-    // Detect browser for css purpose
-    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-        $('.form form label').addClass('fontSwitch');
-    }
-
-    // Label effect
-    $('input').focus(function () {
-
-        $(this).siblings('label').addClass('active');
-    });
-
-    // validar formulario
-    $('input').blur(function () {
-
-        
-        // User Name
-        if ($(this).hasClass('name')) {
-            if ($(this).val().length === 0) {
-                $(this).siblings('span.error').text('Por favor, escreva seu nome').fadeIn().parent('.form-group').addClass('hasError');
-                usernameError = true;
-            } else if ($(this).val().length > 1 && $(this).val().length < 5) {
-                $(this).siblings('span.error').text('Digite pelo menos 5 caracteres').fadeIn().parent('.form-group').addClass('hasError');
-                usernameError = true;
-            } else {
-                $(this).siblings('.error').text('').fadeOut().parent('.form-group').removeClass('hasError');
-                usernameError = false;
-            }
-        }
-        // Email
-        if ($(this).hasClass('email')) {
-            if ($(this).val().length == '') {
-                $(this).siblings('span.error').text('Por favor digite seu e-mail').fadeIn().parent('.form-group').addClass('hasError');
-                emailError = true;
-            } else {
-                $(this).siblings('.error').text('').fadeOut().parent('.form-group').removeClass('hasError');
-                emailError = false;
-            }
-        }
-
-        // PassWord
-        if ($(this).hasClass('pass')) {
-            if ($(this).val().length < 3) {
-                $(this).siblings('span.error').text('Digite pelo menos 3 caracteres').fadeIn().parent('.form-group').addClass('hasError');
-                passwordError = true;
-            } else {
-                $(this).siblings('.error').text('').fadeOut().parent('.form-group').removeClass('hasError');
-                passwordError = false;
-            }
-        }
-
-        // PassWord confirmation
-        if ($('.pass').val() !== $('.passConfirm').val()) {
-            $('.passConfirm').siblings('.error').text('As senhas não coincidem').fadeIn().parent('.form-group').addClass('hasError');
-            passConfirm = false;
-        } else {
-            $('.passConfirm').siblings('.error').text('').fadeOut().parent('.form-group').removeClass('hasError');
-            passConfirm = false;
-        }
-
-        // label effect
-        if ($(this).val().length > 0) {
-            $(this).siblings('label').addClass('active');
-        } else {
-            $(this).siblings('label').removeClass('active');
-        }
-    });
+    $("#login-button").click(function(event){
+        event.preventDefault();
+       
 
 
-    // form switch
-    $('a.switch').click(function (e) {
-        $(this).toggleClass('active');
-        e.preventDefault();
-
-        if ($('a.switch').hasClass('active')) {
-            $(this).parents('.form-peice').addClass('switched').siblings('.form-peice').removeClass('switched');
-        } else {
-            $(this).parents('.form-peice').removeClass('switched').siblings('.form-peice').addClass('switched');
-        }
-    });
-
-
-    $('#submit').click(function (e) {
-
-        if (usernameError == true || emailError == true || passwordError == true || passConfirm == true) {
-            //aqui caso de erro
-            $('.name, .email, .pass, .passConfirm').blur();
-            alert('erro preencha os dados corretamente')
-            return;
-        }
-        if ($('.pass').val() !== $('.passConfirm').val()) {
-            $('.passConfirm').siblings('.error').text('As senhas não coincidem').fadeIn().parent('.form-group').addClass('hasError');
-            alert('As senhas não coincidem');
-            return;
-        } else {
-            $('.passConfirm').siblings('.error').text('').fadeOut().parent('.form-group').removeClass('hasError');
-        }
-           
-        var url = 'http://localhost:8080/Users/criar';
-        var name = $('#name').val();
-        var username = $('#username').val();
-        var phone = $('#phone').val();
-        var password = $('#password').val();
+        var url = 'http://localhost:8080/Login';
+        var login = $('#username').val();
+        var senha = $('#password').val();
     
         var json = JSON.stringify({
-            _name: name,
-            _email: username,
-            _phone: phone,
-            _permission: "C",
-            _password: password,
+            _username: login,
+            _password: senha,
         })
-    
-        //alert(json);
     
         $.ajax({
             url: url,
@@ -130,125 +25,88 @@ $(document).ready(function () {
             data: json,
             success: data => {
                 if(data._codigo != 200) {
-                    //alert(data._message);
-                    alert('erro para inserir, usuário já existe')
-                    //console.log(data)
-                }else{
-                     //aqui caso de certo
-                    $('.signup, .login').addClass('switched');
-    
-                    setTimeout(function () { $('.signup, .login').hide(); }, 700);
-                    setTimeout(function () { $('.brand').addClass('active'); }, 300);
-                    setTimeout(function () { $('.heading').addClass('active'); }, 600);
-                    setTimeout(function () { $('.success-msg p').addClass('active'); }, 900);
-                    setTimeout(function () { $('.success-msg a').addClass('active'); }, 1050);
-                    setTimeout(function () { $('.form').hide(); }, 700);
-    
+                    alert(data._message);
+                } 
+                else {
                     var user = data._users[0];
-                    localStorage.setItem('loginTemp', user._login);
-                    localStorage.setItem('passTemp', password);
-    
-                }
+                    $("#BemVindoSuccess").html('Bem-vindo ' + user._nome);
+                    $('#bemVindo').hide();
+                    $('#BemVindoSuccess').show();
+                    $('form').fadeOut(500);
+                    $('.wrapper').addClass('form-success');
+                    
+                    
+                    var dadosUsuario = [user._id, user._email, user._password,user._permission, user._token];
+                    localStorage.setItem('dadosUsuario', dadosUsuario);
+                    
+                    localStorage.setItem('token', dadosUsuario[4]);
+                    
+                    setTimeout(function(){ (user._permission == 'C') ? window.location.href = 'Loja/indexLoja.html' : window.location.href = 'Backoffice/index.html';},2000);
+                    
+                    
+                }   
             },
             error: result => {
-                alert
-                console.log(result.responseJSON);
-                alert(result.responseJSON._message)
+                console.log(result.responseJSON)
+                var data = result.responseJSON;
+                if(data._codigo == 401){
+                    alert(data._message);
+                }
             },
-        });
-    });
-});
-
-
-function autenticarLogin(){
-
-    var url = 'http://localhost:8080/Login';
-    var login = $('#loginemail').val();
-    var senha = $('#loginPassword').val();
-
-    var json = JSON.stringify({
-        _username: login,
-        _password: senha,
-    })
-
-    $.ajax({
-        url: url,
-        type: 'POST',
-        timeout: 20000,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: json,
-        success: data => {
-            if(data._codigo != 200) {
-                alert(data._message);
-            } 
-            else {
-                var user = data._users[0];
-                var dadosUsuario = [user._id, user._email, user._password,user._permission, user._token];
-                localStorage.setItem('dadosUsuario', dadosUsuario);
-                localStorage.setItem('token', dadosUsuario[4]);
-
-                (user._permission == 'C') ? window.location.href = 'indexLoja.html' : window.location.href = 'index.html';
-            }   
-        },
-        error: result => {
-            console.log(result.responseJSON)
-            var data = result.responseJSON;
-            if(data._codigo == 401){
-                alert(data._message);
-            }
-        },
+        });  
     });
 
-}
 
 
+    $("#login-buttonCliente").click(function(event){
+        event.preventDefault();
+       
 
-function autenticarAfter(){
 
-    var url = 'http://localhost:8080/Login';
-
-    var login = localStorage.getItem('loginTemp');
-    var senha = localStorage.getItem('passTemp');
-
+        var url = 'http://localhost:8080/Login/Cliente';
+        var login = $('#username').val();
+        var senha = $('#password').val();
     
-    //alert(json)
-    var json = JSON.stringify({
-        _username: login,
-        _password: senha,
-    })
-
-    $.ajax({
-        url: url,
-        type: 'POST',
-        timeout: 20000,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: json,
-        success: data => {
-            console.log(data);
-            if(data._codigo != 200) {
-                alert(data._message);
-            } 
-            else {
-                
-                var user = data._users[0];
-                var dadosUsuario = [user._id, user._email, user._password,user._permission, user._token];
-                localStorage.removeItem('loginTemp');
-                localStorage.removeItem('passTemp');
-                localStorage.setItem('dadosUsuario', dadosUsuario);
-                localStorage.setItem('token', dadosUsuario[4]);
-                
-
-                 (user._permission == 'C') ? window.location.href = 'indexLoja.html' : window.location.href = 'index.html'; 
-            }   
-        },
-        error: result => {
-            console.log(result)
-        },
+        var json = JSON.stringify({
+            _username: login,
+            _password: senha,
+        })
+    
+        $.ajax({
+            url: url,
+            type: 'POST',
+            timeout: 20000,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: json,
+            success: data => {
+                if(data._codigo != 200) {
+                    alert(data._message);
+                } 
+                else {
+                    var user = data._users[0];
+                    
+                    var dadosUsuario = [user._id, user._email, user._password,user._permission, user._token,user._nome];
+                    localStorage.setItem('dadosUsuario', dadosUsuario);
+                    
+                    localStorage.setItem('token', dadosUsuario[4]);
+                    
+                    setTimeout(function(){  window.location.href = 'indexLoja.html' },1000);
+                    
+                    
+                }   
+            },
+            error: result => {
+                console.log(result.responseJSON)
+                var data = result.responseJSON;
+                if(data._codigo == 401){
+                    alert(data._message);
+                }
+            },
+        });  
     });
 
-}
+});
 
 function logout(){
     console.log('entrei logout')
@@ -278,7 +136,7 @@ function logout(){
             } 
             else {
                 limparStorage();
-                window.location.href = 'login.html';
+                window.location.href = '../login.html';
             }   
         },
         error: result => {
@@ -286,6 +144,7 @@ function logout(){
         },
     });
 }
+
 
 function limparStorage(){
     localStorage.clear();
