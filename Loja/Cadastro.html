@@ -59,63 +59,69 @@
                                     <h3 class="font-weight-bold pl-0 my-4">
                                         <strong>Dados Pessoais</strong>
                                     </h3>
-    
-                                    <div class="form-group">
+                                    <form>
+                                    <div class="form-row">
                                         <!-- NOME -->
-                                        <div class="controls full">
+                                        <div class="form-group col-md-12">
                                             <span>Nome e sobrenome</span>
-                                            <input type="text" id="nome" class="floatLabel" name="nome" placeholder="Nome">
-                                            
-                                        </div>
-                                    
-                                        <div class="error error-nomeUsuario">
-                                            <strong>Nome</strong> inválido, informe o seu nome e sobrenome.
+                                            <input type="text" id="nome" class="form-control inputAjuste" name="nome" placeholder="Nome">
+                                            <span id="nomeInvalido" style="color: red;">O nome deverá conter no mínimo 5 digitos</span>
                                         </div>
                                     
                                         <!-- CPF -->
-                                        <div class="controls full">
+                                        <div class="form-group col-md-6">
                                             <span>CPF</span>
-                                             <span id="cpfInvalido" style="color: red; margin-left: 848px;">CPF inválido</span>
-                                            <input type="text" class="floatLabel" id="cpf" name="cpf" size="12" maxlength="11" placeholder="CPF">  
+                                            <input type="text" class="form-control inputAjuste" id="cpf" name="cpf" size="12" maxlength="14" placeholder="CPF">  
+                                            <span id="cpfInvalido" style="color: red;">Digite um CPF válido</span>
+                                        </div>
+                                            <!-- DATANASICMENTO  -->
+                                         <div class="form-group col-md-6">
+                                             <span>Data de nascimento</span>
+                                            <input type="text" id="dataNascimento" name="dataNascimento" class="form-control inputAjuste" placeholder="Data de nascimento" maxlength="10"/>           
+                                            <span id="dataInvalida" style="color: red; ">Data de nascimento inválida</span>
                                         </div>
                                     
                                         <!-- Password -->
-                                        <div class="controls full">
+                                        <div class="form-group col-md-6">
                                             <span>Senha</span>
-                                            <input type="text" id="password" class="floatLabel" name="password" placeholder="Senha">
-                                            
-                                        </div>
-                                        
-                                        <!-- CELULAR  / WHATSAPP -->
-                                        <div class="controls half">
-                                            <span>Celular</span>
-                                            <input type="text" name="celularUsuario" class="floatLabel" placeholder="Celular"/>           
-                                            
-                                        </div>
-                                         <!-- DATANASICMENTO  -->
-                                         <div class="controls half">
-                                             <span>Data de nascimento</span>
-                                            <input type="text" name="dataNascimento" class="floatLabel" placeholder="Data de nascimento"/>           
+                                            <input type="password" id="password" class="form-control inputAjuste" name="password" placeholder="Senha">
+                                            <span id="senhaInvalida" style="color: red; ">A senha deve conter no mínimo 3 caracteres</span>
                                         </div>
 
-                                        <div class="controls half">
+                                        
+                                        <div class="form-group col-md-6">
+                                            <span>Confirmar senha</span>
+                                            <input type="password" id="passwordConfirm" class="form-control inputAjuste" name="passwordConfirm" placeholder="Senha">
+                                            <span id="senhaConfirmInvalida" style="color: red; ">As senhas não coicidem</span>
+                                        </div>
+                                        
+                                        
+
+
+                                        <div class="form-group col-md-6">
                                             <span>Sexo</span>
-                                            <select id="sexo">
+                                            <select id="sexo" class="form-control selectAjuste" >
                                                 <option value="M">Masculino</option>
                                                 <option value="F">Feminino</option>
                                             </select>          
                                         </div>
 
+                                        <!-- CELULAR  / WHATSAPP -->
+                                        <div class="form-group col-md-6">
+                                            <span>Celular</span>
+                                            
+                                            <input type="text" id="celular" name="celular" class="form-control inputAjuste" placeholder="(99) 99999-9999"/>           
+                                        
+                                            <span id="celularInvalido"  style="color: red;">Digite um celular válido</span>
+                                        </div>
 
-                                      <!-- DATANASICMENTO  -->
-                                      <div class="controls half">
-                                          <span>Tipo</span>
-                                        <input type="text" value="Cliente" class="floatLabel" disabled />       
-                                    </div>
+
+
 
                                         
                                         
                                     </div>
+                                </form>
     
                                     <div class="pull-right controls half">
                                         <button class="btn full nextBtn btnAvancarPasso1" type="button">Avançar &#10095;</button>
@@ -206,15 +212,40 @@
                                     <strong>Pagamento</strong>
                                 </h3>
                             
-                                <div class="form-group">                            
-                                    <!-- PAGAMENTO -->
+                                <div class="form-group">
     
-                                    <div class="controls half">
-                                        <label for="">Valor da inscrição
-                                            <strong> <h4> R$ 50,00 </h4></strong>
-                                        </label>
+                                    <!-- Numero do cartao -->
+                                    <div class="controls full">
+                                        <span>Número do cartão</span>
+                                        <span id="numCartaoInvalido" style="color: red; margin-left: 685px;">Preencha corretamente</span>
+                                        <input type="text" id="numCartao" class="floatLabel" name="numCartao" maxlength="16">
                                     </div>
     
+                                    <!-- Nome no cartao -->
+                                    <div class="controls full">
+                                        <span>Nome</span>
+                                        <span>Nome</span>
+                                        <input type="text" id="nomeCartao" class="floatLabel" name="nomeCartao">
+                                        
+                                    </div>
+    
+                                    
+                                    <div class="controls half">
+                                        <span>Data de válidade</span>
+                                        <input type="text" id="dataValidade" class="floatLabel" name="dataValidade">
+                                        
+                                    </div>
+
+                                    
+                                    <div class="controls half">
+                                        <span>Código de segurança</span>
+                                        <input type="text" id="complemento" class="floatLabel" name="complemento" maxlength="3">
+                                        
+                                    </div>
+    
+                                   
+
+                                   
                                     <br><br><br><br><br><br>
                                     <p></p><p></p><p></p><p></p><p></p>
     
