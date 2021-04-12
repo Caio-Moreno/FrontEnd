@@ -61,7 +61,7 @@
                                         <div class="form-group col-md-12">
                                             <span>Nome e sobrenome</span>
                                             <input type="text" id="nome" class="form-control inputAjuste" name="nome" placeholder="Nome">
-                                            <span id="nomeInvalido" style="color: red;">O nome deverá conter no mínimo 5 digitos</span>
+                                            <span id="nomeInvalido" style="color: red;">Digite um nome válido (Deverá conter ao menos 3 digitos no nome e sobrenome)</span>
                                         </div>
 
                                         <div class="form-group col-md-12">
@@ -160,6 +160,7 @@
                                     <div class="form-group col-md-6">
                                         <span>Número</span>
                                         <input type="text" id="numero" class="form-control" name="numero">
+                                        <span id="numeroInvalido"  style="color: red;">Digite um número válido</span>
                                         
                                     </div>
 
@@ -225,6 +226,7 @@
                                       <div class="form-group col-md-6">
                                           <span>Número</span>
                                           <input type="text" id="numeroFatura" class="form-control" name="numero">
+                                          <span id="numeroFaturaInvalido"  style="color: red;">Digite um número válido</span>
                                           
                                       </div>
   
@@ -262,7 +264,7 @@
                                         <button class="btn btn-primary full prevBtn" type="button">&#10094; Anterior</button>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <button class="btn btn-primary full nextBtn" type="submit">Finalizar &#10004;</button>
+                                        <button class="btn btn-primary full nextBtn" type="button" id="btnFinalizar">Finalizar &#10004;</button>
                                     </div>
                                 </div>
                             </form>

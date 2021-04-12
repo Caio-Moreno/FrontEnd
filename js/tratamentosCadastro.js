@@ -1,9 +1,19 @@
+
+
 $(document).ready(function(){
-    var nomeError,emailError, cpfError,dataNascimentoError,
-    senhaError,senhaConfirmError, celularError,cepError, numeroError = true;
 
+    var nomeError = true;
+    var emailError = true;
+    var cpfError = true;
+    var dataNascimentoError = true;
+    var senhaError = true;
+    var senhaConfirmError = true;
+    var celularError = true;
+    var cepError = true;
+    var numeroError = true;
+    var cepFaturaError = true;
+    var numeroFaturaError = true;
     var enderecoFatura = true;
-
 
     $("#cepInvalido").hide();
     $("#cpfInvalido").hide();
@@ -18,6 +28,8 @@ $(document).ready(function(){
     $('#cepInvalidoFatura').hide();
     $('#cepNaoEncontrado').hide();
     $('#cepNaoEncontradoFatura').hide();
+    $("#numeroInvalido").hide();
+    $("#numeroFaturaInvalido").hide();
 
     
 
@@ -42,6 +54,7 @@ $(document).ready(function(){
                             $('#bairro').val(" ");
                             $('#cidade').val(" ");
                             $('#estado').val(" ")
+                            document.getElementById("cep").style.borderColor = "red";
                             $('#cepNaoEncontrado').show();
                           }else{
 
@@ -52,6 +65,7 @@ $(document).ready(function(){
                           $('#cidade').val(data.localidade);
                           $('#estado').val(data.uf)
                           $('#cepNaoEncontrado').hide();
+                          document.getElementById("cepFatura").style.borderColor = "gray";
                          
                          }
                     },
@@ -64,6 +78,7 @@ $(document).ready(function(){
                     $('#estado').val(" ")
                     cepError = true;
                     $('#cepNaoEncontrado').hide();
+                    document.getElementById("cepFatura").style.borderColor = "red";
                     $("#cepInvalido").show();
                 }
               });
@@ -89,37 +104,87 @@ $(document).ready(function(){
                 dataType:"json",    
                 success: data => {
                     if(data.erro){
+                        cepFaturaError = true;
                         $('#cepNaoEncontradoFatura').show();
+                        document.getElementById("cepFatura").style.borderColor = "red";
                         $('#ruaFatura').val(" ");
                         $('#complementoFatura').val(" ");
                         $('#bairroFatura').val(" ");
                         $('#cidadeFatura').val(" ");
                         $('#estadoFatura').val(" ");
                     }else{
-                          cepError = false;
+                    
+                          cepFaturaError = false;
                           $('#ruaFatura').val(data.logradouro);
                           $('#complementoFatura').val(data.complemento);
                           $('#bairroFatura').val(data.bairro);
                           $('#cidadeFatura').val(data.localidade);
                           $('#estadoFatura').val(data.uf)
                           $('#cepNaoEncontradoFatura').hide();
+                          document.getElementById("cepFatura").style.borderColor = "gray";
                     }     
                     },
                 error: _ => {
-                    console.log('error, CEP Não encontrado')
+                          cepFaturaError = true;
+                          console.log('error, CEP Não encontrado')
                           $('#ruaFatura').val(" ");
                           $('#complementoFatura').val(" ");
                           $('#bairroFatura').val(" ");
                           $('#cidadeFatura').val(" ");
                           $('#estadoFatura').val(" ")
-                    cepError = true;
-                    $('#cepNaoEncontrado').hide();
-                    $("#cepInvalidoFatura").show();
+                          cepError = true;
+                          $('#cepNaoEncontrado').hide();
+                          document.getElementById("cepFatura").style.borderColor = "red";
+                          $("#cepInvalidoFatura").show();
                 }
               });
         }else{
-            cepError = true;
+            cepFaturaError = true;
             $("#cepInvalidoFatura").show();
+        }
+    });
+
+    $('#numero').keypress(function(e){
+        return somenteNumeros(e);
+    });
+
+    $('#numero').blur(function(e){
+        var numero = $('#numero').val().trim();
+
+        if(numero.length < 1 || numero == 0){
+            console.log(numero.length);
+            console.log(numero);
+            numeroError = true;
+            $("#numeroInvalido").show();
+            document.getElementById("numero").style.borderColor = "red";
+        }else{
+            console.log(numero.trim.length);
+            console.log(numero);
+            numeroError = false;
+            $("#numeroInvalido").hide();
+            document.getElementById("numero").style.borderColor = "gray";
+        }
+    });
+
+    $('#numeroFatura').keypress(function(e){
+        return somenteNumeros(e);
+    });
+
+    $('#numeroFatura').blur(function(e){
+        var numero = $('#numeroFatura').val().trim();
+
+        if(numero.length < 1 || numero == 0){
+            console.log(numero.length);
+            console.log(numero);
+            numeroFaturaError = true;
+            $("#numeroFaturaInvalido").show();
+            document.getElementById("numeroFatura").style.borderColor = "red";
+        }else{
+            console.log(numero.trim.length);
+            console.log(numero);
+            numeroFaturaError = false;
+            $("#numeroFaturaInvalido").hide();
+            document.getElementById("numeroFatura").style.borderColor = "gray";
         }
     });
 
@@ -161,32 +226,19 @@ $(document).ready(function(){
     });
 
 
-    $('#numCartao').blur(function(e){
-        e.preventDefault();
-
-        var numCartao = $('#numCartao').val();
-
-        if(numCartao.length == 16){
-            $("#numCartaoInvalido").hide(); 
-            document.getElementById("numCartao").style.borderColor = "gray";
-        }else{
-            $("#numCartaoInvalido").show() ; 
-            document.getElementById("numCartao").style.borderColor = "red";
-        }
-
-    });
-
     $('#nome').blur(function(e){
         
         e.preventDefault();
 
-        var nome = $('#nome').val();
+        var nome = $('#nome').val().trim();
         validaNome(nome);
 
         if(validaNome(nome)){
+            nomeError = false;
             $("#nomeInvalido").hide(); 
             document.getElementById("nome").style.borderColor = "gray";
         }else{
+            nomeError = true;
             $("#nomeInvalido").show() ; 
             document.getElementById("nome").style.borderColor = "red";
         }
@@ -212,9 +264,11 @@ $(document).ready(function(){
             retiraLetras(dataNascimento);
 
             if(validardataDeNascimento(dataNascimento)){
+                dataNascimentoError = false;
                 $("#dataInvalida").hide(); 
                 document.getElementById("dataNascimento").style.borderColor = "gray";
             }else{
+                dataNascimentoError = true;
                 $("#dataInvalida").show() ; 
                 document.getElementById("dataNascimento").style.borderColor = "red";
             }
@@ -226,9 +280,11 @@ $(document).ready(function(){
         var password = $('#password').val();
 
         if(password.length >= 3){
+            senhaError = false;
             $("#senhaInvalida").hide(); 
             document.getElementById("password").style.borderColor = "gray";
         }else{
+            senhaError = true;
             $("#senhaInvalida").show() ; 
             document.getElementById("password").style.borderColor = "red";
         }
@@ -242,15 +298,16 @@ $(document).ready(function(){
         var passwordConfirm = $('#passwordConfirm').val();
 
         if(password == passwordConfirm){
+            senhaConfirmError = false;
             $("#senhaConfirmInvalida").hide(); 
             document.getElementById("passwordConfirm").style.borderColor = "gray";
             document.getElementById("password").style.borderColor = "gray";
         }else{
+            senhaConfirmError = true;
             $("#senhaConfirmInvalida").show(); 
             document.getElementById("passwordConfirm").style.borderColor = "red";
             document.getElementById("password").style.borderColor = "red";
         }
-      
     });
 
     $('#celular').blur(function(e){
@@ -259,9 +316,11 @@ $(document).ready(function(){
         
 
         if(celular.length >= 14){
+            celularError = false;
             $("#celularInvalido").hide(); 
             document.getElementById("celular").style.borderColor = "gray";
         }else{
+            celularError = true;
             $("#celularInvalido").show() ; 
             document.getElementById("celular").style.borderColor = "red";
         }
@@ -291,9 +350,11 @@ $(document).ready(function(){
         var email = $('#email').val();
         
         if(validateEmail(email)){
+            emailError = false;
             $("#emailInvalido").hide(); 
             document.getElementById("email").style.borderColor = "gray";
         }else{
+            emailError = true;
             $("#emailInvalido").show() ; 
             document.getElementById("email").style.borderColor = "red";
         }
@@ -312,13 +373,22 @@ $(document).ready(function(){
             enderecoFatura = true;
         }
 
-
         if(!enderecoFatura){
             $('#enderecoFaturaDiv').show(1000);
         }else{
             $('#enderecoFaturaDiv').hide(1000);
         }
     });
+
+
+    $('#btnFinalizar').click(function(e){
+
+        verificaFormulario();
+
+    });
+
+
+
 
 
 
@@ -429,17 +499,43 @@ $(document).ready(function(){
 
     function validaNome(nome){
         var nomeSplitado = nome.split(' ');
+        console.log(nomeSplitado);
+        console.log(nomeSplitado.length);
 
         if(nomeSplitado.length < 2) return false;
 
         if(nomeSplitado[0].length < 3 || nomeSplitado[1] < 3) return false;
         
         return true;
-        console.log(nomeSplitado);
-        console.log(nomeSplitado.length);
+       
+    }
+
+    function verificaFormulario(){
+        console.log('Nome-->>'+nomeError)
+        console.log('Email-->>'+emailError)
+        console.log('Cpf-->>'+cpfError)
+        console.log('Data nascimento-->>'+dataNascimentoError)
+        console.log('senha-->>'+senhaError)
+        console.log('senhaConfirm-->>'+senhaConfirmError)
+        console.log('celular-->>'+celularError)
+        console.log('cep-->>'+cepError)
+        console.log('numero-->>'+numeroError)
+        console.log('cepFatura-->>'+cepFaturaError)
+        console.log('numeroFatura-->'+numeroFaturaError)
+
+        if(nomeError || emailError || cpfError || dataNascimentoError || senhaError || senhaConfirmError || celularError|| cepError || numeroError){
+            alert ('Existem campos que não foram preenchidos corretamente')
+            return;
+        }else if(!enderecoFatura && ( cepFaturaError || numeroFaturaError)){
+            alert('Preencha corretamente o endereço da fatura')
+            return;
+        } 
+
+        alert('Passei')
+
     }
 
 
-// fim do document ready
+// fim do document ready (Brazukas technology)
 
 });
