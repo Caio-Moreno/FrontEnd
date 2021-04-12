@@ -44,10 +44,6 @@
                                     <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
                                     <p>Endereço</p>
                                 </div>
-                                <div class="steps-step">
-                                    <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
-                                    <p>Dados Pagamento</p>
-                                </div>
                             </div>
                         </div>
     
@@ -66,6 +62,12 @@
                                             <span>Nome e sobrenome</span>
                                             <input type="text" id="nome" class="form-control inputAjuste" name="nome" placeholder="Nome">
                                             <span id="nomeInvalido" style="color: red;">O nome deverá conter no mínimo 5 digitos</span>
+                                        </div>
+
+                                        <div class="form-group col-md-12">
+                                            <span>Email</span>
+                                            <input type="email" id="email" class="form-control inputAjuste" name="email" placeholder="Digite seu email">
+                                            <span id="emailInvalido" style="color: red;">Digite um email válido</span>
                                         </div>
                                     
                                         <!-- CPF -->
@@ -110,23 +112,18 @@
                                         <div class="form-group col-md-6">
                                             <span>Celular</span>
                                             
-                                            <input type="text" id="celular" name="celular" class="form-control inputAjuste" placeholder="(99) 99999-9999"/>           
+                                            <input type="text" id="celular" name="celular" class="form-control inputAjuste" placeholder="(99) 99999-9999" maxlength="14"/>           
                                         
                                             <span id="celularInvalido"  style="color: red;">Digite um celular válido</span>
-                                        </div>
-
-
-
-
-                                        
-                                        
+                                        </div>                                      
+                                    </div>
+                                
+                                    <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <button class="btn btn-primary full nextBtn" type="button">Avançar &#10095;</button>
+                                    </div>
                                     </div>
                                 </form>
-    
-                                    <div class="pull-right controls half">
-                                        <button class="btn full nextBtn btnAvancarPasso1" type="button">Avançar &#10095;</button>
-                                    </div>
-    
                                 </div>
                             </div>
     
@@ -134,130 +131,142 @@
                             
                             <!-- PASSO 2. ENDERECO -->
                             <div class="row setup-content" id="step-2">
-                                <h3 class="font-weight-bold pl-0 my-4">
+                                <div class="col-md-12">
+                                <h3 class="font-weight-bold pl-0 my-4 ajusteH3">
                                     <strong>Endereço</strong>
                                 </h3>
                             
-                                <div class="form-group">
-    
+
+                                <form>
+                                <div class="form-row">
                                     <!-- CEP -->
-                                    <div class="controls half">
+                                    <div class="form-group col-md-6">
                                         <span>CEP</span>
-                                        <span id="cepInvalido" style="color: red; margin-left: 360px;">CEP inválido</span>
-                                        <input type="text" id="cep" class="floatLabel" name="cep" fo>
+                                        
+                                        <input type="text" id="cep" class="form-control" name="cep" maxlength="9">
+                                        <span id="cepInvalido" style="color: red;">CEP inválido</span>
+                                        <span id="cepNaoEncontrado" style="color: red;">CEP informado não foi encontrado</span>
                                        
                                     </div>
     
                                     <!-- RUA -->
-                                    <div class="controls half">
+                                    <div class="form-group col-md-6">
                                         <span>Rua</span>
-                                        <input type="text" id="rua" class="floatLabel" name="rua" disabled>
+                                        <input type="text" id="rua" class="form-control" name="rua" disabled>
                                         
                                     </div>
     
                                     
-                                    <div class="controls half">
+                                    <div class="form-group col-md-6">
                                         <span>Número</span>
-                                        <input type="text" id="numero" class="floatLabel" name="numero">
+                                        <input type="text" id="numero" class="form-control" name="numero">
                                         
                                     </div>
 
                                     
-                                    <div class="controls half">
+                                    <div class="form-group col-md-6">
                                         <span>Complemento</span>
-                                        <input type="text" id="complemento" class="floatLabel" name="complemento">
+                                        <input type="text" id="complemento" class="form-control" name="complemento">
                                         
                                     </div>
     
                                     <!-- BAIRRO -->
-                                    <div class="controls half">
+                                    <div class="form-group col-md-6">
                                         <span>Bairro</span>
-                                        <input type="text" id="bairro" class="floatLabel" name="bairro" disabled>
+                                        <input type="text" id="bairro" class="form-control" name="bairro" disabled>
                                         
                                     </div>
                                                             
                                     <!-- ESTADO -->
-                                    <div class="controls half">
+                                    <div class="form-group col-md-6">
                                         <Span>Estado</Span>
-                                        <input type="text" id="estado" class="floatLabel" name="estado" disabled>
+                                        <input type="text" id="estado" class="form-control" name="estado" disabled>
                                        
                                     </div>
                                                             
                                     <!-- CIDADE -->
-                                    <div class="controls half">
+                                    <div class="form-group col-md-6">
                                         <span>Cidade</span>
-                                        <input type="text" id="cidade" class="floatLabel" name="cidade" disabled>
+                                        <input type="text" id="cidade" class="form-control" name="cidade" disabled>
                                     
                                     </div>
 
-                                    <div class="controls half" style="margin-bottom: 50px; margin-top: 30px;">
+                                    <div class="form-group">
+                                        <div class="form-check checkAjuste">
+                                          <input class="form-check-input" type="checkbox" id="enderecoFatura" checked>
+                                          <label class="form-check-label" for="enderecoFatura">
+                                            O endereço é o mesmo da fatura?
+                                          </label>
+                                        </div>
+                                      </div>
+
+                                    </div>
+
+                                    <div class="form-row" id="enderecoFaturaDiv">
                                         
-                                        <input type="checkbox" id="numero" class="floatLabel" name="numero" checked>
-                                        <span>O Endereço é o mesmo da fatura?</span>
-                              
+                                         <!--ENDERECO FATURA-->
+                                        <div class="form-group col-md-6">
+                                          <span>CEP</span>
+                                          
+                                          <input type="text" id="cepFatura" class="form-control" name="cep" maxlength="9">
+                                          <span id="cepInvalidoFatura" style="color: red;">CEP inválido</span>
+                                          <span id="cepNaoEncontradoFatura" style="color: red;">CEP informado não foi encontrado</span>
+                                         
+                                      </div>
+      
+                                      <!-- RUA -->
+                                      <div class="form-group col-md-6">
+                                          <span>Rua</span>
+                                          <input type="text" id="ruaFatura" class="form-control" name="rua" disabled>
+                                          
+                                      </div>
+      
+                                      
+                                      <div class="form-group col-md-6">
+                                          <span>Número</span>
+                                          <input type="text" id="numeroFatura" class="form-control" name="numero">
+                                          
+                                      </div>
+  
+                                      
+                                      <div class="form-group col-md-6">
+                                          <span>Complemento</span>
+                                          <input type="text" id="complementoFatura" class="form-control" name="complemento">
+                                          
+                                      </div>
+      
+                                      <!-- BAIRRO -->
+                                      <div class="form-group col-md-6">
+                                          <span>Bairro</span>
+                                          <input type="text" id="bairroFatura" class="form-control" name="bairro" disabled>
+                                          
+                                      </div>
+                                                              
+                                      <!-- ESTADO -->
+                                      <div class="form-group col-md-6">
+                                          <Span>Estado</Span>
+                                          <input type="text" id="estadoFatura" class="form-control" name="estado" disabled>
+                                         
+                                      </div>
+                                                              
+                                      <!-- CIDADE -->
+                                      <div class="form-group col-md-6">
+                                          <span>Cidade</span>
+                                          <input type="text" id="cidadeFatura" class="form-control" name="cidade" disabled>
+                                      
+                                      </div>
+                                  </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <button class="btn btn-primary full prevBtn" type="button">&#10094; Anterior</button>
                                     </div>
-           
-                                    <div class="controls half">
-                                        <button class="btn half prevBtn" type="button">&#10094; Anterior</button>
-                                    </div>
-                                    <div class="controls half">
-                                        <button class="btn full nextBtn" type="button">Avançar &#10095;</button>
+                                    <div class="form-group col-md-6">
+                                        <button class="btn btn-primary full nextBtn" type="submit">Finalizar &#10004;</button>
                                     </div>
                                 </div>
-                            </div>
-    
-                            <!-- PASSO 3. PAGAMENTO -->
-                            <div class="row setup-content" id="step-3">
-                                <h3 class="font-weight-bold pl-0 my-4">
-                                    <strong>Pagamento</strong>
-                                </h3>
-                            
-                                <div class="form-group">
-    
-                                    <!-- Numero do cartao -->
-                                    <div class="controls full">
-                                        <span>Número do cartão</span>
-                                        <span id="numCartaoInvalido" style="color: red; margin-left: 685px;">Preencha corretamente</span>
-                                        <input type="text" id="numCartao" class="floatLabel" name="numCartao" maxlength="16">
-                                    </div>
-    
-                                    <!-- Nome no cartao -->
-                                    <div class="controls full">
-                                        <span>Nome</span>
-                                        <span>Nome</span>
-                                        <input type="text" id="nomeCartao" class="floatLabel" name="nomeCartao">
-                                        
-                                    </div>
-    
-                                    
-                                    <div class="controls half">
-                                        <span>Data de válidade</span>
-                                        <input type="text" id="dataValidade" class="floatLabel" name="dataValidade">
-                                        
-                                    </div>
-
-                                    
-                                    <div class="controls half">
-                                        <span>Código de segurança</span>
-                                        <input type="text" id="complemento" class="floatLabel" name="complemento" maxlength="3">
-                                        
-                                    </div>
-    
-                                   
-
-                                   
-                                    <br><br><br><br><br><br>
-                                    <p></p><p></p><p></p><p></p><p></p>
-    
-                                    <div class="clearfix"></div>
-    
-                                    <div class="controls half">
-                                        <button class="btn half prevBtn" type="button">&#10094; Anterior</button>
-                                    </div>
-                                    <div class="controls half">
-                                        <button class="btn half nextBtn" type="submit">Finalizar &#10004; </button>
-                                    </div>
-                                </div>
+                            </form>
+                        </div>
                             </div>
     
                         </form>

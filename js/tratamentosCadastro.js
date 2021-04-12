@@ -1,4 +1,10 @@
 $(document).ready(function(){
+    var nomeError,emailError, cpfError,dataNascimentoError,
+    senhaError,senhaConfirmError, celularError,cepError, numeroError = true;
+
+    var enderecoFatura = true;
+
+
     $("#cepInvalido").hide();
     $("#cpfInvalido").hide();
     $("#numCartaoInvalido").hide();
@@ -7,6 +13,11 @@ $(document).ready(function(){
     $("#senhaInvalida").hide();
     $("#senhaConfirmInvalida").hide();
     $("#celularInvalido").hide();
+    $("#emailInvalido").hide(); 
+    $('#enderecoFaturaDiv').hide();
+    $('#cepInvalidoFatura').hide();
+    $('#cepNaoEncontrado').hide();
+    $('#cepNaoEncontradoFatura').hide();
 
     
 
@@ -25,21 +36,94 @@ $(document).ready(function(){
                 contentType:"application/json; charset=utf-8",
                 dataType:"json",    
                 success: data => {
+                          if(data.erro){
+                            $('#rua').val(" ");
+                            $('#complemento').val(" ");
+                            $('#bairro').val(" ");
+                            $('#cidade').val(" ");
+                            $('#estado').val(" ")
+                            $('#cepNaoEncontrado').show();
+                          }else{
+
+                          cepError = false;
                           $('#rua').val(data.logradouro);
                           $('#complemento').val(data.complemento);
                           $('#bairro').val(data.bairro);
                           $('#cidade').val(data.localidade);
                           $('#estado').val(data.uf)
-                          console.log(data)
+                          $('#cepNaoEncontrado').hide();
+                         
+                         }
                     },
                 error: _ => {
-                    console.log('error, CEP Não encontrado ' )
+                    console.log('error, CEP Não encontrado ')
+                    $('#rua').val(" ");
+                    $('#complemento').val(" ");
+                    $('#bairro').val(" ");
+                    $('#cidade').val(" ");
+                    $('#estado').val(" ")
+                    cepError = true;
+                    $('#cepNaoEncontrado').hide();
+                    $("#cepInvalido").show();
                 }
               });
         }else{
+            cepError = true;
             $("#cepInvalido").show();
         }
     });
+
+    //cep da fatura busca
+    $('#cepFatura').blur(function(e){
+        e.preventDefault();
+
+        var cep = $('#cepFatura').val().replace('-','');
+
+
+        if(cep.length >= 8){
+            $("#cepInvalidoFatura").hide();
+            $.ajax({
+                url: 'https://viacep.com.br/ws/'+cep+'/json/',
+                type: 'GET',
+                contentType:"application/json; charset=utf-8",
+                dataType:"json",    
+                success: data => {
+                    if(data.erro){
+                        $('#cepNaoEncontradoFatura').show();
+                        $('#ruaFatura').val(" ");
+                        $('#complementoFatura').val(" ");
+                        $('#bairroFatura').val(" ");
+                        $('#cidadeFatura').val(" ");
+                        $('#estadoFatura').val(" ");
+                    }else{
+                          cepError = false;
+                          $('#ruaFatura').val(data.logradouro);
+                          $('#complementoFatura').val(data.complemento);
+                          $('#bairroFatura').val(data.bairro);
+                          $('#cidadeFatura').val(data.localidade);
+                          $('#estadoFatura').val(data.uf)
+                          $('#cepNaoEncontradoFatura').hide();
+                    }     
+                    },
+                error: _ => {
+                    console.log('error, CEP Não encontrado')
+                          $('#ruaFatura').val(" ");
+                          $('#complementoFatura').val(" ");
+                          $('#bairroFatura').val(" ");
+                          $('#cidadeFatura').val(" ");
+                          $('#estadoFatura').val(" ")
+                    cepError = true;
+                    $('#cepNaoEncontrado').hide();
+                    $("#cepInvalidoFatura").show();
+                }
+              });
+        }else{
+            cepError = true;
+            $("#cepInvalidoFatura").show();
+        }
+    });
+
+
 
     $('#cpf').blur(function(e){
         e.preventDefault();
@@ -49,17 +133,19 @@ $(document).ready(function(){
         var valido = validarCPF(cpf);
 
         if(valido){
+            cpfError = false;
             $("#cpfInvalido").hide();
             document.getElementById("cpf").style.borderColor = "gray";
 
         }else{
+            cpfError = true;
             $("#cpfInvalido").show();
             document.getElementById("cpf").style.borderColor = "red";
         }
 
     });
 
-    $('#cpf').keypress(function(e){
+    $('#cpf').keydown(function(e){
         var cpf = document.getElementById('cpf').value;
         var tamanhoCpf = cpf.length;
        if(somenteNumeros(e)){
@@ -95,8 +181,9 @@ $(document).ready(function(){
         e.preventDefault();
 
         var nome = $('#nome').val();
+        validaNome(nome);
 
-        if(nome.length > 5){
+        if(validaNome(nome)){
             $("#nomeInvalido").hide(); 
             document.getElementById("nome").style.borderColor = "gray";
         }else{
@@ -169,10 +256,9 @@ $(document).ready(function(){
     $('#celular').blur(function(e){
 
         var celular = $('#celular').val();
-        console.log('aqui')
-        console.log('retorno -->>'+(validaTelefone(celular)));
+        
 
-        if(validaTelefone(celular)){
+        if(celular.length >= 14){
             $("#celularInvalido").hide(); 
             document.getElementById("celular").style.borderColor = "gray";
         }else{
@@ -184,16 +270,58 @@ $(document).ready(function(){
     $('#celular').keypress(function(e){
         var celular = $('#celular').val();
         var celularTamanho = celular.length;
-        if(celularTamanho == 0){
-            document.getElementById('celular').value = '('+celular;
-        }
-        if(celularTamanho == 3){
-            document.getElementById('celular').value = celular+')';
-        }
-        if(celularTamanho == 9){
-            document.getElementById('celular').value = celular + '-';
+        if(somenteNumeros(e)){
+            if(celularTamanho == 0){
+                document.getElementById('celular').value = '('+celular;
+            }
+            if(celularTamanho == 3){
+                document.getElementById('celular').value = celular+')';
+            }
+            if(celularTamanho == 9){
+                document.getElementById('celular').value = celular + '-';
+            }
+        }else {
+            return false;
         }
     });
+
+
+    $('#email').blur(function(e){
+
+        var email = $('#email').val();
+        
+        if(validateEmail(email)){
+            $("#emailInvalido").hide(); 
+            document.getElementById("email").style.borderColor = "gray";
+        }else{
+            $("#emailInvalido").show() ; 
+            document.getElementById("email").style.borderColor = "red";
+        }
+    });
+
+    $('#enderecoFatura').click(function (e){  
+        if(enderecoFatura){
+            enderecoFatura = false;
+            $('#ruaFatura').val(" ");
+            $('#complementoFatura').val(" ");
+            $('#bairroFatura').val(" ");
+            $('#cidadeFatura').val(" ");
+            $('#estadoFatura').val(" ");
+            $('#cepFatura').val(" ");
+        }else{
+            enderecoFatura = true;
+        }
+
+
+        if(!enderecoFatura){
+            $('#enderecoFaturaDiv').show(1000);
+        }else{
+            $('#enderecoFaturaDiv').hide(1000);
+        }
+    });
+
+
+
 
     function validarCPF(cpf) {	
         cpf = cpf.replace(/[^\d]+/g,'');	
@@ -275,12 +403,6 @@ $(document).ready(function(){
     }
 
 
-    function validaTelefone (phone) {
-        console.log('telefone validar'+phone);
-        var regex = new RegExp('^\\([0-9]{2}\\)((3[0-9]{3}-[0-9]{4})|(9[0-9]{3}-[0-9]{5}))$');
-        return regex.test(phone);
-    }
-
     function retiraLetras(data){
         var tem = false;
         var numeros = ['0','1','2','3','4','5','6','7', '8', '9'];
@@ -300,9 +422,24 @@ $(document).ready(function(){
         document.getElementById('dataNascimento').value = dataNascimento;
     }
 
+    function validateEmail(email) {
+        var re = /\S+@\S+\.\S+/;
+        return re.test(email);
+    }
+
+    function validaNome(nome){
+        var nomeSplitado = nome.split(' ');
+
+        if(nomeSplitado.length < 2) return false;
+
+        if(nomeSplitado[0].length < 3 || nomeSplitado[1] < 3) return false;
+        
+        return true;
+        console.log(nomeSplitado);
+        console.log(nomeSplitado.length);
+    }
+
 
 // fim do document ready
 
 });
-
-
