@@ -164,46 +164,6 @@
   //  ------------------------------------ FIM PRIMEIRA ETAPA ------------------------------------ 
   
   
-  
-  //  ------------------------------------ SEGUNDA ETAPA  ------------------------------------ 
-  
-      // function validacoesFormularioPasso2 () {
-  
-      //     var items = document.getElementById('step-2'); // elemento presente desde inicio
-      //     items.addEventListener('change', function (e) {
-  
-  
-  
-      //         if (e.target.id  == 'primeiraOpcao' && e.targe) 
-      //         alert(e.target.value); // o valor que procuras é: e.target.value
-  
-      //         if (e.target.id == 'segundaOpcao') 
-      //         alert(e.target.value); // o valor que procuras é: e.target.value
-  
-      //         if (e.target.id == 'linguaEstrangeira') 
-      //         alert(e.target.value); // o valor que procuras é: e.target.value
-  
-      //         if (e.target.id == 'necessidadeEspecial') 
-      //         alert(e.target.value); // o valor que procuras é: e.target.value
-  
-      //         if (!primeiraOpcao && !segundaOpcao && !linguaEstrangeira && !necessidadeEspecial) {
-      //             alert("Oi")
-      //             document.querySelector(".btAvancarPasso2").removeAttribute("disabled");
-      //         } else {
-      //             document.querySelector(".btAvancarPasso2").removeAttribute("disabled", false);                
-      //         }
-  
-  
-  
-  
-      //     });
-  
-      // }
-  
-      // if (!validacoesFormularioPasso2) {
-      //     document.querySelector(".btAvancarPasso2").style.display = "none";                
-      // }
-  
           function validacoesFormularioPasso2 () {
               var selects = document.querySelectorAll('#step-2 select');
   
@@ -218,7 +178,4 @@
                   }
   
               })
-  
-  
-    
           }  

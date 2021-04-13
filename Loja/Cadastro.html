@@ -8,7 +8,12 @@
     <link rel="stylesheet" href="../css/bootstrap_4_3/css/bootstrap.css">
     <link rel="stylesheet" href="../css/Loja/cadastro.css">
     <script src="../js/cadastroCliente.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alerts-css@1.0.2/assets/js/alerts.js"></script>
     <link rel="stylesheet" href="../css/Loja/styleCadastro.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alerts-css@1.0.2/assets/css/alerts-css.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gustavoquinalha/buttons-css@1.0.2/assets/css/buttons.min.css">
+
     
     <title>Document</title>
 </head>
@@ -17,6 +22,63 @@
         <nav> 
             <img src="../assets/images/logo.svg" class="img-fluid image" alt="Logo da empresa - Bomba patch"> 
         </nav>
+        <div class="content" id="colors">
+            <div id="criado" class="container-alert">
+              <div class="alert alert_success"    style="animation-delay: .9s">
+                <div class="alert--icon">
+                  <i class="fas fa-check-circle"></i>
+                </div>
+                <divclass="alert--content">
+                    Perfil criado com sucesso
+                </div>
+              </div>
+             <!-- <div class="alert alert_info" style="animation-delay: .3s">
+                <div class="alert--icon">
+                  <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="alert--content">
+                  Atualizado com sucesso!
+                </div>
+                <div class="alert--close">
+                  <i class="far fa-times-circle"></i>
+                </div>
+              </div>
+              <div class="alert alert_danger" style="animation-delay: .4s">
+                <div class="alert--icon">
+                  <i class="fas fa-times-circle"></i>
+                </div>
+                <div class="alert--content">
+                  Usuário ou senha incorretos!
+                </div>
+                <div class="alert--close">
+                  <i class="far fa-times-circle"></i>
+                </div>
+              </div>
+              <div class="alert alert_warning" style="animation-delay: .5s">
+                <div class="alert--icon">
+                  <i class="fas fa-exclamation-circle"></i>
+                </div>
+                <div class="alert--content">
+                  Desculpe, ocorreu algum erro!
+                </div>
+                <div class="alert--close">
+                  <i class="far fa-times-circle"></i>
+                </div>
+              </div>
+              <div class="alert alert_dark" style="animation-delay: .6s">
+                <div class="alert--icon">
+                  <i class="fas fa-exclamation-circle"></i>
+                </div>
+                <div class="alert--content">
+                  Desculpe, ocorreu algum erro!
+                </div>
+                <div class="alert--close">
+                  <i class="far fa-times-circle"></i>
+                </div>
+              </div>-->
+            </div>
+          
+          
         <div id="feature"></div>
     
     
@@ -26,7 +88,7 @@
     
             <div class="intranet-body panel panel-default">
                 <!-- Steps form -->
-                <div class="card">
+                <div class="card" id="meuCadastro">
                     <div class="card-body mb-4">
     
                         <h2 class="text-center font-weight-bold pt-4 pb-5">

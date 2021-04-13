@@ -15,6 +15,7 @@ $(document).ready(function(){
     var numeroFaturaError = true;
     var enderecoFatura = true;
 
+    $("#criado").hide();
     $("#cepInvalido").hide();
     $("#cpfInvalido").hide();
     $("#numCartaoInvalido").hide();
@@ -511,18 +512,6 @@ $(document).ready(function(){
     }
 
     function verificaFormulario(){
-        console.log('Nome-->>'+nomeError)
-        console.log('Email-->>'+emailError)
-        console.log('Cpf-->>'+cpfError)
-        console.log('Data nascimento-->>'+dataNascimentoError)
-        console.log('senha-->>'+senhaError)
-        console.log('senhaConfirm-->>'+senhaConfirmError)
-        console.log('celular-->>'+celularError)
-        console.log('cep-->>'+cepError)
-        console.log('numero-->>'+numeroError)
-        console.log('cepFatura-->>'+cepFaturaError)
-        console.log('numeroFatura-->'+numeroFaturaError)
-
         if(nomeError || emailError || cpfError || dataNascimentoError || senhaError || senhaConfirmError || celularError|| cepError || numeroError){
             alert ('Existem campos que não foram preenchidos corretamente')
             return;
@@ -530,12 +519,119 @@ $(document).ready(function(){
             alert('Preencha corretamente o endereço da fatura')
             return;
         } 
-
-        alert('Passei')
-
+        inserirCliente(enderecoFatura);
     }
 
 
 // fim do document ready (Brazukas technology)
 
 });
+
+
+function inserirCliente(enderecoFatura){
+    var json = convertToJson(enderecoFatura);
+
+    var url = 'http://localhost:8080/Clientes'
+
+    $.ajax({
+        url: url,
+        type: 'POST',
+        timeout: 20000,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: json,
+        success: data => {
+                $( "#meuCadastro" ).fadeOut( 1000, function() {
+                    $("#criado").show();
+                });
+        },
+        error: result => {
+            $("#criado").hide();
+            alert(result.responseJSON._message)
+        }
+    });
+}
+
+
+function convertToJson(enderecoFatura){
+    var nome =  $('#nome').val();
+    var email = $('#email').val();
+    var cpf = $('#cpf').val();
+    var dataNascimento = $('#dataNascimento').val();
+    var senha = $('#password').val();
+    var sexo = $('#sexo').val();
+    var telefone = $('#celular').val();
+    var endereco = "";
+
+    //dados do endereco da entrega
+    var cep = $('#cep').val();
+    var logradouro = $('#logradouro').val();
+    var numero = $('#numero').val();
+    var complemento = $('#complemento').val();
+    var bairro = $('#bairro').val();
+    var cidade = $('#cidade').val();
+    var estado = $('#estado').val();
+
+
+    //dados do endereco da fatura
+    var cepF = $('#cepFatura').val();
+    var logradouroF = $('#logradouroFatura').val();
+    var numeroF = $('#numeroFatura').val();
+    var complementoF = $('#complementoFatura').val();
+    var bairroF = $('#bairroFatura').val();
+    var cidadeF = $('#cidadeFatura').val();
+    var estadoF = $('#estadoFatura').val();
+
+
+    if(!enderecoFatura){
+        //caso o endereco da fatura e da entrega nao seja o mesmo
+        endereco = [
+        {
+            _cep: cep,
+            _logradouro: logradouro,
+            _numero: numero,
+            _complemento: complemento,
+            _bairro: bairro,
+            _cidade: cidade,
+            _estado: estado,
+            _tipo: "E"
+        },
+        {
+            _cep: cepF,
+            _logradouro: logradouroF,
+            _numero: numeroF,
+            _complemento: complementoF,
+            _bairro: bairroF,
+            _cidade: cidadeF,
+            _estado: estadoF,
+            _tipo: "F"
+        }
+                   ]
+    }else {
+        //Caso o endereço for o mesmo da Fatura
+        endereco = [
+            {
+                _cep: cep,
+                _logradouro: logradouro,
+                _numero: numero,
+                _complemento: complemento,
+                _bairro: bairro,
+                _cidade: cidade,
+                _estado: estado,
+                _tipo: "*"
+            }]
+    }
+
+    var json = JSON.stringify({
+        _nome: nome,
+        _email: email,
+        _cpf: cpf,
+        _dataNascimento: dataNascimento,
+        _senha: senha,
+        _sexo: sexo,
+        _telefone: telefone,
+        _endereco: endereco
+    })
+    console.log(json);
+    return json;
+}

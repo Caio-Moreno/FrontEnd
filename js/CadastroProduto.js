@@ -50,7 +50,6 @@ function retornarObj() {
         _statusProduto: estado,
         _qtdEstoque: quantidade,
         _preco: preco,
-        //_imagem: imagens,
         _plataforma: plataforma
     })
     return json;
