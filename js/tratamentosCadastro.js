@@ -581,7 +581,7 @@ function convertToJson(enderecoFatura){
 
     //dados do endereco da entrega
     var cep = $('#cep').val();
-    var logradouro = $('#logradouro').val();
+    var logradouro = $('#rua').val();
     var numero = $('#numero').val();
     var complemento = $('#complemento').val();
     var bairro = $('#bairro').val();

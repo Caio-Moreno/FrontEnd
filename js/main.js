@@ -28,8 +28,11 @@ $("#meusDados").click(function(e){
        alert('Você não está logado!');
        window.location.href = "login.html";
     }else{
-        var idCliente = dadosUsuario[0];
-        window.location.href = 'Atualizar.html'
+        var user = dadosUsuario.split(',')
+        //alert(user[0]);
+        var idCliente = user[0];
+        
+        window.location.href = 'Atualizar.html?id='+idCliente;
     }
 });
 
