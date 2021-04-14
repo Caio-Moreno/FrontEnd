@@ -9,10 +9,13 @@
     <link rel="stylesheet" href="../css/Loja/cadastro.css">
     <script src="../js/cadastroCliente.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/alerts-css@1.0.2/assets/js/alerts.js"></script>
-    <link rel="stylesheet" href="../css/Loja/styleCadastro.css">
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alerts-css@1.0.2/assets/css/alerts-css.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gustavoquinalha/buttons-css@1.0.2/assets/css/buttons.min.css">
+    <link rel="stylesheet" href="../css/Loja/buttons.min.css">
+
+
+    <link rel="stylesheet" href="../css/Loja/styleCadastro.css">
 
     
     <title>Document</title>
@@ -23,26 +26,24 @@
             <img src="../assets/images/logo.svg" class="img-fluid image" alt="Logo da empresa - Bomba patch"> 
         </nav>
         <div class="content" id="colors">
-            <div id="criado" class="container-alert">
-              <div class="alert alert_success"    style="animation-delay: .9s">
+            <div  class="container-alert">
+              <div class="alert alert_success" id="criado"  style="animation-delay: .4s">
                 <div class="alert--icon">
                   <i class="fas fa-check-circle"></i>
                 </div>
-                <divclass="alert--content">
+                <div class="alert--content">
                     Perfil criado com sucesso
                 </div>
-              </div>
-             <!-- <div class="alert alert_info" style="animation-delay: .3s">
+              </div>   <!-- 
+             <div class="alert alert_info" style="animation-delay: .3s">
                 <div class="alert--icon">
                   <i class="fas fa-check-circle"></i>
                 </div>
                 <div class="alert--content">
                   Atualizado com sucesso!
                 </div>
-                <div class="alert--close">
-                  <i class="far fa-times-circle"></i>
-                </div>
-              </div>
+              </div>-->
+           <!--
               <div class="alert alert_danger" style="animation-delay: .4s">
                 <div class="alert--icon">
                   <i class="fas fa-times-circle"></i>
@@ -53,18 +54,26 @@
                 <div class="alert--close">
                   <i class="far fa-times-circle"></i>
                 </div>
-              </div>
-              <div class="alert alert_warning" style="animation-delay: .5s">
+              </div>-->
+
+              <div class="alert alert_warning" id="alertErroCpf" style="animation-delay: .4s">
                 <div class="alert--icon">
                   <i class="fas fa-exclamation-circle"></i>
                 </div>
                 <div class="alert--content">
-                  Desculpe, ocorreu algum erro!
-                </div>
-                <div class="alert--close">
-                  <i class="far fa-times-circle"></i>
+                  CPF já existe
                 </div>
               </div>
+
+              <div class="alert alert_warning" id="alertErroEmail" style="animation-delay: .4s">
+                <div class="alert--icon">
+                  <i class="fas fa-exclamation-circle"></i>
+                </div>
+                <div class="alert--content">
+                  E-mail já existe
+                </div>
+              </div>
+              <!--
               <div class="alert alert_dark" style="animation-delay: .6s">
                 <div class="alert--icon">
                   <i class="fas fa-exclamation-circle"></i>
@@ -257,7 +266,7 @@
                                     <div class="form-group">
                                         <div class="form-check checkAjuste">
                                           <input class="form-check-input" type="checkbox" id="enderecoFatura" checked>
-                                          <label class="form-check-label" for="enderecoFatura">
+                                          <label class="form-check-label ajusteCheckBox" for="enderecoFatura">
                                             O endereço é o mesmo da fatura?
                                           </label>
                                         </div>

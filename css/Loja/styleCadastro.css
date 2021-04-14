@@ -39,9 +39,15 @@ nav {
 }
 
 .container-alert {
+    margin-bottom: -30px;
     width: 500px;
     max-width: 100%;
     margin-left: 889px;
     padding: 20px;
     box-sizing: border-box
+  }
+
+
+  .ajusteCheckBox {
+    -webkit-appearance: checkbox;
   }

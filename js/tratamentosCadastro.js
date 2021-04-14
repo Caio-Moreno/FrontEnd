@@ -16,6 +16,9 @@ $(document).ready(function(){
     var enderecoFatura = true;
 
     $("#criado").hide();
+    $("#alertErroEmail").hide();
+    $("#alertErroCpf").hide();
+    $("#criado").hide();
     $("#cepInvalido").hide();
     $("#cpfInvalido").hide();
     $("#numCartaoInvalido").hide();
@@ -541,13 +544,26 @@ function inserirCliente(enderecoFatura){
         dataType: "json",
         data: json,
         success: data => {
-                $( "#meuCadastro" ).fadeOut( 1000, function() {
+                    $("#alertErroEmail").hide();
+                    $("#alertErroCpf").hide()
                     $("#criado").show();
-                });
+
+                    setTimeout(() => {
+                        window.location.href = 'Login.html';
+                    }, 2000);
         },
         error: result => {
             $("#criado").hide();
-            alert(result.responseJSON._message)
+            $("#alertErroEmail").hide();
+            var erro = result.responseJSON._message;
+            
+            if(erro.includes('Email')){
+                $("#alertErroEmail").show()
+                $("#alertErroCpf").hide()
+            }else if(erro.includes('CPF')){
+                $("#alertErroEmail").hide()
+                $("#alertErroCpf").show()
+            }
         }
     });
 }
