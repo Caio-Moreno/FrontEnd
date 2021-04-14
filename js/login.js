@@ -85,8 +85,8 @@ $(document).ready(function () {
                 } 
                 else {
                     var user = data._users[0];
-                    
-                    var dadosUsuario = [user._id, user._email, user._password,user._permission, user._token,user._nome];
+                    var nome = user._nome.split(' ');
+                    var dadosUsuario = [user._id, user._email, user._password,user._permission, user._token,nome[0]];
                     localStorage.setItem('dadosUsuario', dadosUsuario);
                     
                     localStorage.setItem('token', dadosUsuario[4]);

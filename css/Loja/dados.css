@@ -1,0 +1,139 @@
+body {
+    margin: 0;
+}
+
+header {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100px;
+    background-color: black;
+}
+
+
+
+  
+  .menu-left {
+    left: -240px;
+    opacity: 0.7;
+  }
+  
+  .menu-left-open {
+    left: 0px;
+    opacity: 1;
+  }
+  
+  .container {
+    padding: 0 50px;
+  }
+  
+  nav {
+    background: transparent;
+    position: relative;
+    width: 240px;
+    height: 100%;
+    z-index: 9999;
+    top: 0;
+    transition: all 200ms ease-in-out;
+  }
+  nav h3 {
+    color: #afdefa;
+    padding: 20px;
+    background: transparent;
+    font-size: 1.9em;
+    margin: 0;
+  }
+  nav a {
+    display: block;
+    color: gray;
+    font-size: 1.2em;
+    padding: 20px 0 20px 20px;
+    cursor: pointer;
+  }
+  nav a:hover {
+    background: #edf5f7;
+  }
+  
+  /* Push classes for body */
+  .menu-push {
+    overflow-x: hidden;
+    position: relative;
+    left: 0;
+  }
+  
+  .menu-push-right {
+    left: 240px;
+  }
+  
+  .menu-push, .menu-push-right {
+    transition: 200ms ease-in-out;
+  }
+
+  .image {
+    margin-top: 25px;
+    margin-left: 175px;
+    margin-right: auto;
+
+}
+
+
+    .ml-10px {
+        margin-left: 10px;
+    }
+
+    .ml-9px {
+        margin-left: 9px;
+    }
+
+    .ml-8px {
+        margin-left: 8px;
+    }
+    .ml-7px {
+        margin-left: 7px;
+    }
+
+    .ml-6px {
+        margin-left: 6px;
+    }
+
+    .ml-5px {
+        margin-left: 5px;
+    }
+
+    .ml-4px {
+        margin-left: 4px;
+    }
+
+    .ml-3px {
+        margin-left: 3px;
+    }
+
+    .ml-2px {
+        margin-left: 2px;
+    }
+
+    .ai-26px{
+        width: 26px;
+        height: 26px;
+    }
+    .inputAjuste {
+        padding: 12px;
+        height: auto;
+    }
+
+
+    .inputAjuste {
+        padding: 12px;
+        height: auto;
+    }
+    
+    
+    .selectAjuste {
+        padding: 14px;
+        height: auto;
+    }
+    
+    
+    .checkAjuste {
+        padding-top: 30px;
+    }

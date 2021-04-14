@@ -21,6 +21,20 @@ $(document).ready(function () {
     });
 
 
+
+$("#meusDados").click(function(e){
+    var dadosUsuario = localStorage.getItem('dadosUsuario');
+    if(dadosUsuario == null || dadosUsuario == '' || dadosUsuario == undefined){
+       alert('Você não está logado!');
+       window.location.href = "login.html";
+    }else{
+        var idCliente = dadosUsuario[0];
+        window.location.href = 'Atualizar.html'
+    }
+});
+
+
+
 });
 
 
@@ -190,3 +204,5 @@ function retornarDiv(response) {
         '</a>'
     )
 }
+
+
