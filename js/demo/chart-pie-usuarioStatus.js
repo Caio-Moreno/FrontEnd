@@ -50,6 +50,6 @@ $.ajax({
       });
   },
   error: result => {
-      alert(result.status + ' ' + result.statusText);
+      alert(result.status + ' AQUI' + result.statusText);
   }
 });

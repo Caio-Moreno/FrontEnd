@@ -42,76 +42,15 @@ $(document).ready(function(e){
     });
 
 
-    var token = localStorage.getItem('token');
-    var url =  urlClientePorID();
-    $.ajax({
-        url: url,
-        type: 'GET',
-        headers: {'TOKEN': token},
-        timeout: 20000,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: data => {
-            console.log(data);
-            var cliente = data;
-            poupularCadastro(cliente)
-        },
-        error: result => {
-            alert(result.status + ' ' + result.statusText);
-        }
-    });
+  /****************************************************************/
 
-    function urlClientePorID() {
-        var url = 'http://localhost:8080/Clientes/BuscarCliente?id=';
-        var queryString = window.location.search;
-        var id = queryString.replace(/[^0-9]/g, '');
-        return url + id;
-    }
-
-    function poupularCadastro(cliente){
-        var enderecos = cliente._endereco;
-        console.log(enderecos)
-        var enderecoEntrega = enderecos[0];
-
-
-        $('#nome').val(cliente._nome);
-        $('#email').val(cliente._email);
-        $('#cpf').val(cliente._cpf);
-        $('#dataNascimento').val(cliente._dataNascimento)
-        $('#senha').val(cliente._senha)
-        $('#sexo').val(cliente._sexo);
-        $('#celular').val(cliente._telefone);
-        $('#cep').val(enderecoEntrega._cep);
-        $('#rua').val(enderecoEntrega._logradouro);
-        $('#numero').val(enderecoEntrega._numero);
-        $('#complemento').val(enderecoEntrega._complemento);
-        $('#bairro').val(enderecoEntrega._bairro);
-        $('#estado').val(enderecoEntrega._estado);
-        $('#cidade').val(enderecoEntrega._cidade);
+    /****************************************************************/
 
 
 
-        if(enderecos.length == 2){
-            var enderecoFatura = enderecos[1];
-            console.log(enderecoFatura)
-            $('#cepFatura').val(enderecoFatura._cep);
-            $('#ruaFatura').val(enderecoFatura._logradouro);
-            $('#numeroFatura').val(enderecoFatura._numero);
-            $('#complementoFatura').val(enderecoFatura._complemento);
-            $('#bairroFatura').val(enderecoFatura._bairro);
-            $('#estadoFatura').val(enderecoFatura._estado);
-            $('#cidadeFatura').val(enderecoFatura._cidade);
-            $('enderecoFaturaDiv').show();
-            var status = document.getElementById('enderecoFatura');
-            status.checked = false;
-           
-        }else{
-            var status = document.getElementById('enderecoFatura');
-            status.checked = true;
-            $('#enderecoFaturaDiv').hide();
-        }
 
-    }
+   
+
 
 
     $('#enderecoFatura').click(function (e){  
@@ -127,3 +66,113 @@ $(document).ready(function(e){
 
 
 });
+
+
+function buscarCliente(){
+    var token = localStorage.getItem('token');
+
+    var logado = verificaSeLogado(token);
+
+    if(logado){
+    var url =  urlClientePorID();
+            $.ajax({
+                url: url,
+                type: 'GET',
+                headers: {'TOKEN': token},
+                timeout: 20000,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: data => {
+                    console.log(data);
+                    var cliente = data;
+                    poupularCadastro(cliente)
+                },
+                error: result => {
+                    alert(result.status + ' ' + result.statusText);
+                }
+            });
+    }else{
+        alert('Erro-->> usuário não logado ou sem permissão')
+    }
+  }
+
+
+
+  function verificaSeLogado(token){
+    var dadosUsuario = localStorage.getItem('dadosUsuario');
+    if(!(dadosUsuario == null || dadosUsuario == '' || dadosUsuario == undefined)){
+        var user = dadosUsuario.split(',');
+        var queryString = window.location.search;
+        var id = queryString.replace(/[^0-9]/g, '');
+
+        if(id != user[0]){
+            return false;
+        }
+
+        if(token == null || token == '' || token == undefined){
+            return false;
+        }
+
+        return true;
+    }else{
+        return false;
+    }
+    
+}
+
+
+
+function urlClientePorID() {
+    var url = 'http://localhost:8080/Clientes/BuscarCliente?id=';
+    var queryString = window.location.search;
+    var id = queryString.replace(/[^0-9]/g, '');
+    return url + id;
+}
+
+
+
+
+function poupularCadastro(cliente){
+    var enderecos = cliente._endereco;
+    console.log(enderecos)
+    var enderecoEntrega = enderecos[0];
+
+
+    $('#nome').val(cliente._nome);
+    $('#email').val(cliente._email);
+    $('#cpf').val(cliente._cpf);
+    $('#dataNascimento').val(cliente._dataNascimento)
+    $('#senha').val(cliente._senha)
+    $('#sexo').val(cliente._sexo);
+    $('#celular').val(cliente._telefone);
+    $('#cep').val(enderecoEntrega._cep);
+    $('#rua').val(enderecoEntrega._logradouro);
+    $('#numero').val(enderecoEntrega._numero);
+    $('#complemento').val(enderecoEntrega._complemento);
+    $('#bairro').val(enderecoEntrega._bairro);
+    $('#estado').val(enderecoEntrega._estado);
+    $('#cidade').val(enderecoEntrega._cidade);
+
+
+
+    if(enderecos.length == 2){
+        var enderecoFatura = enderecos[1];
+        console.log(enderecoFatura)
+        $('#cepFatura').val(enderecoFatura._cep);
+        $('#ruaFatura').val(enderecoFatura._logradouro);
+        $('#numeroFatura').val(enderecoFatura._numero);
+        $('#complementoFatura').val(enderecoFatura._complemento);
+        $('#bairroFatura').val(enderecoFatura._bairro);
+        $('#estadoFatura').val(enderecoFatura._estado);
+        $('#cidadeFatura').val(enderecoFatura._cidade);
+        $('enderecoFaturaDiv').show();
+        var status = document.getElementById('enderecoFatura');
+        status.checked = false;
+       
+    }else{
+        var status = document.getElementById('enderecoFatura');
+        status.checked = true;
+        $('#enderecoFaturaDiv').hide();
+    }
+
+}

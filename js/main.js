@@ -209,3 +209,43 @@ function retornarDiv(response) {
 }
 
 
+function logout(){
+    console.log('entrei logout')
+    var url = 'http://localhost:8080/Login/logout';
+    var dados = localStorage.getItem('dadosUsuario');
+    dados = dados.split(',');
+
+    var json = JSON.stringify({
+        _id: dados[0],
+        _login: dados[1],
+        _password: dados[2],
+        _permission: dados[3],
+        _token: dados[4],
+        _idCliente: dados[5]
+    });
+
+    $.ajax({
+        url: url,
+        type: 'POST',
+        timeout: 20000,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: json,
+        success: data => {
+            if(data._codigo != 200) {
+                alert(data._message);
+            } 
+            else {
+                limparStorage();
+                window.location.reload(true);
+            }   
+        },
+        error: result => {
+            console.log(result)
+        },
+    });
+}
+
+function limparStorage(){
+    localStorage.clear();
+}
