@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+    var sessionId = localStorage.getItem('sessionId');
     var dadosUsuario = localStorage.getItem('dadosUsuario');
     if(dadosUsuario == null || dadosUsuario == '' || dadosUsuario == undefined){
         $('#clienteLogado').hide();
@@ -22,22 +22,87 @@ $(document).ready(function () {
 
 
 
-$("#meusDados").click(function(e){
-    var dadosUsuario = localStorage.getItem('dadosUsuario');
-    if(dadosUsuario == null || dadosUsuario == '' || dadosUsuario == undefined){
-       alert('Você não está logado!');
-       window.location.href = "login.html";
-    }else{
-        var user = dadosUsuario.split(',')
-        //alert(user[0]);
-        var idCliente = user[0];
-        
-        window.location.href = 'Atualizar.html?id='+idCliente;
+    $("#meusDados").click(function(e){
+        var dadosUsuario = localStorage.getItem('dadosUsuario');
+        if(dadosUsuario == null || dadosUsuario == '' || dadosUsuario == undefined){
+           alert('Você não está logado!');
+           window.location.href = "login.html";
+        }else{
+            var user = dadosUsuario.split(',')
+            //alert(user[0]);
+            var idCliente = user[0];
+
+            window.location.href = 'Atualizar.html?id='+idCliente;
+        }
+    });
+
+
+
+    if(!verificaSessao()) window.location.reload(true);
+
+    function verificaSessao(){
+        if(sessionId == null){
+            localStorage.setItem('sessionId', getTokenSession())
+            return true;
+        }else {
+            var splitar = sessionId.split(',')
+            if(horaAtual() > splitar[1]){
+                console.log('token venceu');
+                localStorage.removeItem('carrinho');
+                localStorage.removeItem('sessionId');
+                return false;
+            }
+        }
+        return true;
     }
-});
 
 
 
+    function horaAtual() {
+       // Obtém a data/hora atual
+        var data = new Date();
+
+        // Guarda cada pedaço em uma variável
+        var dia     = data.getDate();           // 1-31
+        var dia_sem = data.getDay();            // 0-6 (zero=domingo)
+        var mes     = data.getMonth();          // 0-11 (zero=janeiro)
+        var ano2    = data.getYear();           // 2 dígitos
+        var ano4    = data.getFullYear();       // 4 dígitos
+        var hora    = data.getHours();          // 0-23
+        var min     = data.getMinutes();        // 0-59
+        var seg     = data.getSeconds();        // 0-59
+        var mseg    = data.getMilliseconds();   // 0-999
+        var tz      = data.getTimezoneOffset(); // em minutos
+
+        // Formata a data e a hora (note o mês + 1)
+        var str_data = dia + '/' + (mes+1) + '/' + ano4;
+        var str_hora = hora + ':' + min + ':' + seg;
+        
+        return hora;
+    }
+
+    function getTokenSession() {
+        var chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJLMNOPQRSTUVWXYZ";
+        var tokenLength = 32;
+        var tokenSession = "";
+  
+        for (var i = 0; i < tokenLength; i++) {
+          var randomNumber = Math.floor(Math.random() * chars.length);
+          tokenSession += chars.substring(randomNumber, randomNumber + 1);
+        }
+
+
+        // Obtém a data/hora atual
+        var data = new Date();
+
+        var hora    = data.getHours();          // 0-23
+        
+        var horaAcima = parseInt(hora) + 5;
+
+        
+
+        return  tokenSession + ','+horaAcima;
+    }
 });
 
 
@@ -134,8 +199,9 @@ function popularTelaPrdutoEspecifico(produto) {
     $('#nomeProduto').text(produto._nomeProduto);
     $('#descricao').text(produto._descricao);
     $('#preco').text('R$ ' + produto._preco.toFixed(2));
+    $('#idDoProduto').val(produto._idProduto);
     $('#estrelas').append(mostrarEstrelas(produto._qualidadeProduto));
-    console.log('aqui')
+    
     var imagens = produto._imagem;
     Object.keys(imagens).forEach(function(item) {
         console.log(item + " = " + imagens[item]);
@@ -151,6 +217,16 @@ function popularTelaPrdutoEspecifico(produto) {
             }
         }
     });
+
+    console.log('Minha quantidade--->'+produto._qtdEstoque);
+
+    for(let i = 1; i <= produto._qtdEstoque; i++){
+        console.log('i-->>'+i)
+        $('#produtos-quantidade-itens').append(
+            '<option>'+i+'</option>'
+        )
+    }
+
 }
 
 function tratarDadosgetProdutos() {
@@ -247,5 +323,6 @@ function logout(){
 }
 
 function limparStorage(){
-    localStorage.clear();
+    localStorage.removeItem('token');
+    localStorage.removeItem('dadosUsuario');
 }

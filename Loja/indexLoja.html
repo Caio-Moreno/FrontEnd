@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="../assets/css/style.css">
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="../css/Loja/index.css">
+    <link rel="stylesheet" href="../css/Loja/carrinho.css">
 
 </head>
 
@@ -84,7 +85,7 @@
 
 
 
-                    <li class="nav-item">
+                    <li class="nav-item open-cart">
                         <span class="notificacao d-flex align-items-center justify-content-center">3</span>
                         <a href="#">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -237,6 +238,26 @@
     </main>
     <!-- end main -->
 
+<!-- SIDEBAR ABRE QUANDO CLICAMOS NO BOTÃO COMPRAR -->
+<div class="mini-cart" id="cart">
+    <h3>Carrinho</h3>
+    <div class="row mini-cart-list">
+      <div class="col-md-4 col-xs-4">
+        <div class="img-ph"></div>
+      </div>
+      <div class="col-md-8 col-xs-8">Max Fillet Ao Molho Adultos<br>
+        <small>Vivamus sagittis lacus</small>
+      </div>
+    </div>
+  
+    <footer class="mini-cart-footer">
+      <hr>
+      <a href="#" class="btn btn-default btn-block btn-back" id="back-cart"> &#10094; Escolher mais produtos</a>
+      <a href="#" class="btn btn-success btn-block btn-lg btn-finish">Finalizar compra &#10095;</a>
+    </footer>
+  </div> <!-- /mini-cart -->
+
+
     <!-- Footer -->
     <footer class="container-fluid">
         <!-- container -->
@@ -348,6 +369,7 @@
     <script src="../assets/js/popper.js"></script>
     <script src="../assets/js/bootstrap.js"></script>
     <script src="../js/main.js"></script>
+    <script src="../js/carrinho.js"></script>
     <script>
         $(document).ready(function() {
             getProdutos();

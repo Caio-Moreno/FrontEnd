@@ -1,0 +1,117 @@
+/* Fonts
+   ============================= */
+  
+  /* Estilo geral da página
+     ============================= */
+ 
+
+  h1 {
+    font-size: 3em;
+    font-weight: 100;
+    margin: 0;
+  }
+  nav {
+    font-family: 'BLOKKNeue-Regular';
+    padding: 0;
+    font-size: 1.2em;
+    color: #C8CED6;
+  }
+  nav h3 {
+    font-size: 1.6em;
+    margin-top: 0;
+  }
+  nav ul {
+    padding-left: 10px;
+    margin-bottom: 30px;
+  }
+  nav li {
+    list-style: none;
+  }
+  .details {
+    margin-bottom: 30px;
+  }
+  .details p {
+    font-family: 'BLOKKNeue-Regular';
+    opacity: .2;
+    word-spacing: -1em;
+    margin-bottom: 30px;
+  }
+  .details .btn {
+    border-radius: 26px;
+    padding: 12px 20px 10px;
+  }
+  .details .img-ph {
+    height: 250px;
+    margin-top: 15px;
+  }
+  .img-ph {
+    background-color: rgba(0, 0, 0, 0.06);
+    width: 100%;
+  }
+  h2 {
+    font-family: 'BLOKKNeue-Regular';
+    word-spacing: -1.3em;
+  }
+  h3 {
+    font-weight: 300;
+  }
+  .details .btn-success,
+  .details .btn-success:hover {
+    background: none;
+    color: #17904a;
+    border: 2px solid currentColor;
+    text-transform: uppercase;
+  }
+  
+  /* ============================= 
+      Minicart começa aqui
+     ============================= */
+  
+  /* Estilo do mini cart fechado */
+  .mini-cart {
+    position: fixed;
+    height: 100%;
+    width: 400px;
+    max-width: 95%;
+    top: 0;
+    right: 0;
+    background-color: #E8EFF4;
+    box-shadow: -6px 0 rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    
+    /* Esconde a sidebar no canto direito translate(x, y) */
+    transform: translate(100%,0);
+    opacity: 0;
+    transition: transform .2s ease, opacity .2s;
+  }
+  
+  /* ✨Estado ativo da sidebar✨ */
+  .mini-cart.active {
+    transform: translate(0,0);
+    opacity: 1;
+    transition-duration: .4s;
+  }
+  
+  /* Lista do minicart */
+  .mini-cart .mini-cart-list {
+    font-family: 'BLOKKNeue-Regular';
+    word-spacing: -1.3em;
+  }
+  .mini-cart.active .mini-cart-list {
+      animation: slideLeft .4s .2s forwards;
+  }
+  .mini-cart .img-ph {
+    height: 80px;
+  }
+  .mini-cart .btn-back {
+    background: none;
+    border-width: 2px;
+  }
+  .mini-cart .mini-cart-footer {
+    position: absolute;
+    bottom: 20px;
+    right: 0;
+    padding: 0 5px;
+    width: 100%;
+  }
+  

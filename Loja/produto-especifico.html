@@ -211,16 +211,13 @@
                             <div class="form-group">
                                 <label for="produtos-quantidade-itens">Quantidade</label>
                                 <select class="form-control" id="produtos-quantidade-itens">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
+                 
                 </select>
                             </div>
 
-                            <button type="submit" class="btn btn-success col-md-12">Comprar</button>
+                            <button id="add-carrinho" type="button" class="btn btn-success col-md-12">Comprar</button>
                         </form>
+                        <input id="idDoProduto" type="hidden">
                     </article>
                 </section>
 
@@ -231,6 +228,8 @@
 
     </main>
     <!-- end main -->
+
+    
 
     <!-- Footer -->
     <footer class="container-fluid">
@@ -343,6 +342,7 @@
     <script src="../assets/js/popper.js"></script>
     <script src="../assets/js/bootstrap.js"></script>
     <script src="../js/main.js"></script>
+    <script src="../js/carrinho.js"></script>
     <script>
         $(document).ready(function() {
             getProdutoEspecifico();
