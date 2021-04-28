@@ -43,6 +43,7 @@
 				data: json,
 				success: data => {
 						console.log(data)
+						$('#cart').addClass('active');
 				},
 				error: data => {
 					console.log(data)

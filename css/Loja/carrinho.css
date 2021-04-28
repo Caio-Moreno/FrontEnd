@@ -88,6 +88,7 @@
   /* ✨Estado ativo da sidebar✨ */
   .mini-cart.active {
     transform: translate(0,0);
+    z-index: 999;
     opacity: 1;
     transition-duration: .4s;
   }
@@ -95,7 +96,7 @@
   /* Lista do minicart */
   .mini-cart .mini-cart-list {
     font-family: 'BLOKKNeue-Regular';
-    word-spacing: -1.3em;
+    
   }
   .mini-cart.active .mini-cart-list {
       animation: slideLeft .4s .2s forwards;
@@ -104,14 +105,18 @@
     height: 80px;
   }
   .mini-cart .btn-back {
-    background: none;
+    background-color: blanchedalmond;
     border-width: 2px;
   }
   .mini-cart .mini-cart-footer {
     position: absolute;
-    bottom: 20px;
+    bottom: 0px;
     right: 0;
-    padding: 0 5px;
+    
     width: 100%;
+  }
+
+  footer {
+    padding: 5px 0;
   }
   
