@@ -238,7 +238,9 @@ function retornarDadosUpdate() {
 
 function getEnderecosLista(id) {
 
-    var url = tratarDadosgetProdutos(id);
+    var url = tratarDadosgetEnderecos(id);
+
+    console.log("to aqui novo");
 
     $.ajax({
         url: url,
