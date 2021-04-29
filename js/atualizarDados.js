@@ -305,7 +305,6 @@ function retornarLinha(response) {
     td3.text(response._complemento);
     td4.text(response._bairro);
     td5.text(response._estado);
-    //td6.text(response._statusProduto);
     td6.text(response._cidade);
     td7.text(response._cep);
     tr.append(td1)
@@ -315,6 +314,7 @@ function retornarLinha(response) {
     tr.append(td5)
     tr.append(td6)
     tr.append(td7)
+    tr.append(td8)
         //insiro no corpo a linha
     body.append(tr);
 
