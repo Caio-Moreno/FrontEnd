@@ -43,14 +43,79 @@
 				data: json,
 				success: data => {
 						console.log(data)
-						$('#cart').addClass('active');
+						buscarCarrinho();
 				},
 				error: data => {
 					console.log(data)
 				}
 			
 			});
-		}
+			}
+
+			function buscarCarrinho(){
+				var dadosSession = localStorage.getItem('sessionId').split(',');
+				var sessionId = dadosSession[0];
+				var url = 'http://localhost:8080/Carrinho/getCart?session='+sessionId;
+
+
+				$.ajax({
+					url: url,
+					type: 'GET',
+					timeout: 20000,
+					contentType: "application/json; charset=utf-8",
+					dataType: "json",
+					success: data => {
+							popular(data);
+							$('#cart').addClass('active');
+					},
+					error: data => {
+						console.log(data)
+					}
+				
+				});
+
+			}
+			
+			function popular(carrinho){
+				var quantidade = carrinho._quantidade;
+				var cart = carrinho._carrinho;
+				var divPrincipal = $('#principalCarrinho');
+
+				removeElements();
+				
+				var total;
+
+				for(let i = 0; i < quantidade; i++){
+					var produto = cart[i];
+					console.log(produto)
+					var divCarrinho = '<div class="row mini-cart-list">'+
+					'<div class="col-md-4 col-xs-4">'+
+					  '<div class="img-ph">'+
+						  '<img src="'+produto._imageProduto+'">'+
+					  '</div>'+
+					'</div>'+
+					'<div>'+
+						'<p>'+produto._idProduto+'</p>'+
+						'<p>Quantidade:'+produto._quantidade+'</p>'+
+						'<p>valor:'+produto._valor+'</p>'+
+					'</div>'+
+				  '</div>'
+
+					divPrincipal.append(divCarrinho);
+				}
+				
+
+			}
+
+			function removeElements(){
+				const div = $('#principalCarrinho');
+				div.empty();
+
+			}
+
+			function preencherListaCarrinho(){
+				
+			}
 			
 			
 	});

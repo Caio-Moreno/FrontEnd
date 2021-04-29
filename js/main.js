@@ -36,7 +36,7 @@ $(document).ready(function () {
         }
     });
 
-
+  
 
     if(!verificaSessao()) window.location.reload(true);
 
