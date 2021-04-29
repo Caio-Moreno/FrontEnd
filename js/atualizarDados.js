@@ -240,7 +240,7 @@ function getEnderecosLista(id) {
 
     var url = tratarDadosgetEnderecos(id);
 
-    console.log("to aqui novo");
+    console.log("to aqui novo"+url);
 
     $.ajax({
         url: url,
@@ -249,11 +249,17 @@ function getEnderecosLista(id) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: data => {
-            var tamanho = data._endereco.length;
-            console.log('este o tamanho do array de endereço : ' + tamanho);
-            var enderecos = data._endereco;
-            console.log(tamanho);
-            //console.log(produtos);
+            console.log("sucesso")
+             console.log(data)
+        
+            var tamanho = data._enderecos.length;
+            console.log(tamanho)
+            
+            
+            var enderecos = data._enderecos;
+            console.log(enderecos)
+            
+            
             for (i = 0; i < tamanho; i++) {
                 var endereco = enderecos[i];
 
@@ -274,6 +280,7 @@ function tratarDadosgetEnderecos(id) {
 }
 
 function retornarLinha(response) {
+    console.log('meuResponse')
     console.log(response);
 
     //instacio a tabela
@@ -289,18 +296,18 @@ function retornarLinha(response) {
     var td4 = $('<td data-bairro="' + response._bairro + '"></td>');
     var td5 = $('<td data-estado="' + response._estado + '"></td>');
 
-    var td7 = $('<td data-cidade="' + response._cidade + '"></td>');
-    var td8 = $('<td data-cep="' + response._cep + '"></td>');
+    var td6 = $('<td data-cidade="' + response._cidade + '"></td>');
+    var td7 = $('<td data-cep="' + response._cep + '"></td>');
 
-    var td9 = $('<td onclick="mostrarModalEditar(' + response._id + ')"><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>');
+    var td8 = $('<td onclick="mostrarModalEditar(' + response._id + ')"><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>');
     td1.text(response._logradouro);
     td2.text(response._numero)
     td3.text(response._complemento);
     td4.text(response._bairro);
     td5.text(response._estado);
     //td6.text(response._statusProduto);
-    td7.text(response._cidade);
-    td8.text(response._cep);
+    td6.text(response._cidade);
+    td7.text(response._cep);
     tr.append(td1)
     tr.append(td2)
     tr.append(td3)
@@ -308,8 +315,6 @@ function retornarLinha(response) {
     tr.append(td5)
     tr.append(td6)
     tr.append(td7)
-    tr.append(td8)
-    tr.append(td9)
         //insiro no corpo a linha
     body.append(tr);
 
