@@ -306,7 +306,6 @@ function retornarLinha(response) {
     td3.text(response._complemento);
     td4.text(response._bairro);
     td5.text(response._estado);
-    //td6.text(response._statusProduto);
     td6.text(response._cidade);
     td7.text(response._cep);
     td8.text(response._tipo);
