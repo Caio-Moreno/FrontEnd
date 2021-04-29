@@ -1,5 +1,5 @@
 	// JQuery simples para aplicar ou remover a classe que faz a transição do minicart
-	$(document).ready(function() {
+	
 		$('.open-cart').on('click', function() {
 			$('#cart').addClass('active');
 			event.preventDefault();
@@ -66,7 +66,7 @@
 					dataType: "json",
 					success: data => {
 							popular(data);
-							$('#cart').addClass('active');
+							//$('#cart').addClass('active');
 					},
 					error: data => {
 						console.log(data)
@@ -95,7 +95,7 @@
 					  '</div>'+
 					'</div>'+
 					'<div>'+
-						'<p>'+produto._idProduto+'</p>'+
+						'<p>'+produto._nomeProduto+'</p>'+
 						'<p>Quantidade:'+produto._quantidade+'</p>'+
 						'<p>valor:'+produto._valor+'</p>'+
 					'</div>'+
@@ -118,7 +118,7 @@
 			}
 			
 			
-	});
+	
 
 
 
