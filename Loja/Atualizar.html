@@ -1,235 +1,308 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    
+
     <link rel="stylesheet" href="../css/bootstrap_4_3/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/Loja/dados.css">
     <title>Meus dados</title>
+    <!-- Custom fonts for this template -->
+    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!-- Custom styles for this template -->
+    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/listaProdutos.css">
+    <link rel="stylesheet" href="../css/star.css">
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../js/listaProdutos.js"></script>
+    <script src="../js/atualizarDados.js"></script>
+    <script src="../js/cadastrarImagem.js"></script>
+    <script src="../js/login.js"></script>
+    <script src="../js/utils.js"></script>
+    <script>
+        var dados = localStorage.getItem('dadosUsuario');
+        var user = dados.split(',');
+        var idUsuario = user[0];
+
+        $(document).ready(function() {
+            getEnderecosLista(idUsuario);
+        });
+    </script>
 </head>
+
 <body>
     <header>
-        <img src="../assets/images/logo.svg" class="img-fluid image" alt="Logo da empresa - Bomba patch">
+        <a href="../Loja/indexLoja.html">
+            <img src="../assets/images/logo.svg" class="img-fluid image" alt="Logo da empresa - Bomba patch">
+        </a>
+
     </header>
 
     <div class="form-row mt-5">
- <nav class="form-group col-md-2 menu-left menu-left-open">
-    <a id="Pedidos"><img class="img-fluid ai-26px" src="https://img.icons8.com/metro/26/000000/checkout.png"/><span class="ml-10px">Pedidos</span></a>
-    <a id="Cadastro"><img class="img-fluid ai-26px" src="https://img.icons8.com/windows/32/000000/edit-user.png"/> <span class="ml-5px">Cadastro</span></a>
-    <a id="Endereco"><img class="img-fluid ai-26px" src="https://img.icons8.com/material-rounded/100/000000/address.png"/><span class="ml-10px">Endereço</span> </a>
-    <a id="Cartoes"><img class="img-fluid ai-26px" src="https://img.icons8.com/ios/100/000000/bank-card-back-side.png"/><span class="ml-10px">Cartões</span></a>
-  </nav>
-<!--Inicio cadastro-->
-  <div id="updateDados" class="card form-group col-md-9">
-    <div class="card-body">
-        <form>
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    <span>Nome e sobrenome</span>
-                    <input type="text" id="nome" class="form-control inputAjuste" name="nome" placeholder="Nome">
-                    <!--<span id="nomeInvalido" style="color: red;">Digite um nome válido (Deverá conter ao menos 3 digitos no nome e sobrenome)</span>-->
-                </div>
-                <div class="form-group col-md-12">
-                    <span>Email</span>
-                    <input type="email" id="email" class="form-control inputAjuste" name="email" placeholder="Digite seu email" disabled>
-                    <!--<span id="emailInvalido" style="color: red;">Digite um email válido</span>-->
-                </div>
-            
-                <!-- CPF -->
-                <div class="form-group col-md-6">
-                    <span>CPF</span>
-                    <input type="text" class="form-control inputAjuste" id="cpf" name="cpf" size="12" maxlength="14" placeholder="CPF" disabled>  
-                    <!--<span id="cpfInvalido" style="color: red;">Digite um CPF válido</span>-->
-                </div>
-                    <!-- DATANASICMENTO  -->
-                 <div class="form-group col-md-6">
-                     <span>Data de nascimento</span>
-                    <input type="text" id="dataNascimento" name="dataNascimento" class="form-control inputAjuste" placeholder="Data de nascimento" maxlength="10" disabled/>           
-                    <!--<span id="dataInvalida" style="color: red; ">Data de nascimento inválida</span>-->
-                </div>
-            
-                <!-- Password -->
-                <div class="form-group col-md-6">
-                    <span>Senha</span>
-                    <input type="password" id="password" class="form-control inputAjuste" name="password" placeholder="Senha">
-                    <!--<span id="senhaInvalida" style="color: red; ">A senha deve conter no mínimo 3 caracteres</span>-->
-                </div>
+        <nav class="form-group col-md-2 menu-left menu-left-open">
+            <a id="Pedidos"><img class="img-fluid ai-26px" src="https://img.icons8.com/metro/26/000000/checkout.png" /><span class="ml-10px">Pedidos</span></a>
+            <a id="Cadastro"><img class="img-fluid ai-26px" src="https://img.icons8.com/windows/32/000000/edit-user.png" /> <span class="ml-5px">Cadastro</span></a>
+            <a id="Endereco"><img class="img-fluid ai-26px" src="https://img.icons8.com/material-rounded/100/000000/address.png" /><span class="ml-10px">Endereço</span> </a>
+            <a id="Cartoes"><img class="img-fluid ai-26px" src="https://img.icons8.com/ios/100/000000/bank-card-back-side.png" /><span class="ml-10px">Cartões</span></a>
+        </nav>
+        <!--Inicio cadastro-->
+        <div id="updateDados" class="card form-group col-md-9">
+            <div class="card-body">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <span>Nome e sobrenome</span>
+                            <input type="text" id="nome" class="form-control inputAjuste" name="nome" placeholder="Nome">
+                            <!--<span id="nomeInvalido" style="color: red;">Digite um nome válido (Deverá conter ao menos 3 digitos no nome e sobrenome)</span>-->
+                        </div>
+                        <div class="form-group col-md-12">
+                            <span>Email</span>
+                            <input type="email" id="email" class="form-control inputAjuste" name="email" placeholder="Digite seu email" disabled>
+                            <!--<span id="emailInvalido" style="color: red;">Digite um email válido</span>-->
+                        </div>
 
-                
-                <div class="form-group col-md-6">
-                    <span>Confirmar senha</span>
-                    <input type="password" id="passwordConfirm" class="form-control inputAjuste" name="passwordConfirm" placeholder="Senha">
-                    <!--<span id="senhaConfirmInvalida" style="color: red; ">As senhas não coicidem</span>-->
-                </div>
-                
-                
+                        <!-- CPF -->
+                        <div class="form-group col-md-6">
+                            <span>CPF</span>
+                            <input type="text" class="form-control inputAjuste" id="cpf" name="cpf" size="12" maxlength="14" placeholder="CPF" disabled>
+                            <!--<span id="cpfInvalido" style="color: red;">Digite um CPF válido</span>-->
+                        </div>
+                        <!-- DATANASICMENTO  -->
+                        <div class="form-group col-md-6">
+                            <span>Data de nascimento</span>
+                            <input type="text" id="dataNascimento" name="dataNascimento" class="form-control inputAjuste" placeholder="Data de nascimento" maxlength="10" disabled/>
+                            <!--<span id="dataInvalida" style="color: red; ">Data de nascimento inválida</span>-->
+                        </div>
+
+                        <!-- Password -->
+                        <div class="form-group col-md-6">
+                            <span>Senha</span>
+                            <input type="password" id="password" class="form-control inputAjuste" name="password" placeholder="Senha">
+                            <!--<span id="senhaInvalida" style="color: red; ">A senha deve conter no mínimo 3 caracteres</span>-->
+                        </div>
 
 
-                <div class="form-group col-md-6">
-                    <span>Sexo</span>
-                    <select id="sexo" class="form-control selectAjuste" >
+                        <div class="form-group col-md-6">
+                            <span>Confirmar senha</span>
+                            <input type="password" id="passwordConfirm" class="form-control inputAjuste" name="passwordConfirm" placeholder="Senha">
+                            <!--<span id="senhaConfirmInvalida" style="color: red; ">As senhas não coicidem</span>-->
+                        </div>
+
+
+
+
+                        <div class="form-group col-md-6">
+                            <span>Sexo</span>
+                            <select id="sexo" class="form-control selectAjuste">
                         <option value="M">Masculino</option>
                         <option value="F">Feminino</option>
-                    </select>          
-                </div>
+                    </select>
+                        </div>
 
-                <!-- CELULAR  / WHATSAPP -->
-                <div class="form-group col-md-6">
-                    <span>Celular</span>
-                    
-                    <input type="text" id="celular" name="celular" class="form-control inputAjuste" placeholder="(99) 99999-9999" maxlength="14"/>           
-                
-                    <!--<span id="celularInvalido"  style="color: red;">Digite um celular válido</span>-->
-                </div>                                      
+                        <!-- CELULAR  / WHATSAPP -->
+                        <div class="form-group col-md-6">
+                            <span>Celular</span>
+
+                            <input type="text" id="celular" name="celular" class="form-control inputAjuste" placeholder="(99) 99999-9999" maxlength="14" />
+
+                            <!--<span id="celularInvalido"  style="color: red;">Digite um celular válido</span>-->
+                        </div>
+                        <div class="center-block text-center">
+                            <input id="idDadosClienteAlterar" type="hidden" />
+                            <a class="btn btn-primary" onclick="atualizaDados()" style="margin-left: 215px; color: white; cursor: pointer;">Alterar Dados</a>
+                        </div>
+                    </div>
+
+                </form>
 
             </div>
-        </form>
-      </div>
-  </div>
-  <!--Encerra cadastro-->
+        </div>
+        <!--Encerra cadastro-->
 
-  <div id="updateEndereco" class="card form-group col-md-9">
-  <div class="card-body">
-   <form>
-         <div class="form-row">
-        <!-- CEP -->
-        <div class="form-group col-md-6">
-            
-            <span>CEP</span>
-            
-            <input type="text" id="cep" class="form-control" name="cep" maxlength="9">
-            <!--<span id="cepInvalido" style="color: red;">CEP inválido</span>-->
-            <!--<span id="cepNaoEncontrado" style="color: red;">CEP informado não foi encontrado</span>-->
-           
-        </div>
+        <div id="updateEndereco" class="card form-group col-md-9">
+            <div class="card-body">
+                <form>
+                    <div class="form-row">
 
-        <!-- RUA -->
-        <div class="form-group col-md-6">
-            <span>Rua</span>
-            <input type="text" id="rua" class="form-control" name="rua" disabled>
-            
-        </div>
 
-        
-        <div class="form-group col-md-6">
-            <span>Número</span>
-            <input type="text" id="numero" class="form-control" name="numero">
-           <!-- <span id="numeroInvalido"  style="color: red;">Digite um número válido</span>-->
-            
-        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Rua</th>
+                                            <th>Número</th>
+                                            <th>Complemento</th>
+                                            <th>Bairro</th>
+                                            <th>Estado</th>
+                                            <th>Cidade</th>
+                                            <th>CEP</th>
+                                            <th>Mudar Tipo Endereço</th>
+                                            <th>Editar</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Rua</th>
+                                            <th>Número</th>
+                                            <th>Complemento</th>
+                                            <th>Bairro</th>
+                                            <th>Estado</th>
+                                            <th>Cidade</th>
+                                            <th>CEP</th>
+                                            <th>Mudar Tipo Endereço</th>
+                                            <th>Editar</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- CEP -->
+                        <div class="form-group col-md-6">
 
-        
-        <div class="form-group col-md-6">
-            <span>Complemento</span>
-            <input type="text" id="complemento" class="form-control" name="complemento">
-            
-        </div>
+                            <span>CEP</span>
 
-        <!-- BAIRRO -->
-        <div class="form-group col-md-6">
-            <span>Bairro</span>
-            <input type="text" id="bairro" class="form-control" name="bairro" disabled>
-            
-        </div>
-                                
-        <!-- ESTADO -->
-        <div class="form-group col-md-6">
-            <Span>Estado</Span>
-            <input type="text" id="estado" class="form-control" name="estado" disabled>
-           
-        </div>
-                                
-        <!-- CIDADE -->
-        <div class="form-group col-md-6">
-            <span>Cidade</span>
-            <input type="text" id="cidade" class="form-control" name="cidade" disabled>
-        
-        </div>
+                            <input type="text" id="cep" class="form-control" name="cep" maxlength="9">
+                            <!--<span id="cepInvalido" style="color: red;">CEP inválido</span>-->
+                            <!--<span id="cepNaoEncontrado" style="color: red;">CEP informado não foi encontrado</span>-->
 
-        <div class="form-group">
-            <div class="form-check checkAjuste">
-              <input class="form-check-input" type="checkbox" id="enderecoFatura">
-              <label class="form-check-label ajusteCheckBox" for="enderecoFatura">
+                        </div>
+
+                        <!-- RUA -->
+                        <div class="form-group col-md-6">
+                            <span>Rua</span>
+                            <input type="text" id="rua" class="form-control" name="rua" disabled>
+
+                        </div>
+
+
+                        <div class="form-group col-md-6">
+                            <span>Número</span>
+                            <input type="text" id="numero" class="form-control" name="numero">
+                            <!-- <span id="numeroInvalido"  style="color: red;">Digite um número válido</span>-->
+
+                        </div>
+
+
+                        <div class="form-group col-md-6">
+                            <span>Complemento</span>
+                            <input type="text" id="complemento" class="form-control" name="complemento">
+
+                        </div>
+
+                        <!-- BAIRRO -->
+                        <div class="form-group col-md-6">
+                            <span>Bairro</span>
+                            <input type="text" id="bairro" class="form-control" name="bairro" disabled>
+
+                        </div>
+
+                        <!-- ESTADO -->
+                        <div class="form-group col-md-6">
+                            <Span>Estado</Span>
+                            <input type="text" id="estado" class="form-control" name="estado" disabled>
+
+                        </div>
+
+                        <!-- CIDADE -->
+                        <div class="form-group col-md-6">
+                            <span>Cidade</span>
+                            <input type="text" id="cidade" class="form-control" name="cidade" disabled>
+
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-check checkAjuste">
+                                <input class="form-check-input" type="checkbox" id="enderecoFatura">
+                                <label class="form-check-label ajusteCheckBox" for="enderecoFatura">
                 O endereço é o mesmo da fatura?
               </label>
-            </div>
-          </div>
+                            </div>
+                        </div>
 
+                    </div>
+
+                    <div class="form-row" id="enderecoFaturaDiv">
+
+                        <!--ENDERECO FATURA-->
+                        <div class="form-group col-md-6">
+                            <span>CEP</span>
+
+                            <input type="text" id="cepFatura" class="form-control" name="cep" maxlength="9">
+                            <!--<span id="cepInvalidoFatura" style="color: red;">CEP inválido</span>-->
+                            <!-- <span id="cepNaoEncontradoFatura" style="color: red;">CEP informado não foi encontrado</span>-->
+
+                        </div>
+
+                        <!-- RUA -->
+                        <div class="form-group col-md-6">
+                            <span>Rua</span>
+                            <input type="text" id="ruaFatura" class="form-control" name="rua" disabled>
+
+                        </div>
+
+
+                        <div class="form-group col-md-6">
+                            <span>Número</span>
+                            <input type="text" id="numeroFatura" class="form-control" name="numero">
+                            <!-- <span id="numeroFaturaInvalido"  style="color: red;">Digite um número válido</span>-->
+
+                        </div>
+
+
+                        <div class="form-group col-md-6">
+                            <span>Complemento</span>
+                            <input type="text" id="complementoFatura" class="form-control" name="complemento">
+
+                        </div>
+
+                        <!-- BAIRRO -->
+                        <div class="form-group col-md-6">
+                            <span>Bairro</span>
+                            <input type="text" id="bairroFatura" class="form-control" name="bairro" disabled>
+
+                        </div>
+
+                        <!-- ESTADO -->
+                        <div class="form-group col-md-6">
+                            <Span>Estado</Span>
+                            <input type="text" id="estadoFatura" class="form-control" name="estado" disabled>
+
+                        </div>
+
+                        <!-- CIDADE -->
+                        <div class="form-group col-md-6">
+                            <span>Cidade</span>
+                            <input type="text" id="cidadeFatura" class="form-control" name="cidade" disabled>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
 
-        <div class="form-row" id="enderecoFaturaDiv">
-            
-             <!--ENDERECO FATURA-->
-            <div class="form-group col-md-6">
-              <span>CEP</span>
-              
-              <input type="text" id="cepFatura" class="form-control" name="cep" maxlength="9">
-              <!--<span id="cepInvalidoFatura" style="color: red;">CEP inválido</span>-->
-             <!-- <span id="cepNaoEncontradoFatura" style="color: red;">CEP informado não foi encontrado</span>-->
-             
-          </div>
+    </div>
 
-          <!-- RUA -->
-          <div class="form-group col-md-6">
-              <span>Rua</span>
-              <input type="text" id="ruaFatura" class="form-control" name="rua" disabled>
-              
-          </div>
+    <script src="../assets/JQueyMask/src/jquery.mask.js"></script>
 
-          
-          <div class="form-group col-md-6">
-              <span>Número</span>
-              <input type="text" id="numeroFatura" class="form-control" name="numero">
-             <!-- <span id="numeroFaturaInvalido"  style="color: red;">Digite um número válido</span>-->
-              
-          </div>
-
-          
-          <div class="form-group col-md-6">
-              <span>Complemento</span>
-              <input type="text" id="complementoFatura" class="form-control" name="complemento">
-              
-          </div>
-
-          <!-- BAIRRO -->
-          <div class="form-group col-md-6">
-              <span>Bairro</span>
-              <input type="text" id="bairroFatura" class="form-control" name="bairro" disabled>
-              
-          </div>
-                                  
-          <!-- ESTADO -->
-          <div class="form-group col-md-6">
-              <Span>Estado</Span>
-              <input type="text" id="estadoFatura" class="form-control" name="estado" disabled>
-             
-          </div>
-                                  
-          <!-- CIDADE -->
-          <div class="form-group col-md-6">
-              <span>Cidade</span>
-              <input type="text" id="cidadeFatura" class="form-control" name="cidade" disabled>
-          
-          </div>
-      </div>
-   </form>
-  </div>
-  </div>
-
-</div>
-
-<script src="../assets/JQueyMask/src/jquery.mask.js"></script>
-
-<script src="../js/atualizarDados.js"></script>
+    <script src="../js/atualizarDados.js"></script>
 
 
 
 
-<script>
-    buscarCliente();   
-</script>
+    <script>
+        buscarCliente();
+    </script>
 </body>
+
 </html>
