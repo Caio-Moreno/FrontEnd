@@ -240,7 +240,7 @@ function getEnderecosLista(id) {
 
     var url = tratarDadosgetEnderecos(id);
 
-    console.log("to aqui novo"+url);
+    console.log("to aqui novo" + url);
 
     $.ajax({
         url: url,
@@ -250,16 +250,16 @@ function getEnderecosLista(id) {
         dataType: "json",
         success: data => {
             console.log("sucesso")
-             console.log(data)
-        
+            console.log(data)
+
             var tamanho = data._enderecos.length;
             console.log(tamanho)
-            
-            
+
+
             var enderecos = data._enderecos;
             console.log(enderecos)
-            
-            
+
+
             for (i = 0; i < tamanho; i++) {
                 var endereco = enderecos[i];
 
@@ -275,7 +275,7 @@ function getEnderecosLista(id) {
 }
 
 function tratarDadosgetEnderecos(id) {
-    var url1 = 'http://localhost:8080/endereco?id=' + id;
+    var url1 = 'http://localhost:8080/endereco/listar?id=' + id;
     return url1;
 }
 
@@ -298,8 +298,9 @@ function retornarLinha(response) {
 
     var td6 = $('<td data-cidade="' + response._cidade + '"></td>');
     var td7 = $('<td data-cep="' + response._cep + '"></td>');
+    var td8 = $('<td data-tipo="' + response._tipo + '"></td>');
 
-    var td8 = $('<td onclick="mostrarModalEditar(' + response._id + ')"><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>');
+    var td9 = $('<td onclick="mostrarModalEditarEndereco(' + response._id + ')"><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>');
     td1.text(response._logradouro);
     td2.text(response._numero)
     td3.text(response._complemento);
@@ -308,6 +309,7 @@ function retornarLinha(response) {
     //td6.text(response._statusProduto);
     td6.text(response._cidade);
     td7.text(response._cep);
+    td8.text(response._tipo);
     tr.append(td1)
     tr.append(td2)
     tr.append(td3)
@@ -315,10 +317,186 @@ function retornarLinha(response) {
     tr.append(td5)
     tr.append(td6)
     tr.append(td7)
+    tr.append(td8)
+    tr.append(td9)
         //insiro no corpo a linha
     body.append(tr);
 
 
 
     return;
+}
+
+
+
+function mostrarModalEditarEndereco(idProduto) {
+    mostrarEndereco(idProduto);
+    $('#mostrarModalEditarEndereco').modal('show');
+
+}
+
+function mostrarEndereco(id) {
+    $('#alertaAtualizado').hide();
+    var url = 'http://localhost:8080/endereco?id=' + id;
+    console.log('Consumindo para o modal' + url);
+
+    $.ajax({
+        url: url,
+        type: 'GET',
+        timeout: 20000,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: data => {
+            var endereco = data._enderecos[0];
+
+            $('#ruaEnderecoAlterar').val(endereco._logradouro);
+            $('#numeroEnderecoAlterar').val(endereco._numero);
+            $('#complementoEnderecoAlterar').val(endereco._complemento);
+            $('#bairroEnderecoAlterar').val(endereco._bairro);
+            $('#estadoEnderecoAlterar').val(endereco._estado);
+            $('#cidadeEnderecoAlterar').val(endereco._cidade);
+            $('#cepEnderecoAlterar').val(endereco._cep);
+            $('#tipoEnderecoAlterar').val(endereco._tipo);
+
+            $('#idProdutoAlterar').val(id);
+
+            console.log(endereco);
+
+
+        },
+        error: result => {
+            alert(result.status + ' ' + result.statusText);
+        }
+    });
+
+}
+
+
+function atualizarEndereco() {
+    var data = retornarEnderecoUpdate();
+    var id = $('#idUsuarioAlterar').val();
+    id = parseInt(id);
+    console.log('ID' + id);
+    var url = 'http://localhost:8080/endereco?Id=' + id;
+
+    console.log('MEU OBJ' + data)
+
+    $.ajax({
+        url: url,
+        type: 'PUT',
+        headers: { 'TOKEN': token },
+        timeout: 2000000,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: data,
+        success: _ => {
+            var mensagem = _._message;
+            var usuario = _._usuario[0];
+            console.log(usuario + 'to aqui no usuario')
+            $('#modalEditar').modal('hide');
+            alert(mensagem);
+            window.location.reload();
+        },
+        error: result => {
+            console.log(result)
+        },
+        done: _ => {
+            alert('finalizou')
+        }
+    });
+}
+
+function retornarEnderecoUpdate() {
+    var cep = $('#cep').val();
+
+    var rua = $('#rua').val();
+
+    var numero = $('#numero').val();
+    var complemento = $('#complemento').val();
+    var bairro = $('#bairro').val();
+    var estado = $('#estado').val();
+    var cidade = $('#cidade').val();
+    var tipo = $('#tipo').val();
+
+    var json = JSON.stringify({
+        _cep: cep,
+        _password: rua,
+        _sexo: numero,
+        _sexo: bairro,
+        _sexo: estado,
+        _sexo: cidade,
+        _telefone: complemento,
+        _tipo: tipo
+
+    })
+    return json;
+}
+
+
+function enviarEndereco(id) {
+    $('#loading').show(200)
+    $('#addFuncionario').hide(100)
+    $('#alertaErro').hide()
+    $('#alertaSucesso').hide()
+        //var imagens = enviarImagens();
+    var dataSend = retornarObjInserir();
+    var dados = localStorage.getItem('dadosUsuario');
+    var user = dados.split(',');
+
+    id = user[0];
+    console.log("este o id atual " + id);
+
+    var url = 'http://localhost:8080/endereco?id=' + id;
+
+    console.log(url)
+
+    $.ajax({
+        url: url,
+        type: 'POST',
+        timeout: 20000,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: dataSend,
+        success: data => {
+            if (data._response == 200) {
+                $('#alertaSucesso').show(200)
+
+            } else {
+                $('#alertaErro').show(200)
+            }
+            $('#loading').hide(100)
+            $('#alertaSucesso').show(200)
+            $('#addFuncionario').show(200)
+        },
+        error: result => {
+            console.log(result)
+            $('#loading').hide(100)
+            $('#alertaErro').show(200)
+            $('#addFuncionario').show(100)
+            $("#gallery").empty();
+        }
+    });
+}
+
+function retornarObjInserir() {
+    var cep = document.getElementById('cepFatura').value;
+    var rua = document.getElementById('ruaFatura').value;
+    var numero = document.getElementById('numeroFatura').value;
+    var complemento = document.getElementById('complementoFatura').value;
+    var bairro = document.getElementById('bairroFatura').value;
+    var estado = document.getElementById('estadoFatura').value;
+    var cidade = document.getElementById('cidadeFatura').value;
+    var tipo = document.getElementById('tipoFatura').value;
+
+    var json = JSON.stringify({
+        _cep: cep,
+        _logradouro: rua,
+        _numero: numero,
+        _complemento: complemento,
+        _bairro: bairro,
+        _estado: estado,
+        _cidade: cidade,
+        _tipo: tipo
+    })
+    return json;
 }

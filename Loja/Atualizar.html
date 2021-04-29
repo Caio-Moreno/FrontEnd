@@ -24,6 +24,7 @@
     <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../js/listaProdutos.js"></script>
     <script src="../js/atualizarDados.js"></script>
+    <script src="../js/tratamentosCadastro.js"></script>
     <script src="../js/cadastrarImagem.js"></script>
     <script src="../js/login.js"></script>
     <script src="../js/utils.js"></script>
@@ -137,6 +138,7 @@
                                             <th>Estado</th>
                                             <th>Cidade</th>
                                             <th>CEP</th>
+                                            <th>Tipo</th>
                                             <th>Mudar Tipo Endereço</th>
                                             <th>Editar</th>
                                         </tr>
@@ -150,6 +152,7 @@
                                             <th>Estado</th>
                                             <th>Cidade</th>
                                             <th>CEP</th>
+                                            <th>Tipo</th>
                                             <th>Mudar Tipo Endereço</th>
                                             <th>Editar</th>
                                         </tr>
@@ -159,130 +162,190 @@
                                 </table>
                             </div>
                         </div>
-                        <!-- CEP -->
-                        <div class="form-group col-md-6">
 
-                            <span>CEP</span>
-
-                            <input type="text" id="cep" class="form-control" name="cep" maxlength="9">
-                            <!--<span id="cepInvalido" style="color: red;">CEP inválido</span>-->
-                            <!--<span id="cepNaoEncontrado" style="color: red;">CEP informado não foi encontrado</span>-->
-
-                        </div>
-
-                        <!-- RUA -->
-                        <div class="form-group col-md-6">
-                            <span>Rua</span>
-                            <input type="text" id="rua" class="form-control" name="rua" disabled>
-
-                        </div>
-
-
-                        <div class="form-group col-md-6">
-                            <span>Número</span>
-                            <input type="text" id="numero" class="form-control" name="numero">
-                            <!-- <span id="numeroInvalido"  style="color: red;">Digite um número válido</span>-->
-
-                        </div>
-
-
-                        <div class="form-group col-md-6">
-                            <span>Complemento</span>
-                            <input type="text" id="complemento" class="form-control" name="complemento">
-
-                        </div>
-
-                        <!-- BAIRRO -->
-                        <div class="form-group col-md-6">
-                            <span>Bairro</span>
-                            <input type="text" id="bairro" class="form-control" name="bairro" disabled>
-
-                        </div>
-
-                        <!-- ESTADO -->
-                        <div class="form-group col-md-6">
-                            <Span>Estado</Span>
-                            <input type="text" id="estado" class="form-control" name="estado" disabled>
-
-                        </div>
-
-                        <!-- CIDADE -->
-                        <div class="form-group col-md-6">
-                            <span>Cidade</span>
-                            <input type="text" id="cidade" class="form-control" name="cidade" disabled>
-
-                        </div>
-
-                        <div class="form-group">
-                            <div class="form-check checkAjuste">
-                                <input class="form-check-input" type="checkbox" id="enderecoFatura">
-                                <label class="form-check-label ajusteCheckBox" for="enderecoFatura">
-                O endereço é o mesmo da fatura?
-              </label>
-                            </div>
-                        </div>
 
                     </div>
 
-                    <div class="form-row" id="enderecoFaturaDiv">
 
-                        <!--ENDERECO FATURA-->
-                        <div class="form-group col-md-6">
-                            <span>CEP</span>
-
-                            <input type="text" id="cepFatura" class="form-control" name="cep" maxlength="9">
-                            <!--<span id="cepInvalidoFatura" style="color: red;">CEP inválido</span>-->
-                            <!-- <span id="cepNaoEncontradoFatura" style="color: red;">CEP informado não foi encontrado</span>-->
-
-                        </div>
-
-                        <!-- RUA -->
-                        <div class="form-group col-md-6">
-                            <span>Rua</span>
-                            <input type="text" id="ruaFatura" class="form-control" name="rua" disabled>
-
-                        </div>
-
-
-                        <div class="form-group col-md-6">
-                            <span>Número</span>
-                            <input type="text" id="numeroFatura" class="form-control" name="numero">
-                            <!-- <span id="numeroFaturaInvalido"  style="color: red;">Digite um número válido</span>-->
-
-                        </div>
-
-
-                        <div class="form-group col-md-6">
-                            <span>Complemento</span>
-                            <input type="text" id="complementoFatura" class="form-control" name="complemento">
-
-                        </div>
-
-                        <!-- BAIRRO -->
-                        <div class="form-group col-md-6">
-                            <span>Bairro</span>
-                            <input type="text" id="bairroFatura" class="form-control" name="bairro" disabled>
-
-                        </div>
-
-                        <!-- ESTADO -->
-                        <div class="form-group col-md-6">
-                            <Span>Estado</Span>
-                            <input type="text" id="estadoFatura" class="form-control" name="estado" disabled>
-
-                        </div>
-
-                        <!-- CIDADE -->
-                        <div class="form-group col-md-6">
-                            <span>Cidade</span>
-                            <input type="text" id="cidadeFatura" class="form-control" name="cidade" disabled>
-
-                        </div>
-                    </div>
                 </form>
+
+
+
+                <form action="" style="display: block;">
+                    <!-- CEP -->
+                    <div class="form-group col-md-6">
+
+                        <span>CEP</span>
+
+                        <input type="text" id="cepFatura" class="form-control" name="cep" maxlength="9">
+                        <!--<span id="cepInvalido" style="color: red;">CEP inválido</span>-->
+                        <!--<span id="cepNaoEncontrado" style="color: red;">CEP informado não foi encontrado</span>-->
+
+                    </div>
+
+                    <!-- RUA -->
+                    <div class="form-group col-md-6">
+                        <span>Rua</span>
+                        <input type="text" id="ruaFatura" class="form-control" name="rua">
+
+                    </div>
+
+
+                    <div class="form-group col-md-6">
+                        <span>Número</span>
+                        <input type="text" id="numeroFatura" class="form-control" name="numero">
+                        <!-- <span id="numeroInvalido"  style="color: red;">Digite um número válido</span>-->
+
+                    </div>
+
+
+                    <div class="form-group col-md-6">
+                        <span>Complemento</span>
+                        <input type="text" id="complementoFatura" class="form-control" name="complemento">
+
+                    </div>
+
+                    <!-- BAIRRO -->
+                    <div class="form-group col-md-6">
+                        <span>Bairro</span>
+                        <input type="text" id="bairroFatura" class="form-control" name="bairro">
+
+                    </div>
+
+                    <!-- ESTADO -->
+                    <div class="form-group col-md-6">
+                        <Span>Estado</Span>
+                        <input type="text" id="estadoFatura" class="form-control" name="estado">
+
+                    </div>
+
+                    <!-- CIDADE -->
+                    <div class="form-group col-md-6">
+                        <span>Cidade</span>
+                        <input type="text" id="cidadeFatura" class="form-control" name="cidade">
+
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <span>Tipo Endereço</span>
+                        <select class="form-control" name="Endereco" id="tipoFatura">
+                                <option value="E">Endereço de Entrega</option>
+                                <option value="F">Endereço de faturamento</option>
+                                <option value="*">Endereço de entrega e faturamento</option>
+                            </select>
+                    </div>
+
+                    <a class="btn btn-primary" onclick="enviarEndereco()" id="addFuncionario" style="margin-left: 0px; color: white; cursor: pointer;">Confirmar</a>
+
+                </form>
+
+
+
+
+
             </div>
         </div>
 
+    </div>
+
+    <div class="modal fade" id="mostrarModalEditarEndereco" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar registro do usuário</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="container-fluid">
+
+                        <!--MODAL ALTERAR-->
+
+                        <form action="" style="display: block;">
+                            <!-- CEP -->
+                            <div class="form-group col-md-6">
+
+                                <span>CEP</span>
+
+                                <input type="text" id="cep" class="form-control" name="cep" maxlength="9">
+                                <!--<span id="cepInvalido" style="color: red;">CEP inválido</span>-->
+                                <!--<span id="cepNaoEncontrado" style="color: red;">CEP informado não foi encontrado</span>-->
+
+                            </div>
+
+                            <!-- RUA -->
+                            <div class="form-group col-md-6">
+                                <span>Rua</span>
+                                <input type="text" id="rua" class="form-control" name="rua">
+
+                            </div>
+
+
+                            <div class="form-group col-md-6">
+                                <span>Número</span>
+                                <input type="text" id="numero" class="form-control" name="numero">
+                                <!-- <span id="numeroInvalido"  style="color: red;">Digite um número válido</span>-->
+
+                            </div>
+
+
+                            <div class="form-group col-md-6">
+                                <span>Complemento</span>
+                                <input type="text" id="complemento" class="form-control" name="complemento">
+
+                            </div>
+
+                            <!-- BAIRRO -->
+                            <div class="form-group col-md-6">
+                                <span>Bairro</span>
+                                <input type="text" id="bairro" class="form-control" name="bairro">
+
+                            </div>
+
+                            <!-- ESTADO -->
+                            <div class="form-group col-md-6">
+                                <Span>Estado</Span>
+                                <input type="text" id="estado" class="form-control" name="estado">
+
+                            </div>
+
+                            <!-- CIDADE -->
+                            <div class="form-group col-md-6">
+                                <span>Cidade</span>
+                                <input type="text" id="cidade" class="form-control" name="cidade">
+
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <span>Tipo Endereço</span>
+                                <select class="form-control" name="Endereco" id="tipo">
+                                <option value="E">Endereço de Entrega</option>
+                                <option value="F">Endereço de faturamento</option>
+                                <option value="*">Endereço de entrega e faturamento</option>
+                            </select>
+                            </div>
+
+                            <a class="btn btn-primary" onclick="atualizarEndereco()" id="addFuncionario" style="margin-left: 0px; color: white; cursor: pointer;">Confirmar</a>
+
+                        </form>
+
+                        <input id="idUsuarioAlterar" type="hidden" />
+                        <br>
+                        <div class="alert alert-success" role="alert" id="alertaAtualizado">
+                            Funcionário Atualizado com sucesso!
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="atualizarUsuario">Confirmar</button>
+                </div>
+
+            </div>
+        </div>
     </div>
 
     <script src="../assets/JQueyMask/src/jquery.mask.js"></script>
@@ -295,15 +358,22 @@
     <script>
         buscarCliente();
     </script>
-        <script>
-            var dados = localStorage.getItem('dadosUsuario');
-            var user = dados.split(',');
-            var idUsuario = user[0];
-    
-            $(document).ready(function() {
-                getEnderecosLista(idUsuario);
-            });
-        </script>
+    <script>
+        var dados = localStorage.getItem('dadosUsuario');
+        var user = dados.split(',');
+        var idUsuario = user[0];
+
+        $(document).ready(function() {
+            getEnderecosLista(idUsuario);
+        });
+
+        $(document).ready(function() {
+            enviarEndereco(idUsuario);
+        });
+        $(document).ready(function() {
+            atualizarEndereco(idUsuario);
+        });
+    </script>
 </body>
 
 </html>
