@@ -119,6 +119,7 @@ function getProdutos() {
         dataType: "json",
         success: data => {
             console.log(data);
+
             var tamanho = data._produto.length;
             var produtos = data._produto;
             console.log(tamanho);
@@ -218,14 +219,6 @@ function popularTelaPrdutoEspecifico(produto) {
         }
     });
 
-    console.log('Minha quantidade--->'+produto._qtdEstoque);
-
-    for(let i = 1; i <= produto._qtdEstoque; i++){
-        console.log('i-->>'+i)
-        $('#produtos-quantidade-itens').append(
-            '<option>'+i+'</option>'
-        )
-    }
 
 }
 
