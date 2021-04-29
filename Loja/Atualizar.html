@@ -27,15 +27,7 @@
     <script src="../js/cadastrarImagem.js"></script>
     <script src="../js/login.js"></script>
     <script src="../js/utils.js"></script>
-    <script>
-        var dados = localStorage.getItem('dadosUsuario');
-        var user = dados.split(',');
-        var idUsuario = user[0];
 
-        $(document).ready(function() {
-            getEnderecosLista(idUsuario);
-        });
-    </script>
 </head>
 
 <body>
@@ -303,6 +295,15 @@
     <script>
         buscarCliente();
     </script>
+        <script>
+            var dados = localStorage.getItem('dadosUsuario');
+            var user = dados.split(',');
+            var idUsuario = user[0];
+    
+            $(document).ready(function() {
+                getEnderecosLista(idUsuario);
+            });
+        </script>
 </body>
 
 </html>
