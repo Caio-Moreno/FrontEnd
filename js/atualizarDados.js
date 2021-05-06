@@ -473,6 +473,7 @@ function enviarEndereco(id) {
             window.location.reload();
             if (data._response == 200) {
                 $('#alertaSucesso').show(200);
+                limpaCampos();
 
             } else {
                 $('#alertaErro').show(200)
@@ -485,6 +486,7 @@ function enviarEndereco(id) {
         error: result => {
 
 
+            limpaCampos()
             window.location.reload();
             console.log(result)
             $('#loading').hide(100)
@@ -515,4 +517,13 @@ function retornarObjInserir() {
         _tipo: tipo
     })
     return json;
+}
+
+
+function limpaCampos() {
+    var elements = document.getElementsByName("form_txt");
+    elements.forEach(element => {
+        console.log(element);
+        element.value = '';
+    })
 }
