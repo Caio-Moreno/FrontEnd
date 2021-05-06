@@ -3,7 +3,30 @@
   
   /* Estilo geral da página
      ============================= */
+ .mini-cart-lis p {
+   margin-bottom: 0.5rem;
+  
+ }
  
+
+ .buttonDefault {
+   width: 30px;
+   height: 30px;
+   text-align: center;
+   align-items: center;
+   padding: 0;
+ }
+
+ p {
+  margin-bottom: 0.5rem;
+  line-height: 0.9;
+ }
+
+  #removerProd {
+    color: red;
+    text-decoration: underline;
+    cursor: pointer;
+  }
 
   h1 {
     font-size: 3em;
@@ -34,7 +57,7 @@
     font-family: 'BLOKKNeue-Regular';
     opacity: .2;
     word-spacing: -1em;
-    margin-bottom: 30px;
+    margin-bottom: 0px;
   }
   .details .btn {
     border-radius: 26px;
