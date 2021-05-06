@@ -376,14 +376,13 @@ function atualizarEndereco() {
     var id = $('#idUsuarioAlterar').val();
     id = parseInt(id);
     console.log('ID' + id);
-    var url = 'http://localhost:8080/endereco?Id=' + id;
+    var url = 'http://localhost:8080/endereco?id=' + id;
 
     console.log('MEU OBJ' + data)
 
     $.ajax({
         url: url,
         type: 'PUT',
-        headers: { 'TOKEN': token },
         timeout: 2000000,
         contentType: "application/json; charset=utf-8",
         dataType: "json",

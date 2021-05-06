@@ -28,7 +28,8 @@
     <script src="../js/cadastrarImagem.js"></script>
     <script src="../js/login.js"></script>
     <script src="../js/utils.js"></script>
-    <script src = "../css/bootstrap_4_3/js/bootstrap.min.js"> </script>
+    <script src="../css/bootstrap_4_3/js/bootstrap.min.js">
+    </script>
 
 
 </head>
@@ -329,7 +330,6 @@
                             </select>
                             </div>
 
-                            <a class="btn btn-primary" onclick="atualizarEndereco()" id="addFuncionario" style="margin-left: 0px; color: white; cursor: pointer;">Confirmar</a>
 
                         </form>
 
@@ -343,13 +343,13 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="atualizarUsuario">Confirmar</button>
+                    <button type="button" class="btn btn-primary" onclick="atualizarEndereco()">Confirmar</button>
                 </div>
 
             </div>
         </div>
     </div>
-    
+
     <script src="../assets/JQueyMask/src/jquery.mask.js"></script>
 
     <script src="../js/atualizarDados.js"></script>
@@ -371,9 +371,6 @@
 
         $(document).ready(function() {
             enviarEndereco(idUsuario);
-        });
-        $(document).ready(function() {
-            atualizarEndereco(idUsuario);
         });
     </script>
 </body>
