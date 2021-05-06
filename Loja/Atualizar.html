@@ -32,6 +32,14 @@
     <script src="../css/bootstrap_4_3/js/bootstrap.min.js">
     </script>
 
+    <script>
+        $(document).ready(function esconder() {
+            $('#loading').hide()
+            $('#alertaSucesso').hide()
+            $('#alertaErro').hide()
+        });
+    </script>
+
 
 </head>
 
@@ -336,8 +344,8 @@
 
                         <input id="idUsuarioAlterar" type="hidden" />
                         <br>
-                        <div class="alert alert-success" role="alert" id="alertaAtualizado">
-                            Funcionário Atualizado com sucesso!
+                        <div class="alert alert-success" role="alert" id="alertaSucesso">
+                            <span>Endereço adicionado com sucesso</span>
                         </div>
                     </div>
 
@@ -369,10 +377,6 @@
 
         $(document).ready(function() {
             getEnderecosLista(idUsuario);
-        });
-
-        $(document).ready(function() {
-            enviarEndereco(idUsuario);
         });
     </script>
 </body>

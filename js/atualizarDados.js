@@ -453,6 +453,7 @@ function enviarEndereco(id) {
     var dados = localStorage.getItem('dadosUsuario');
     var user = dados.split(',');
 
+    $('#alertaSucesso').hide()
     id = user[0];
     console.log("este o id atual " + id);
 
@@ -468,8 +469,10 @@ function enviarEndereco(id) {
         dataType: "json",
         data: dataSend,
         success: data => {
+
+            window.location.reload();
             if (data._response == 200) {
-                $('#alertaSucesso').show(200)
+                $('#alertaSucesso').show(200);
 
             } else {
                 $('#alertaErro').show(200)
@@ -478,7 +481,11 @@ function enviarEndereco(id) {
             $('#alertaSucesso').show(200)
             $('#addEndereco').show(200)
         },
+
         error: result => {
+
+
+            window.location.reload();
             console.log(result)
             $('#loading').hide(100)
             $('#alertaErro').show(200)
