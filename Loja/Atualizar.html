@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
     <link rel="stylesheet" href="../css/bootstrap_4_3/css/bootstrap.min.css">
@@ -142,8 +143,7 @@
                                             <th>Cidade</th>
                                             <th>CEP</th>
                                             <th>Tipo</th>
-                                            <th>Mudar Tipo Endereço</th>
-                                            <th>Editar</th>
+                                            <th>Editar Endereço</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -156,8 +156,7 @@
                                             <th>Cidade</th>
                                             <th>CEP</th>
                                             <th>Tipo</th>
-                                            <th>Mudar Tipo Endereço</th>
-                                            <th>Editar</th>
+                                            <th>Editar Endereço</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -238,7 +237,7 @@
                             </select>
                     </div>
 
-                    <a class="btn btn-primary" onclick="enviarEndereco()" id="addFuncionario" style="margin-left: 0px; color: white; cursor: pointer;">Confirmar</a>
+                    <a class="btn btn-primary" onclick="enviarEndereco()" id="addEndereco" href="./Atualizar.html" style="margin-left: 0px; color: white; cursor: pointer;">Confirmar</a>
 
                 </form>
 
@@ -320,6 +319,8 @@
                                 <input type="text" id="cidade" class="form-control" name="cidade">
 
                             </div>
+                            <input id="idEnderecoAlterar" type="hidden" />
+                            <input id="idEndereco" type="hidden" />
 
                             <div class="form-group col-md-6">
                                 <span>Tipo Endereço</span>
@@ -349,6 +350,7 @@
             </div>
         </div>
     </div>
+
 
     <script src="../assets/JQueyMask/src/jquery.mask.js"></script>
 

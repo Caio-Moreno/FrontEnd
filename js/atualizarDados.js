@@ -301,6 +301,9 @@ function retornarLinha(response) {
     var td8 = $('<td data-tipo="' + response._tipo + '"></td>');
 
     var td9 = $('<td onclick="mostrarModalEditarEndereco(' + response._id + ')"><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>');
+    /*if (response._tipo == 'I') {
+        tr = $('<tr style="display: none;></tr>')
+    }*/
     td1.text(response._logradouro);
     td2.text(response._numero)
     td3.text(response._complemento);
@@ -357,9 +360,12 @@ function mostrarEndereco(id) {
             $('#cepEnderecoAlterar').val(endereco._cep);
             $('#tipoEnderecoAlterar').val(endereco._tipo);
 
-            $('#idProdutoAlterar').val(id);
+            var dados = localStorage.getItem('dadosUsuario');
+            var user = dados.split(',');
+            var idUsuario = user[0];
+            $('#idEnderecoAlterar').val(idUsuario);
 
-            console.log(endereco);
+            $('#idEndereco').val(id);
 
 
         },
@@ -372,8 +378,16 @@ function mostrarEndereco(id) {
 
 
 function atualizarEndereco() {
+    var token = localStorage.getItem('token');
+    console.log(token);
+
+
     var data = retornarEnderecoUpdate();
-    var id = $('#idUsuarioAlterar').val();
+
+    var teste = $('#idEndereco').val();
+    teste = parseInt(teste);
+    console.log('ID' + teste);
+    var id = $('#idEnderecoAlterar').val();
     id = parseInt(id);
     console.log('ID' + id);
     var url = 'http://localhost:8080/endereco?id=' + id;
@@ -389,11 +403,10 @@ function atualizarEndereco() {
         data: data,
         success: _ => {
             var mensagem = _._message;
-            var usuario = _._usuario[0];
-            console.log(usuario + 'to aqui no usuario')
-            $('#modalEditar').modal('hide');
+            $('#mostrarModalEditarEndereco').modal('hide');
             alert(mensagem);
-            window.location.reload();
+            $("#dataTable td").remove();
+            getEnderecosLista(id);
         },
         error: result => {
             console.log(result)
@@ -415,16 +428,20 @@ function retornarEnderecoUpdate() {
     var estado = $('#estado').val();
     var cidade = $('#cidade').val();
     var tipo = $('#tipo').val();
+    var idEndereco = $('#idEndereco').val();
+    console.log("esse o id " + idEndereco.value);
+
 
     var json = JSON.stringify({
         _cep: cep,
-        _password: rua,
-        _sexo: numero,
-        _sexo: bairro,
-        _sexo: estado,
-        _sexo: cidade,
-        _telefone: complemento,
-        _tipo: tipo
+        _logradouro: rua,
+        _numero: numero,
+        _bairro: bairro,
+        _estado: estado,
+        _cidade: cidade,
+        _complemento: complemento,
+        _tipo: tipo,
+        _id: idEndereco
 
     })
     return json;
@@ -432,11 +449,6 @@ function retornarEnderecoUpdate() {
 
 
 function enviarEndereco(id) {
-    $('#loading').show(200)
-    $('#addFuncionario').hide(100)
-    $('#alertaErro').hide()
-    $('#alertaSucesso').hide()
-        //var imagens = enviarImagens();
     var dataSend = retornarObjInserir();
     var dados = localStorage.getItem('dadosUsuario');
     var user = dados.split(',');
@@ -464,14 +476,13 @@ function enviarEndereco(id) {
             }
             $('#loading').hide(100)
             $('#alertaSucesso').show(200)
-            $('#addFuncionario').show(200)
+            $('#addEndereco').show(200)
         },
         error: result => {
             console.log(result)
             $('#loading').hide(100)
             $('#alertaErro').show(200)
-            $('#addFuncionario').show(100)
-            $("#gallery").empty();
+            $('#addEndereco').show(100)
         }
     });
 }
