@@ -152,3 +152,7 @@
     font-family: 'Courier New', Courier, monospace;
     word-spacing: 5px;
   }
+
+  #staggered-test {
+    opacity: 0;
+  }

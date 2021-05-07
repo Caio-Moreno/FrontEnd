@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+    <script src="../assets/js/card.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap_4_3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../css/Loja/index.css">
+    <link rel="stylesheet" href="../css/Loja/carrinhoCompleto.css">
+    <link rel="stylesheet" href="../assets/font-awesome-4.7.0/css/font-awesome.min.css">
+    <title>Document</title>
+</head>
+<body>
+        <!-- header -->
+        <header class="container-fluid">
+            <!-- container -->
+            <section class="container">
+                <!-- row -->
+                <article class="row d-flex align-items-center">
+    
+                    <!-- logo -->
+                    <a href="./indexLoja.html" class="col-md-2 d-flex justify-content-center">
+                        <img src="../assets/images/logo.svg" class="img-fluid" alt="Logo da empresa - Bomba patch">
+                    </a>
+    
+                    <!-- buscador -->
+                    <form action="#" class="col-md-7 d-flex align-items-center">
+                        <input type="text" name="name" placeholder="Procurar jogos aqui">
+    
+                        <button class="d-flex align-items-center">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+                  <path fill-rule="evenodd"
+                    d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+                </svg>
+              </button>
+                    </form>
+    
+                    <!-- administrativo do cliente -->
+                    <ul  class="col-md-3 nav d-flex align-items-center justify-content-around">
+                        <li id="entrarCliente" class="nav-item">
+                            <a href="#">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                      d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                  </svg> Entrar</a>
+                        </li>
+    
+                        <li id="clienteLogado" class="nav-item meuCadastroAjuste">
+                            <a href="#">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                      d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                  </svg> <span id="bemVindoCliente">Bem vindo</span><br> <span id="meusDados" style="text-decoration: underline; color: green;">Meus dados</span> <span id="sair" onclick="logout()" style="text-decoration: underline; color: green;">Sair</span> </a>
+                        </li>
+                    </ul>
+                    <!-- end administrativo do cliente -->
+    
+                    
+    
+                </article>
+                <!-- row -->
+            </section>
+            <!-- end container -->
+        </header>
+          <div class="container">
+            <div class="row">
+
+                <div class="col-md-8 order-md-1">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                      <span class="text-muted">Seu carrinho</span>
+                      <span class="badge badge-secondary badge-pill">3</span>
+                    </h4>
+                  <!--  <ul class="list-group mb-3">
+                      <li class="list-group-item d-flex justify-content-between lh-condensed linhaEspaco">
+                          <div>
+                            <img src="../images/teste.jpg" alt="" style="width: 73px; height: 73px;">
+                          </div>
+                        <div>
+                          <h6 class="my-0">
+                            Conjunto de Panelas Antiaderente Vermelha 5 peças - La Cuisine By Brinox</h6>
+                            <h4>teste</h4>
+                        </div>
+                        <span class="text-muted">$12</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between lh-condensed linhaEspaco">
+                        <div>
+                          <h6 class="my-0">Second product</h6>
+                          <small class="text-muted">Brief description</small>
+                        </div>
+                        <span class="text-muted">$8</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between lh-condensed linhaEspaco">
+                        <div>
+                          <h6 class="my-0">Third item</h6>
+                          <small class="text-muted">Brief description</small>
+                        </div>
+                        <span class="text-muted">$5</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between bg-light">
+                        <div class="text-success">
+                          <h6 class="my-0">Promo code</h6>
+                          <small>EXAMPLECODE</small>
+                        </div>
+                        <span class="text-success">-$5</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between">
+                        <span>Total (USD)</span>
+                        <strong>$20</strong>
+                      </li>
+                    </ul>
+
+                    -->
+
+                    <table id="tabelaProdutos" class="table table-bordered marginBottomTable">
+                        <thead>
+                            <tr class="linhaEspaco1px"> 
+                                <th scope="col">Imagem</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Quantidade</th>
+                                <th scope="col">Preço</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="linhaEspaco1px">
+                                <td><img id="imagemAJuste" src="./assets/images/GTA_V.jpg" class="imagemCarrinho"></td>
+                                <td>GTA V</td>
+                                <td>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                          <span id="increment" class="input-group-text">-</span>
+                                        </div>
+                                        <input class="text-center" type="text" id="qtdProdutoCart" value="0" readonly>
+                                        <div class="input-group-append">
+                                          <span id="decrement" class="input-group-text">+</span>
+                                        </div>
+                                      </div>
+                                </td>
+                                <td>R$ 59,90</td>
+                            </tr>
+                            
+                            <tr class="linhaEspaco1px">
+                                <td><img id="imagemAJuste" src="./assets/images/GTA_V.jpg" class="imagemCarrinho"></td>
+                                <td>GTA V</td>
+                                <td>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                          <span id="increment" class="input-group-text">-</span>
+                                        </div>
+                                        <input class="text-center" type="text" id="qtdProdutoCart" value="0" readonly>
+                                        <div class="input-group-append">
+                                          <span id="decrement" class="input-group-text">+</span>
+                                        </div>
+                                      </div>
+                                </td>
+                                <td>R$ 59,90</td>
+                            </tr>
+                            <tr class="linhaEspaco1px">
+                                <td><img id="imagemAJuste" src="./assets/images/GTA_V.jpg" class="imagemCarrinho"></td>
+                                <td>GTA V</td>
+                                <td>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                          <span id="increment" class="input-group-text">-</span>
+                                        </div>
+                                        <input class="text-center" type="text" id="qtdProdutoCart" value="0" readonly>
+                                        <div class="input-group-append">
+                                          <span id="decrement" class="input-group-text">+</span>
+                                        </div>
+                                      </div>
+                                </td>
+                                <td>R$ 59,90</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">Total</td>
+                                <td>R$ 459,70</td>
+                            </tr>
+                        </tbody>
+                    </table>
+          
+                  
+                  </div>
+
+
+                <div class="col-md-4 order-md-2 mb-4">
+                  <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-muted">Resumo do pedido</span>
+                  </h4>
+                  <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                      <div>
+                        <h6 class="my-0">2 produtos</h6>
+                      </div>
+                      <span class="text-muted">R$ 399,98</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed linhaEspaco">
+                      <div>
+                        <h6 class="my-0">Frete</h6>
+                      </div>
+                      <span class="text-muted">R$ 15,99</span>
+                      
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                      <div>
+                        <h6 class="my-0">Total</h6>
+                      </div>
+                      <span class="text-muted">R$ 415,97</span>
+                    </li>
+
+
+                    <button type="button" class="btn btn-dark"> <i class="fa fa-shopping-basket" aria-hidden="true"></i> Finalizar</button>
+
+                    <form class="card p-2">
+                        <div class="input-group">
+                          <input type="text" class="form-control" placeholder="CEP">
+                          <div class="input-group-append">
+                            <button type="button" class="btn btn-dark">Ok</button>
+                          </div>
+                        </div>
+                    </form>
+
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                          <h6 class="my-0">Entrega normal por</h6>
+                        </div>
+                        <span class="text-muted">R$ 15,99</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                          <h6 class="my-0">Entrega rápida por</h6>
+                        </div>
+                        <span class="text-muted"> R$ 15,99</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                          <h6 class="my-0">retire na loja a parti de um dia útil por </h6>
+                        </div>
+                        <span class="text-muted">grátis</span>
+                      </li>
+
+
+                  </ul>
+        
+
+                </div>
+            </div>
+            
+          </div>
+
+    
+    
+    <script src="../assets/js/popper.js"></script>
+    <script src="../assets/js/bootstrap.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/carrinho.js"></script>
+</body>
+</html>
