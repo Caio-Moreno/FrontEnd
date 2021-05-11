@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+    <script src="../assets/js/card.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap_4_3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../css/Loja/index.css">
+    <link rel="stylesheet" href="../css/Loja/carrinhoCompleto.css">
+    <link rel="stylesheet" href="../assets/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/Loja/pagamento.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+    <script src="https://unpkg.com/vue-the-mask@0.11.1/dist/vue-the-mask.js"></script>
+    <title>Document</title>
+</head>
+<body>
+        <!-- header -->
+        <header class="container-fluid">
+            <!-- container -->
+            <section class="container">
+                <!-- row -->
+                <article class="row d-flex align-items-center">
+    
+                    <!-- logo -->
+                    <a href="./indexLoja.html" class="col-md-2 d-flex justify-content-center">
+                        <img src="../assets/images/logo.svg" class="img-fluid" alt="Logo da empresa - Bomba patch">
+                    </a>
+    
+                    <!-- buscador -->
+                    <form action="#" class="col-md-7 d-flex align-items-center">
+                        <input type="text" name="name" placeholder="Procurar jogos aqui">
+    
+                        <button class="d-flex align-items-center">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+                  <path fill-rule="evenodd"
+                    d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+                </svg>
+              </button>
+                    </form>
+    
+                    <!-- administrativo do cliente -->
+                   
+                    <!-- end administrativo do cliente -->
+    
+                    
+    
+                </article>
+                <!-- row -->
+            </section>
+            <!-- end container -->
+        </header>
+          <div class="container">
+            <div class="row linhaEspaco">
+
+                <div class="col-md-8 order-md-1 ">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                      <span class="text-muted">Endereço de entrega</span>
+                    </h4>          
+                    <ul class="list-group mb-3">
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                          <div>
+                            <h6 class="my-0">Avenida professor leitão da cunha,118</h6>
+                          </div>
+                          <span class="text-muted">Editar</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                          <div>
+                            <h6 class="my-0">Parque regina</h6>
+                          </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                          <div>
+                            <h6 class="my-0">SP - São Paulo</h6>
+                          </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                              <h6 class="my-0">CEP - 05775200</h6>
+                            </div>
+                        </li>
+                      </ul>  
+                  </div>
+
+
+                <div class="col-md-4 order-md-2 mb-4">
+                  <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-muted">Resumo do pedido</span>
+                  </h4>
+                  <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                      <div>
+                        <h6 class="my-0">2 produtos</h6>
+                      </div>
+                      <span class="text-muted">R$ 399,98</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed linhaEspaco">
+                      <div>
+                        <h6 class="my-0">Frete</h6>
+                      </div>
+                      <span class="text-muted">R$ 15,99</span>
+                      
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                      <div>
+                        <h6 class="my-0">Total</h6>
+                      </div>
+                      <span class="text-muted">R$ 415,97</span>
+                    </li>
+
+                  </ul>
+        
+
+                </div>
+            </div>
+
+            <!--FIM ENDERECO E RESUMO-->
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted">Opções de frete</span>
+              </h4>
+            <div class="row ">         
+                <div class="col-md-4 order-md-1">
+                    <div class="card cardAjuste" style="width: 15rem;">
+                        <div class="card-body">
+                          <h5 class="card-title"><i class="fa fa-circle-o" aria-hidden="true"></i> <i class="fa fa-circle" aria-hidden="true"></i></h5>
+                          <ul class="list-group mb-3 bg-list-transparent">
+                          <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                              <h6 class="my-0">Entrega normal por</h6>
+                            </div>
+                            <span class="text-muted">R$ 15,99</span>
+                          </li>
+                        </ul>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-md-4 order-md-1">
+                    <div class="card cardAjuste" style="width: 15rem;">
+                        <div class="card-body">
+                          <h5 class="card-title"><i class="fa fa-circle-o" aria-hidden="true"></i> <i class="fa fa-circle" aria-hidden="true"></i></h5>
+                          <ul class="list-group mb-3 bg-list-transparent">
+                          <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                              <h6 class="my-0">Entrega rápida por</h6>
+                            </div>
+                            <span class="text-muted">R$ 15,99</span>
+                          </li>
+                        </ul>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-md-4 order-md-1">
+                    <div class="card cardAjuste" style="width: 15rem;">
+                        <div class="card-body">
+                          <h5 class="card-title"><i class="fa fa-circle-o" aria-hidden="true"></i> <i class="fa fa-circle" aria-hidden="true"></i></h5>
+                          <ul class="list-group mb-3 bg-list-transparent">
+                          <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                              <h6 class="my-0">Retirada na loja por</h6>
+                            </div>
+                            <span class="text-muted">Grátis</span>
+                          </li>
+                        </ul>
+                        </div>
+                      </div>
+                </div>
+                </div>
+
+                <div class="row linhaEspaco mt-3"> </div>
+
+                   <!--FIM ENDERECO E RESUMO-->
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted">Opções de pagamento</span>
+              </h4>
+            <div class="row ajustePagamentos ajusteDiv">         
+                <div class="col-md-2 order-md-1" id="boleto">   
+                          <ul class="list-group mb-3 bg-list-transparent">
+                          <li class="list-group-item justify-content-between lh-condensed">
+                            <h5><img src="../assets/images/codigo-de-barras.png" alt="" srcset=""></h5>
+                            <div>
+                              <h6>Boleto</h6>
+                            </div>
+                          </li>
+                        </ul>
+                </div>
+                <div class="col-md-2 order-md-1" id="cartaoDeCredito">   
+                    <ul class="list-group mb-3 bg-list-transparent">
+                    <li class="list-group-item justify-content-between lh-condensed">
+                      <h5><img src="../assets/images/pagamento-com-cartao-de-credito.png" alt="" srcset=""></h5>
+                      <div>
+                        <h6>Cartão de crédito</h6>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="col-md-2 order-md-1" id="paypal">   
+                    <ul class="list-group mb-3 bg-list-transparent">
+                    <li class="list-group-item justify-content-between lh-condensed">
+                      <h5><img src="../assets/images/paypal.png" alt="" srcset=""></h5>
+                      <div>
+                        <h6>PayPal</h6>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-md-2 order-md-1" id="mercadoPago">   
+                    <ul class="list-group mb-3 bg-list-transparent">
+                    <li class="list-group-item justify-content-between lh-condensed">
+                      <h5><img class="ajusteMercadoPago" src="../assets/images/mercadopago.png" alt="" srcset=""></h5>
+                      <div>
+                        <h6>Mercado pago</h6>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-md-2 order-md-1" id="pix">   
+                    <ul class="list-group mb-3 bg-list-transparent">
+                    <li class="list-group-item justify-content-between lh-condensed">
+                      <h5><img class="ajusteMercadoPago" src="../assets/images/logo-pix-1024.png" alt="" srcset=""></h5>
+                      <div>
+                        <h6>Pix</h6>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                </div>
+
+                <div class="wrapper" id="app">
+                    <div class="card-form">
+                      <div class="card-list">
+                        <div class="card-item" v-bind:class="{ '-active' : isCardFlipped }">
+                          <div class="card-item__side -front">
+                            <div class="card-item__focus" v-bind:class="{'-active' : focusElementStyle }" v-bind:style="focusElementStyle" ref="focusElement"></div>
+                            <div class="card-item__cover">
+                              <img
+                              v-bind:src="'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/' + currentCardBackground + '.jpeg'" class="card-item__bg">
+                            </div>
+                            
+                            <div class="card-item__wrapper">
+                              <div class="card-item__top">
+                                <img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png" class="card-item__chip">
+                                <div class="card-item__type">
+                                  <transition name="slide-fade-up">
+                                    <img v-bind:src="'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/' + getCardType + '.png'" v-if="getCardType" v-bind:key="getCardType" alt="" class="card-item__typeImg">
+                                  </transition>
+                                </div>
+                              </div>
+                              <label for="cardNumber" class="card-item__number" ref="cardNumber">
+                                <template v-if="getCardType === 'amex'">
+                                 <span v-for="(n, $index) in amexCardMask" :key="$index">
+                                  <transition name="slide-fade-up">
+                                    <div
+                                      class="card-item__numberItem"
+                                      v-if="$index > 4 && $index < 14 && cardNumber.length > $index && n.trim() !== ''"
+                                    >*</div>
+                                    <div class="card-item__numberItem"
+                                      :class="{ '-active' : n.trim() === '' }"
+                                      :key="$index" v-else-if="cardNumber.length > $index">
+                                      {{cardNumber[$index]}}
+                                    </div>
+                                    <div
+                                      class="card-item__numberItem"
+                                      :class="{ '-active' : n.trim() === '' }"
+                                      v-else
+                                      :key="$index + 1"
+                                    >{{n}}</div>
+                                  </transition>
+                                </span>
+                                </template>
+                
+                                <template v-else>
+                                  <span v-for="(n, $index) in otherCardMask" :key="$index">
+                                    <transition name="slide-fade-up">
+                                      <div
+                                        class="card-item__numberItem"
+                                        v-if="$index > 4 && $index < 15 && cardNumber.length > $index && n.trim() !== ''"
+                                      >*</div>
+                                      <div class="card-item__numberItem"
+                                        :class="{ '-active' : n.trim() === '' }"
+                                        :key="$index" v-else-if="cardNumber.length > $index">
+                                        {{cardNumber[$index]}}
+                                      </div>
+                                      <div
+                                        class="card-item__numberItem"
+                                        :class="{ '-active' : n.trim() === '' }"
+                                        v-else
+                                        :key="$index + 1"
+                                      >{{n}}</div>
+                                    </transition>
+                                  </span>
+                                </template>
+                              </label>
+                              <div class="card-item__content">
+                                <label for="cardName" class="card-item__info" ref="cardName">
+                                  <div class="card-item__holder">Card Holder</div>
+                                  <transition name="slide-fade-up">
+                                    <div class="card-item__name" v-if="cardName.length" key="1">
+                                      <transition-group name="slide-fade-right">
+                                        <span class="card-item__nameItem" v-for="(n, $index) in cardName.replace(/\s\s+/g, ' ')" v-if="$index === $index" v-bind:key="$index + 1">{{n}}</span>
+                                      </transition-group>
+                                    </div>
+                                    <div class="card-item__name" v-else key="2">Full Name</div>
+                                  </transition>
+                                </label>
+                                <div class="card-item__date" ref="cardDate">
+                                  <label for="cardMonth" class="card-item__dateTitle">Expires</label>
+                                  <label for="cardMonth" class="card-item__dateItem">
+                                    <transition name="slide-fade-up">
+                                      <span v-if="cardMonth" v-bind:key="cardMonth">{{cardMonth}}</span>
+                                      <span v-else key="2">MM</span>
+                                    </transition>
+                                  </label>
+                                  /
+                                  <label for="cardYear" class="card-item__dateItem">
+                                    <transition name="slide-fade-up">
+                                      <span v-if="cardYear" v-bind:key="cardYear">{{String(cardYear).slice(2,4)}}</span>
+                                      <span v-else key="2">YY</span>
+                                    </transition>
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card-item__side -back">
+                            <div class="card-item__cover">
+                              <img
+                              v-bind:src="'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/' + currentCardBackground + '.jpeg'" class="card-item__bg">
+                            </div>
+                            <div class="card-item__band"></div>
+                            <div class="card-item__cvv">
+                                <div class="card-item__cvvTitle">CVV</div>
+                                <div class="card-item__cvvBand">
+                                  <span v-for="(n, $index) in cardCvv" :key="$index">
+                                    *
+                                  </span>
+                
+                              </div>
+                                <div class="card-item__type">
+                                    <img v-bind:src="'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/' + getCardType + '.png'" v-if="getCardType" class="card-item__typeImg">
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card-form__inner">
+                        <div class="card-input">
+                          <label for="cardNumber" class="card-input__label">Card Number</label>
+                          <input type="text" id="cardNumber" class="card-input__input" v-mask="generateCardNumberMask" v-model="cardNumber" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardNumber" autocomplete="off">
+                        </div>
+                        <div class="card-input">
+                          <label for="cardName" class="card-input__label">Card Holders</label>
+                          <input type="text" id="cardName" class="card-input__input" v-model="cardName" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardName" autocomplete="off">
+                        </div>
+                        <div class="card-form__row">
+                          <div class="card-form__col">
+                            <div class="card-form__group">
+                              <label for="cardMonth" class="card-input__label">Expiration Date</label>
+                              <select class="card-input__input -select" id="cardMonth" v-model="cardMonth" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardDate">
+                                <option value="" disabled selected>Month</option>
+                                <option v-bind:value="n < 10 ? '0' + n : n" v-for="n in 12" v-bind:disabled="n < minCardMonth" v-bind:key="n">
+                                    {{n < 10 ? '0' + n : n}}
+                                </option>
+                              </select>
+                              <select class="card-input__input -select" id="cardYear" v-model="cardYear" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardDate">
+                                <option value="" disabled selected>Year</option>
+                                <option v-bind:value="$index + minCardYear" v-for="(n, $index) in 12" v-bind:key="n">
+                                    {{$index + minCardYear}}
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="card-form__col -cvv">
+                            <div class="card-input">
+                              <label for="cardCvv" class="card-input__label">CVV</label>
+                              <input type="text" class="card-input__input" id="cardCvv" v-mask="'####'" maxlength="4" v-model="cardCvv" v-on:focus="flipCard(true)" v-on:blur="flipCard(false)" autocomplete="off">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="card" id="boletoGerado">
+                    <div class="card-header">
+                      Boleto gerado
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">Código de barras</h5>
+                      <p id="codBarras" class="card-text"></p>
+                      
+                    </div>
+                  </div>
+
+                  <!--FIM CONTAINER-->
+          </div>
+          
+
+    
+    
+    <script src="../assets/js/popper.js"></script>
+    <script src="../assets/js/bootstrap.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/carrinho.js"></script>
+    <script src="../js/pagamento.js"></script>
+
+</body>
+</html>

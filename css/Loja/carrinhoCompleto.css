@@ -63,23 +63,32 @@ ul {
     width: 105px;
 }
 
-@media (min-width: 800px) {
-    #imagemAJuste {
-        margin-left: 40%;
-    }
- }
 
 
 #qtdProdutoCart {
     width: 30px;
     
-    margin-right: 1px;
+
 }
 
 #increment {
+    color: white;
     cursor: pointer;
 }
 
 #decrement {
+    color: white;
     cursor: pointer;
+}
+
+
+.imagemCarrinho {
+    width: 60px;
+    width: 60px;
+}
+
+@media (min-width: 800px) {
+  #imagemAJuste {
+      margin-left: 40%;
+  }
 }

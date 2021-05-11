@@ -129,59 +129,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="linhaEspaco1px">
-                                <td><img id="imagemAJuste" src="./assets/images/GTA_V.jpg" class="imagemCarrinho"></td>
-                                <td>GTA V</td>
-                                <td>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                          <span id="increment" class="input-group-text">-</span>
-                                        </div>
-                                        <input class="text-center" type="text" id="qtdProdutoCart" value="0" readonly>
-                                        <div class="input-group-append">
-                                          <span id="decrement" class="input-group-text">+</span>
-                                        </div>
-                                      </div>
-                                </td>
-                                <td>R$ 59,90</td>
-                            </tr>
                             
-                            <tr class="linhaEspaco1px">
-                                <td><img id="imagemAJuste" src="./assets/images/GTA_V.jpg" class="imagemCarrinho"></td>
-                                <td>GTA V</td>
-                                <td>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                          <span id="increment" class="input-group-text">-</span>
-                                        </div>
-                                        <input class="text-center" type="text" id="qtdProdutoCart" value="0" readonly>
-                                        <div class="input-group-append">
-                                          <span id="decrement" class="input-group-text">+</span>
-                                        </div>
-                                      </div>
-                                </td>
-                                <td>R$ 59,90</td>
-                            </tr>
-                            <tr class="linhaEspaco1px">
-                                <td><img id="imagemAJuste" src="./assets/images/GTA_V.jpg" class="imagemCarrinho"></td>
-                                <td>GTA V</td>
-                                <td>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                          <span id="increment" class="input-group-text">-</span>
-                                        </div>
-                                        <input class="text-center" type="text" id="qtdProdutoCart" value="0" readonly>
-                                        <div class="input-group-append">
-                                          <span id="decrement" class="input-group-text">+</span>
-                                        </div>
-                                      </div>
-                                </td>
-                                <td>R$ 59,90</td>
-                            </tr>
-                            <tr>
-                                <td colspan="3">Total</td>
-                                <td>R$ 459,70</td>
-                            </tr>
                         </tbody>
                     </table>
           
@@ -215,7 +163,7 @@
                     </li>
 
 
-                    <button type="button" class="btn btn-dark"> <i class="fa fa-shopping-basket" aria-hidden="true"></i> Finalizar</button>
+                    <button id="btnFinalizarCompra" type="button" class="btn btn-dark"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Finalizar</button>
 
                     <form class="card p-2">
                         <div class="input-group">
@@ -260,5 +208,10 @@
     <script src="../assets/js/bootstrap.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/carrinho.js"></script>
+    <script src="../js/wsCorreios.js"></script>
+
+    <script>
+      buscarCarrinhoFinal()
+    </script>
 </body>
 </html>

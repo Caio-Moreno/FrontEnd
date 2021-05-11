@@ -90,8 +90,27 @@ $(document).ready(function () {
                     localStorage.setItem('dadosUsuario', dadosUsuario);
                     
                     localStorage.setItem('token', dadosUsuario[4]);
+                    var sessionId = localStorage.getItem('sessionId').split(',')
                     
-                    setTimeout(function(){  window.location.href = 'indexLoja.html' },1000);
+                        var url = 'http://localhost:8080/Carrinho/updateCart?session='+sessionId[0]+'&idCliente='+dadosUsuario[0];
+
+                        $.ajax({
+                            url: url,
+                            type: 'PUT',
+                            timeout: 20000,
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: data => {
+                                console.log(data)
+                            },
+                            error: data => {
+                                alert('erro')
+                                
+                            }
+                        
+                        });
+                    
+                    setTimeout(function(){  window.location.href = 'indexLoja.html' },500);
                     
                     
                 }   
