@@ -5,15 +5,29 @@ $(document).ready(function () {
 
  $('#app').hide();
  $('#boletoGerado').hide();
+ $('#mercadoPagoPagamento').hide();
+ $('#payPalPagamento').hide();
+ $('#pixPagamento').hide();
+ $('#fecharPedido').hide();
+ $('#normalNaoMarcado').hide();
+ $('#rapidoMarcado').hide();
+ $('#retiradaMarcado').hide();
+
 
 
 
    $('#cartaoDeCredito').click(function(e){
+    $('#fecharPedido').show();
       $('#app').show(500);
+      
       $('#boletoGerado').hide();
+      $('#mercadoPagoPagamento').hide();
+      $('#payPalPagamento').hide();
+      $('#pixPagamento').hide();
    });
   
    $('#boleto').click(function(e){
+    $('#fecharPedido').show();
      if(codigo == ''){
        codigo = getCodigoDeBarras();
       }
@@ -22,25 +36,107 @@ $(document).ready(function () {
 
      $('#boletoGerado').show(500);
      $('#app').hide();
+     $('#mercadoPagoPagamento').hide();
+     $('#payPalPagamento').hide();
+     $('#pixPagamento').hide();
     
    });
   
    $('#pix').click(function(e){
-    $('#boletoGerado').hide();
+    $('#fecharPedido').show();
+    $('#pixPagamento').show(500);
     $('#app').hide();
+    $('#boletoGerado').hide();
+    $('#mercadoPagoPagamento').hide();
+    $('#payPalPagamento').hide();
   });
   
   $('#mercadoPago').click(function(e){
-    $('#app').show(500);
+    $('#fecharPedido').show();
+    $('#mercadoPagoPagamento').show(500);
+    $('#payPalPagamento').hide();
+    $('#pixPagamento').hide();
+    $('#app').hide();
+    $('#boletoGerado').hide();
   });
   
   $('#paypal').click(function(e){
-    $('#app').show(500);
+    $('#fecharPedido').show();
+    $('#payPalPagamento').show(500);
+    $('#app').hide();
+    $('#boletoGerado').hide();
+    $('#mercadoPagoPagamento').hide();
+    $('#pixPagamento').hide();
   });
-  
-  
 
 
+/*
+Tratamento de selecao de frete
+
+*/
+
+
+  $('#rapidoNaoMarcado').click(function(e){
+    e.preventDefault();
+    
+
+    $('#normalNaoMarcado').show();
+    $('#normalMarcado').hide();
+
+    $('#retiradaNaoMarcado').show();
+    $('#retiradaMarcado').hide();
+    
+    $('#rapidoMarcado').show();
+    $('#rapidoNaoMarcado').hide();
+
+    var valor = $('#valorRapido').text();
+    $('#valorFrete').text(valor);
+
+    calcularTotal()
+
+  })
+
+  $('#normalNaoMarcado').click(function(e){
+    e.preventDefault();
+
+
+
+    $('#normalNaoMarcado').hide();
+    $('#normalMarcado').show();
+
+    $('#retiradaNaoMarcado').show();
+    $('#retiradaMarcado').hide();
+    
+    $('#rapidoMarcado').hide();
+    $('#rapidoNaoMarcado').show();
+
+    var valor = $('#valorNormal').text();
+    $('#valorFrete').text(valor);
+
+    calcularTotal()
+
+  })
+
+  $('#retiradaNaoMarcado').click(function(e){
+    e.preventDefault();
+
+
+
+    $('#normalNaoMarcado').show();
+    $('#normalMarcado').hide();
+
+    $('#retiradaNaoMarcado').hide();
+    $('#retiradaMarcado').show();
+    
+    $('#rapidoMarcado').hide();
+    $('#rapidoNaoMarcado').show();
+
+    var valor = $('#valorRetirada').text();
+    $('#valorFrete').text(valor);
+
+    calcularTotal()
+
+  })  
 });
 
 function getCodigoDeBarras() {
@@ -140,3 +236,154 @@ new Vue({
     }
   }
 });
+
+
+  function buscaEnderecos(){
+    var dados = localStorage.getItem('dadosUsuario').split(',');
+    var token = localStorage.getItem('token');
+
+
+    var url = 'http://localhost:8080/Clientes/BuscarCliente?id='+dados[0]
+
+    $.ajax({
+      url: url,
+      type: 'GET',
+      headers: {'TOKEN': token},
+      timeout: 20000,
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      success: data => {
+          tratarEndereco(data._endereco);
+      },
+      error: result => {
+          alert(result.status + ' ' + result.statusText);
+      }
+  });
+
+  }
+
+  function tratarEndereco(enderecos){
+    const tamanho = enderecos.length;
+    var endereco;
+
+    if(tamanho == 1){
+      endereco = enderecos[0];
+    }else{
+      for(let i =0; i < tamanho; i++){
+        var meuEnderecoComparar = enderecos[i];
+
+        if(meuEnderecoComparar._tipo == 'E'){
+          endereco = enderecos[i];
+        }
+      }
+    }
+
+    $('#logradouro').text(endereco._logradouro + ','+endereco._numero);
+    $('#bairro').text(endereco._bairro);
+    $('#UFCidade').text(endereco._estado + ' - ' + endereco._cidade);
+    $('#cep').text('CEP - '+ endereco._cep);
+
+    calcularFrete(endereco._estado);
+
+    
+  }
+
+  function resumoCompra(){
+    var dados = localStorage.getItem('dadosUsuario').split(',');
+    var url = 'http://localhost:8080/Carrinho?id='+dados[0];
+
+    $.ajax({
+      url: url,
+      type: 'GET',
+      timeout: 20000,
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      success: data => {
+          popularResumoCompra(data);
+          
+      },
+      error: data => {
+        alert('erro para buscar carrinho');
+      }
+    
+    });
+
+  }
+
+  function popularResumoCompra(carrinho){
+    var cart = carrinho._carrinho;
+    var total = 0.00;
+    var qtdProdutos = 0;
+    var quantidade = carrinho._quantidade;
+
+    for(let i = 0; i < quantidade; i++){
+
+      var produto = cart[i];
+      var valorDoProd = parseFloat(produto._valor);
+
+      total += valorDoProd;
+      qtdProdutos += produto._quantidade;
+    }
+      total = total.toFixed(2)
+    $('#qtdProdutos').text(qtdProdutos + ' produtos')
+    $('#valorProds').text('R$ '+total)
+
+    calcularTotal();
+
+  }
+
+  function calcularTotal(){
+    var valorFrete = 0.00;
+
+    var valorProdutos = parseFloat($('#valorProds').text().replace('R','').replace('$',''));
+
+    if(!($('#valorFrete').text().includes('Grátis'))){
+      valorFrete = parseFloat($('#valorFrete').text().replace('R','').replace('$',''));
+    }
+    
+    
+    var valorTotal = parseFloat(valorProdutos + valorFrete).toFixed(2);
+
+    $('#valorTotal').text('R$ '+valorTotal);
+
+    
+  }
+
+
+  function calcularFrete(uf){
+    
+    
+    var url = 'http://localhost:8080/Clientes/valorFrete?uf='+uf;
+
+    
+
+    $.ajax({
+      url: url,
+      type: 'GET',
+      timeout: 20000,
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      success: data => {
+          popularFrete(data);
+          
+      },
+      error: data => {
+        alert('erro para buscar carrinho');
+      }
+    
+    });
+
+    }
+
+    function popularFrete(data){
+
+
+      $('#valorNormal').text('R$ '+data._valorNormal);
+      $('#valorRapido').text('R$ '+data._valorFast);
+      
+
+      $('#valorFrete').text('R$ '+data._valorNormal);
+
+      calcularTotal()
+
+    }    
