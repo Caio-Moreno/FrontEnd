@@ -57,9 +57,41 @@
             </section>
             <!-- end container -->
         </header>
-          <div class="container">
-            <div class="row linhaEspaco">
+          <div class="container" id="stepVenda">
 
+            <div class="row linhaEspaco" id="numeroPedido">
+              <div class="col-md-8 order-md-1 " id="divEmailEnviado">
+                  <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-muted">Obrigado!</span>
+                  </h4>          
+                  <ul class="list-group mb-3">
+                      <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                          <h6 id="emailEnviado" class="my-0">Confirmação de pedido enviado para:<strong>cvinicius.moreno@outlook.com</strong></h6>
+                        </div>
+                      </li>
+                    </ul>  
+                </div>
+
+
+              <div class="col-md-4 order-md-2 mb-4" id="divNumPedido">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                  <span class="text-muted">Número do pedido</span>
+                </h4>
+                <ul class="list-group mb-3">
+                  <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                      <h1 id="numPedido" class="my-0">21-12345678</h1>
+                    </div>
+                  </li>
+                </ul>
+      
+
+              </div>
+          </div>
+
+
+            <div class="row linhaEspaco" id="enderecoResumo">
                 <div class="col-md-8 order-md-1 ">
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
                       <span class="text-muted">Endereço de entrega</span>
@@ -122,6 +154,35 @@
             </div>
 
             <!--FIM ENDERECO E RESUMO-->
+
+            <div class="row linhaEspaco" id="dadosPagamento">
+              <div class="col-md-12 order-md-1 mt-3" id="divDadosPagamento">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                  <span class="text-muted">Dados do pagamento</span>
+                </h4>
+                  <ul class="list-group mb-3" id="listaDadosPagamento">
+                      <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                          <h6 id="tipoCompra" class="my-0">Tipo: Cartão</h6>
+                        </div>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                          <h6 id="qtdParcelasPagamento" class="my-0">Parcelamento: 6x 39.90</h6>
+                        </div>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                          <h6 id="numCartao" class="my-0">Final num: **** **** **** 4444</h6>
+                        </div>
+                      </li>
+                    </ul>  
+                </div>
+
+
+             
+          </div>
+
             <h4 class="d-flex justify-content-between align-items-center mb-3">
                 <span class="text-muted">Opções de frete</span>
               </h4>
@@ -391,6 +452,12 @@
                             </div>
                           </div>
                         </div>
+                        <div class="card-input">
+                          <label for="cardName" class="card-input__label">Parcelas</label>
+                          <select name="qtdParcelas" id="qtdParcelas"  class="card-input__input">
+                                
+                          </select>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -439,6 +506,7 @@
                     <img src="../assets/images/pix.png" class="img-fluid" alt="" srcset="">
                   </div>                  
                       <button id="fecharPedido" type="button" class="btn btn-dark btn-md btn-block">Fechar pedido</button>
+                      <input type="hidden" id="tipoPagamento">
                   <!--FIM CONTAINER-->
           </div>
           

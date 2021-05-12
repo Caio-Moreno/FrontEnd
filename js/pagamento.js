@@ -2,6 +2,7 @@
 
 $(document).ready(function () {
   var codigo = "";
+  
 
  $('#app').hide();
  $('#boletoGerado').hide();
@@ -17,6 +18,7 @@ $(document).ready(function () {
 
 
    $('#cartaoDeCredito').click(function(e){
+     $('#tipoPagamento').val('cartao');
     $('#fecharPedido').show();
       $('#app').show(500);
       
@@ -24,9 +26,13 @@ $(document).ready(function () {
       $('#mercadoPagoPagamento').hide();
       $('#payPalPagamento').hide();
       $('#pixPagamento').hide();
+
+      calcularParcelas();
    });
   
    $('#boleto').click(function(e){
+    $('#tipoPagamento').val('boleto');
+    
     $('#fecharPedido').show();
      if(codigo == ''){
        codigo = getCodigoDeBarras();
@@ -43,6 +49,7 @@ $(document).ready(function () {
    });
   
    $('#pix').click(function(e){
+    $('#tipoPagamento').val('pix');
     $('#fecharPedido').show();
     $('#pixPagamento').show(500);
     $('#app').hide();
@@ -52,6 +59,7 @@ $(document).ready(function () {
   });
   
   $('#mercadoPago').click(function(e){
+    $('#tipoPagamento').val('mp');
     $('#fecharPedido').show();
     $('#mercadoPagoPagamento').show(500);
     $('#payPalPagamento').hide();
@@ -61,6 +69,7 @@ $(document).ready(function () {
   });
   
   $('#paypal').click(function(e){
+    $('#tipoPagamento').val('paypal');
     $('#fecharPedido').show();
     $('#payPalPagamento').show(500);
     $('#app').hide();
@@ -77,6 +86,7 @@ Tratamento de selecao de frete
 
 
   $('#rapidoNaoMarcado').click(function(e){
+    
     e.preventDefault();
     
 
@@ -93,10 +103,12 @@ Tratamento de selecao de frete
     $('#valorFrete').text(valor);
 
     calcularTotal()
+    calcularParcelas()
 
   })
 
   $('#normalNaoMarcado').click(function(e){
+    
     e.preventDefault();
 
 
@@ -114,6 +126,7 @@ Tratamento de selecao de frete
     $('#valorFrete').text(valor);
 
     calcularTotal()
+    calcularParcelas()
 
   })
 
@@ -135,8 +148,21 @@ Tratamento de selecao de frete
     $('#valorFrete').text(valor);
 
     calcularTotal()
+    calcularParcelas()
 
-  })  
+  })
+  
+  $('#fecharPedido').click(function(e){
+
+    montarVenda();
+
+    inserirPagamento(tipo);
+
+  });
+
+
+
+
 });
 
 function getCodigoDeBarras() {
@@ -346,6 +372,7 @@ new Vue({
 
     $('#valorTotal').text('R$ '+valorTotal);
 
+    return valorTotal;
     
   }
 
@@ -385,5 +412,198 @@ new Vue({
       $('#valorFrete').text('R$ '+data._valorNormal);
 
       calcularTotal()
-
     }    
+
+    function calcularParcelas(){
+      var valorTotal = parseFloat(calcularTotal());
+      var select = $('#qtdParcelas');
+      select.empty()
+
+      for(let i = 1; i <= 10; i++){
+        var convert = parseFloat(i);
+        var divisao = (valorTotal / convert);
+        const formatado = divisao.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+        
+        select.append('<option value="'+i+'">'+i+'x de '+formatado+'</option>')
+      }
+    }
+
+
+    function montarVenda(){
+      var idCliente = retornarDados('idCliente');
+      var qtdProdutosTotal = qtdProdutos();
+      var total = calcularTotal();
+      var venda = {
+        _idCliente: idCliente,
+        _quantidade: qtdProdutosTotal,
+        _valorTotal: total
+      }
+      
+
+      var url = 'http://localhost:8080/Carrinho?id='+idCliente;
+  
+      $.ajax({
+        url: url,
+        type: 'GET',
+        timeout: 20000,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: data => {
+
+           montarJsonVenda(venda, data._carrinho);
+          
+        },
+        error: data => {
+          alert('erro para buscar carrinho');
+        }
+      
+      });
+    }
+
+    function montarJsonVenda(venda, carrinho){
+      var meusProdutos=[];
+
+
+      for(let i =0; i < carrinho.length;i++){
+        var produto = carrinho[i];
+
+        var obj = {
+          _idProduto: produto._idProduto,
+          _preco: produto._valor,
+          _qtdEstoque: produto._quantidade
+        }
+
+        meusProdutos.push(obj);
+
+      }
+
+      var json = JSON.stringify({
+        venda: venda,
+        produtos: meusProdutos
+      });
+
+      finalizarVenda(json);
+    }
+
+
+
+    function finalizarVenda(json){
+      console.log(json);
+      var url = 'http://localhost:8080/Vendas';
+      
+          $.ajax({
+            url: url,
+            type: 'POST',
+            timeout: 20000,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: json,
+            success: data => {
+                alert(data._message);
+            },
+            error: result => {
+                console.log(result)
+               
+            }
+        });
+    }
+
+
+
+    function retornarDados(valor) {
+      var dados= localStorage.getItem('dadosUsuario');;
+      var meuArray = dados.split(',');
+      var sessionId = localStorage.getItem('sessionId').split(',')
+
+      switch (valor) {
+        case 'idCliente':
+          return meuArray[0];
+          break;
+        case 'email':
+          return meuArray[1];
+          break;
+        case 'senha':
+          return meuArray[2];
+          break;
+        case 'tipoUser':
+          return meuArray[3];
+          break;
+        case 'token': 
+          return meuArray[4];
+          break;
+        case 'nome':
+          return meuArray[5];
+          break;
+        case 'sessionId':
+          return sessionId[0];
+          break;
+        default:
+          return 'parametro nao esperado'
+          break;
+      }
+    }
+
+    function qtdProdutos(){
+      var produtos = $('#qtdProdutos').text().split(' ');
+      var qtd = parseInt(produtos[0]);
+      return qtd;
+    }
+
+    function inserirPagamento(idVenda){
+      var tipo = $('#tipoPagamento').val();
+      var json;
+      switch(tipo){
+        case 'cartao':
+          json = jsonCartao(idVenda)
+          break;
+        case 'boleto':
+          json = jsonBoleto(idVenda)
+          break;
+        case 'pix': 
+          json = jsonPix(idVenda);
+          break;
+        case 'mp':
+          json = jsonMp(idVenda);
+          break;
+        case 'paypal':
+          json = jsonPaypal(idVenda);
+          break;
+      }
+
+      var url = 'http://localhost:8080/Vendas/paymentoInsert';
+
+      $.ajax({
+        url: url,
+        type: 'POST',
+        timeout: 20000,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: json,
+        success: data => {
+            alert(data._message);
+        },
+        error: result => {
+            console.log(result)
+           
+        }
+      });
+    }
+    function jsonCartao(idVenda){
+      
+
+    }
+    function jsonBoleto(idVenda){
+
+    }
+    function jsonPix(idVenda){
+
+    }
+    function jsonMp(idVenda){
+
+    }
+    function jsonPaypal(idVenda){
+
+    }
+    
+
