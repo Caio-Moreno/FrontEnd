@@ -10,6 +10,7 @@ $(document).ready(function(e) {
 
     $("#updateEndereco").hide();
     $('#inserirEndereco').hide();
+    $("#pedidosTable").hide();
 
     $('#adicionarNovo').click(function(e){
         e.preventDefault();
@@ -37,10 +38,18 @@ $(document).ready(function(e) {
     $('#Endereco').click(function(e) {
         e.preventDefault();
         $("#Cadastro").attr("disabled", true);
+
         $("#updateDados").fadeOut(500, function() {
-            $("#updateEndereco").fadeIn(500, function() {
-                $("#Cadastro").attr("disabled", false);
+
+            $("#pedidosTable").fadeOut(500, function() {
+
+
+                $("#updateEndereco").fadeIn(500, function() {
+
+                });
+                
             });
+
 
         });
 
@@ -51,8 +60,34 @@ $(document).ready(function(e) {
         e.preventDefault();
         $("#Endereco").attr("disabled", true);
         $("#updateEndereco").fadeOut(500, function() {
-            $("#updateDados").fadeIn(500, function() {
-                $("#Endereco").attr("disabled", false);
+
+            $("#pedidosTable").fadeOut(500, function() {
+
+                $("#updateDados").fadeIn(500, function() {
+                    $("#Endereco").attr("disabled", false);
+                });
+
+            });
+            
+        });
+
+
+    });
+
+    $('#Pedidos').click(function(e) {
+        e.preventDefault();
+        
+        $("#updateEndereco").fadeOut(500, function() {
+
+            $("#updateDados").fadeOut(500, function() {
+
+                $("#pedidosTable").fadeIn(500, function() {
+
+                
+
+                });
+                
+
             });
         });
 
@@ -544,4 +579,166 @@ function limpaCampos() {
         console.log(element);
         element.value = '';
     })
+}
+
+
+
+
+function getClientePedidos(id) {
+
+    var url = tratarDadosgetPedidos(id);
+
+    console.log("to aqui novo" + url);
+
+    $.ajax({
+        url: url,
+        type: 'GET',
+        timeout: 20000,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: data => {
+            console.log("sucesso")
+            console.log(data)
+
+            var tamanho = data._pedidos.length;
+            console.log(tamanho)
+
+
+            var pedidos = data._pedidos;
+            console.log(pedidos)
+
+
+            for (i = 0; i < tamanho; i++) {
+                var pedido = pedidos[i];
+
+                retornarLinhaPedidos(pedido);
+            }
+
+
+        },
+        error: result => {
+            alert(result.status + ' ' + result.statusText);
+        }
+    });
+}
+
+function tratarDadosgetPedidos(id) {
+    var url1 = 'http://localhost:8080/Pedidos/getPedidos?idCliente=' + id;
+    return url1;
+}
+
+function retornarLinhaPedidos(response){
+
+    console.log('meuResponse')
+    console.log(response);
+
+    //instacio a tabela
+    var tabela = $('#dataTablePedidos');
+    //procuro o corpo da tabela e armazeno em uma variavel
+    var body = tabela.find('tbody');
+    //armazeno em uma variavel a linha tr = linha
+    var tr = $('<tr></tr>')
+        //cada coluna da linha eu armazeno numa var também
+    var td1 = $('<td data-id="' + response._idVenda + '"></td>');
+    var td2 = $('<td data-_dataVenda="' + response._dataVenda + '"></td>');
+    var td3 = $('<td data-_valorTotal="' + response._valorTotal + '"></td>');
+    var td4 = $('<td data-_status="' + response._status + '"></td>');
+    var td5 = $('<td onclick="mostrarModalPedidoDetalhado('+response._idVenda+')"><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>');
+
+    td1.text(response._idVenda);
+    td2.text(response._dataVenda)
+    td3.text(response._valorTotal);
+    td4.text(response._status);
+    tr.append(td1)
+    tr.append(td2)
+    tr.append(td3)
+    tr.append(td4)
+    tr.append(td5)
+        //insiro no corpo a linha
+    body.append(tr);
+
+
+
+    return;
+
+}
+
+
+function getClientePedidosDetalhado(idVenda) {
+
+    var url = tratarDadosgetPedidosDetalhados(idVenda);
+
+    console.log("to aqui novo" + url);
+
+    $.ajax({
+        url: url,
+        type: 'GET',
+        timeout: 20000,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: data => {
+            console.log("sucesso")
+            console.log(data)
+
+            var tamanho = data._pedidos.length;
+            console.log(tamanho)
+
+
+            var pedidos = data._pedidos;
+            console.log(pedidos)
+
+
+            for (i = 0; i < tamanho; i++) {
+                var pedido = pedidos[i];
+
+                retornarLinhaPedidosDetalhados(pedido);
+            }
+
+
+        },
+        error: result => {
+            alert(result.status + ' ' + result.statusText);
+        }
+    });
+}
+
+function tratarDadosgetPedidosDetalhados(idVenda) {
+    var url1 = 'http://localhost:8080/Pedidos/getPedidos/detalhado?idVenda=' + idVenda;
+    return url1;
+}
+
+
+function retornarLinhaPedidosDetalhados(response){
+
+    console.log('meuResponse')
+    console.log(response);
+
+    //instacio a tabela
+    var tabela = $('#dataTablePedidosDetalhado');
+    //procuro o corpo da tabela e armazeno em uma variavel
+    var body = tabela.find('tbody');
+    //armazeno em uma variavel a linha tr = linha
+    var tr = $('<tr></tr>')
+        //cada coluna da linha eu armazeno numa var também
+    var td1 = $('<td data-nome="' + response._nome + '"></td>');
+    var td2 = $('<td data-valor="' + response._valor + '"></td>');
+    var td3 = $('<td data-quantidade="' + response._quantidade + '"></td>');
+
+    td1.text(response._nome);
+    td2.text(response._valor)
+    td3.text(response._quantidade);
+    tr.append(td1)
+    tr.append(td2)
+    tr.append(td3)
+        //insiro no corpo a linha
+    body.append(tr);
+    return;
+
+}
+
+
+function mostrarModalPedidoDetalhado(idVenda) {
+    getClientePedidosDetalhado(idVenda);
+    $('#pedidosDetalhado').modal('show');
+
 }

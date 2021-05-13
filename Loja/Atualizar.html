@@ -58,6 +58,45 @@
             <a id="Endereco"><img class="img-fluid ai-26px" src="https://img.icons8.com/material-rounded/100/000000/address.png" /><span class="ml-10px">Endereço</span> </a>
             <a id="Cartoes"><img class="img-fluid ai-26px" src="https://img.icons8.com/ios/100/000000/bank-card-back-side.png" /><span class="ml-10px">Cartões</span></a>
         </nav>
+
+        <div id="pedidosTable" class="card form-group col-md-9">
+            <div class="card-body">
+                <form>
+                    <div class="form-row">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTablePedidos" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Número</th>
+                                            <th>Data</th>
+                                            <th>Valor total</th>
+                                            <th>Status</th>
+                                            <th>Detalhe</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Número</th>
+                                            <th>Data</th>
+                                            <th>Valor total</th>
+                                            <th>Status</th>
+                                            <th>Detalhe</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                </form>
+        </div>
+        </div>
         <!--Inicio cadastro-->
         <div id="updateDados" class="card form-group col-md-9">
             <div class="card-body">
@@ -361,6 +400,54 @@
         </div>
     </div>
 
+   <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>-->
+
+        <div id="pedidosDetalhado" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            
+            <h5 class="modal-title">Produtos do pedido</h5>
+
+            <div class="card-body">
+                <form>
+                    <div class="form-row">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTablePedidosDetalhado" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Valor</th>
+                                            <th>Quantidade</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Valor</th>
+                                            <th>Quantidade</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </form>
+                
+        </div>
+
+        
+
+        </div>
+        </div>
+        </div>
+
+    
+
 
     <script src="../assets/JQueyMask/src/jquery.mask.js"></script>
 
@@ -379,6 +466,7 @@
 
         $(document).ready(function() {
             getEnderecosLista(idUsuario);
+            getClientePedidos(idUsuario)
         });
     </script>
 </body>
