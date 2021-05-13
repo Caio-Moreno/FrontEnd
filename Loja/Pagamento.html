@@ -163,19 +163,15 @@
                   <ul class="list-group mb-3" id="listaDadosPagamento">
                       <li class="list-group-item d-flex justify-content-between lh-condensed">
                         <div>
-                          <h6 id="tipoCompra" class="my-0">Tipo: Cartão</h6>
+                          <h6 id="tipoCompra" class="my-0"></h6>
                         </div>
                       </li>
                       <li class="list-group-item d-flex justify-content-between lh-condensed">
                         <div>
-                          <h6 id="qtdParcelasPagamento" class="my-0">Parcelamento: 6x 39.90</h6>
+                          <h6 id="qtdParcelasPagamento" class="my-0"></h6>
                         </div>
                       </li>
-                      <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                          <h6 id="numCartao" class="my-0">Final num: **** **** **** 4444</h6>
-                        </div>
-                      </li>
+                     
                     </ul>  
                 </div>
 
@@ -514,6 +510,9 @@
           </div>
           
 
+
+         
+
     
     
     <script src="../assets/js/popper.js"></script>
@@ -521,18 +520,22 @@
     <script src="../js/main.js"></script>
     <script src="../js/carrinho.js"></script>
     <script src="../js/pagamento.js"></script>
+    <script src="../js/atualizarDados.js"></script>
+    <script src="../assets/JQueyMask/src/jquery.mask.js"></script>
 
     <script>
-
       $(document).ready(function () {
             buscaEnderecos();
 
             resumoCompra ();
-
             
       });
+
+     
+
    
     </script>
 
 </body>
 </html>
+

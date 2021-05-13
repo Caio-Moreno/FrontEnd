@@ -109,8 +109,15 @@ $(document).ready(function () {
                             }
                         
                         });
+                        var queryString = window.location.search; 
+                        if(queryString.includes('NotAuthenticated')){
+                            setTimeout(function(){ window.location.href = 'Pagamento.html' },500);
+                            
+                        }else{
+                            setTimeout(function(){  window.location.href = 'indexLoja.html' },500);
+                        }
                     
-                    setTimeout(function(){  window.location.href = 'indexLoja.html' },500);
+                    
                     
                     
                 }   

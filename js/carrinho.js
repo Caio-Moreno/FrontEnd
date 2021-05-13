@@ -215,7 +215,7 @@
 				var total = 0.00;
 				var quantidade = carrinho._quantidade;
 				var cart = carrinho._carrinho;
-				
+				var qtdProdutos= 0;
 				var tabela = $('#tabelaProdutos');
 
 				var body = tabela.find('tbody');
@@ -234,6 +234,7 @@
 				
 
 				total += valorDoProd;
+				qtdProdutos += produto._quantidade;
 
 				//alert(total)
 			
@@ -267,6 +268,11 @@
 			var tdTotal = $('<td colspan="3">Total</td>')
 			var tdTotal2 = $('<td>R$'+total+'</td>')
 
+			$('#totalProdutoResumo').text('R$ '+total);
+			
+			$('#qtdProdutosResumo').text(qtdProdutos+' Produto(s)')
+
+			calcularTotal();
 		
 			tr2.append(tdTotal)
 			tr2.append(tdTotal2)
@@ -412,7 +418,11 @@
 
 				switch (valor) {
 					case 'idCliente':
-						return meuArray[0];
+						try {
+							return meuArray[0];	
+						} catch (error) {
+							return null
+						}
 						break;
 					case 'email':
 						return meuArray[1];
@@ -451,8 +461,101 @@
 
 
 			$('#btnFinalizarCompra').click(function(e){
-
-				window.location.href = 'Pagamento.html'
+				if(retornarDados('idCliente') == null){
+					window.location.href = 'Login.html?reason=NotAuthenticated'
+				}else{
+					window.location.href = 'Pagamento.html'
+				}
+				
+				
 
 
 			});
+
+
+			function calcularTotal(){
+				var valorFrete = 0.00;
+				var valorProdutos = 0.00;
+
+			
+				if(!($('#valorFreteResumo').text().includes('Grátis'))){
+				  valorFrete = parseFloat($('#valorFreteResumo').text().replace('R','').replace('$',''));
+				}
+				if(!($('#totalProdutoResumo').text() == '')){
+					valorProdutos = parseFloat($('#totalProdutoResumo').text().replace('R','').replace('$',''));
+				}
+
+				
+				
+				var valorTotal = parseFloat(valorProdutos + valorFrete).toFixed(2);
+			
+				$('#totalResumo').text('R$ '+valorTotal);
+			
+				return valorTotal;
+				
+			  }
+
+
+			  function calcularFrete(uf){
+    
+    
+				var url = 'http://localhost:8080/Clientes/valorFrete?uf='+uf;
+			
+				
+			
+				$.ajax({
+				  url: url,
+				  type: 'GET',
+				  timeout: 20000,
+				  contentType: "application/json; charset=utf-8",
+				  dataType: "json",
+				  success: data => {
+					  popularFrete(data);
+					  
+				  },
+				  error: data => {
+					alert('erro para buscar carrinho');
+				  }
+				
+				});
+			
+				}
+
+				function popularFrete(data){
+
+					$('#valorFreteResumo').text('R$ '+data._valorNormal);
+					$('#valorNormal').text('R$ '+data._valorNormal);
+					$('#valorRapido').text('R$ '+data._valorFast);
+					
+			  
+					$('#valorFrete').text('R$ '+data._valorNormal);
+			  
+					calcularTotal()
+				  }    
+
+
+
+				  function buscarCep(){
+					  var cep = $('#cepConsulta').val();
+
+					$.ajax({
+						url: 'https://viacep.com.br/ws/' + cep + '/json/',
+						type: 'GET',
+						contentType: "application/json; charset=utf-8",
+						dataType: "json",
+						success: data => {
+							if (data.erro) {
+							alert('erro')
+							} else {
+								calcularFrete(data.uf);
+							}
+						},
+						error: _ => {
+							alert('error')
+						}
+					});
+
+				  }
+
+
+				 

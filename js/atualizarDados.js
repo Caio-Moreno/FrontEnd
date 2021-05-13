@@ -1,8 +1,26 @@
 $(document).ready(function(e) {
 
+    $('#voltarPagamento').hide();
 
+    var queryString = window.location.search;
+
+    if(queryString.includes('pagamento')){
+        $('#voltarPagamento').show();
+    }
 
     $("#updateEndereco").hide();
+    $('#inserirEndereco').hide();
+
+    $('#adicionarNovo').click(function(e){
+        e.preventDefault();
+        $('#adicionarNovo').hide();
+        $('#inserirEndereco').show(500);
+
+    })
+
+    $('#addEndereco').click(function(e){
+        $('#adicionarNovo').show();
+    })
 
     $('#dataNascimento').mask("00/00/0000", {
         placeholder: "__/__/____"

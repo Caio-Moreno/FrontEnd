@@ -86,6 +86,11 @@ $(document).ready(function () {
     $('#mercadoPagoPagamento').hide();
     $('#pixPagamento').hide();
   });
+  $('#mudarEndereco').click(function(e){
+   
+    window.location.href = 'Atualizar.html?id='+ retornarDados('idCliente')+'&reason=pagamento';
+  });
+  
 
 
 /*
@@ -276,7 +281,7 @@ new Vue({
     var token = localStorage.getItem('token');
 
 
-    var url = 'http://localhost:8080/Clientes/BuscarCliente?id='+dados[0]
+    var url = 'http://localhost:8080/Clientes//BuscarCliente/Ativos?id='+dados[0]
 
     $.ajax({
       url: url,
@@ -297,6 +302,7 @@ new Vue({
 
   function tratarEndereco(enderecos){
     const tamanho = enderecos.length;
+    
     var endereco;
 
     if(tamanho == 1){
@@ -580,6 +586,8 @@ new Vue({
           break;
       }
 
+      console.log('json pagamento:');
+      console.log(json)
       var url = 'http://localhost:8080/Vendas/paymentoInsert';
 
       $.ajax({
@@ -590,11 +598,11 @@ new Vue({
         dataType: "json",
         data: json,
         success: data => {
-            alert(data._message);
+            
             localStorage.setItem('pedido', data._numPedido);
             sendEmail();
-            
             vendaConcluida();
+            preencherPagamento(data._pagamento);
 
         },
         error: result => {
@@ -606,6 +614,7 @@ new Vue({
     function jsonCartao(idVenda){
       var nameCart = $('#cardName').val();
       var numberCart = $('#cardNumber').val();
+      
       var select = $('#qtdParcelas').val().split(' ');
       var valor = parseFloat(select[2].replace('R', '').replace('$','').replace(',','.'));
       var qtdParcelas = select[0].replace('x','');
@@ -616,7 +625,7 @@ new Vue({
 
       return JSON.stringify({
         _nameCart: nameCart,
-        _number: numberCart,
+        _numberCart: numberCart,
         _idVendaFk: idVenda,
         _valor: valor,
         _qtdParcelas: qtdParcelas,
@@ -672,8 +681,8 @@ new Vue({
       var valor =calcularTotal();
 
       return JSON.stringify({
-        _mpEmail: email,
-        _mpCpf: cpf,
+        _paypalEmail: email,
+        _paypalCpf: cpf,
         _idVendaFk: idVenda,
         _valor: valor,
         _qtdParcelas: qtdParcelas,
@@ -693,6 +702,8 @@ new Vue({
       $('#pixPagamento').hide(1000);
       $('#mudarEndereco').hide(1000);
       
+      $('#numeroPedido').show()
+      $('#dadosPagamento').show()
 
       $('#numPedido').text(localStorage.getItem('pedido'));
       $('#emailEnviado').text(retornarDados('email'));
@@ -731,3 +742,73 @@ new Vue({
         });
     
     }
+
+
+
+    function preencherPagamento(formaPagamento){
+      console.log(formaPagamento)
+      var lista = $('#listaDadosPagamento');
+
+      
+      $('#qtdParcelasPagamento').text('Parcelas: '+formaPagamento._qtdParcelas+'x de R$'+ formaPagamento._valor);
+
+      if(formaPagamento._tipo == 'cartao'){
+        $('#tipoCompra').text('Tipo: Cartão');
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+                     '<div>'+
+                     '<h6  class="my-0">Final num: **** **** **** '+ultimosDigitos(formaPagamento._numberCart)+'</h6>'+
+                     '</div>'+
+                     '</li>'
+        )
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+                     '<div>'+
+                     '<h6 class="my-0">Titular: '+formaPagamento._nameCart+'</h6>'+
+                     '</div>'+
+                     '</li>'
+        )
+      }
+      else if(formaPagamento._tipo == 'boleto'){
+        $('#tipoCompra').text('Tipo: Boleto');
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+                     '<div>'+
+                     '<h6 class="my-0">Número boleto: '+formaPagamento._numBoleto+'</h6>'+
+                     '</div>'+
+                     '</li>'
+        )
+      }
+      else if(formaPagamento._tipo == 'paypal'){
+        $('#tipoCompra').text('Tipo: Paypal');
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+                     '<div>'+
+                     '<h6 class="my-0">Titular: '+formaPagamento._paypalEmail+'</h6>'+
+                     '</div>'+
+                     '</li>'
+        )
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+        '<div>'+
+        '<h6 class="my-0">Titular CPF: '+formaPagamento._paypalCpf+'</h6>'+
+        '</div>'+
+        '</li>'
+        )
+      }
+      else if(formaPagamento._tipo == 'mp'){
+        $('#tipoCompra').text('Tipo: Mercado pago');
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+                     '<div>'+
+                     '<h6 class="my-0">Titular: '+formaPagamento._paypalEmail+'</h6>'+
+                     '</div>'+
+                     '</li>'
+        )
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+        '<div>'+
+        '<h6 class="my-0">Titular: '+formaPagamento._paypalCpf+'</h6>'+
+        '</div>'+
+        '</li>'
+        )
+      } 
+    }
+
+    function ultimosDigitos(num){
+      return num.substring(num.length - 4)
+    }
+
