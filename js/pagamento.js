@@ -2,7 +2,16 @@
 
 $(document).ready(function () {
   var codigo = "";
-  
+
+  if(!(localStorage.getItem('pedido') == null)){
+    $('#numeroPedido').show()
+    $('#dadosPagamento').show()
+    vendaConcluida();
+  }else{
+    $('#numeroPedido').hide()
+    $('#dadosPagamento').hide()
+    
+  }
 
  $('#app').hide();
  $('#boletoGerado').hide();
@@ -155,8 +164,6 @@ Tratamento de selecao de frete
   $('#fecharPedido').click(function(e){
 
     montarVenda();
-
-    inserirPagamento(tipo);
 
   });
 
@@ -425,8 +432,9 @@ new Vue({
         const formatado = divisao.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
         
-        select.append('<option value="'+i+'">'+i+'x de '+formatado+'</option>')
+        select.append('<option value="'+i+'x de '+formatado+'">'+i+'x de '+formatado+'</option>')
       }
+
     }
 
 
@@ -500,7 +508,8 @@ new Vue({
             dataType: "json",
             data: json,
             success: data => {
-                alert(data._message);
+                //alert(data._message);
+                inserirPagamento(data._idVenda);
             },
             error: result => {
                 console.log(result)
@@ -582,6 +591,11 @@ new Vue({
         data: json,
         success: data => {
             alert(data._message);
+            localStorage.setItem('pedido', data._numPedido);
+            sendEmail();
+            
+            vendaConcluida();
+
         },
         error: result => {
             console.log(result)
@@ -590,20 +604,130 @@ new Vue({
       });
     }
     function jsonCartao(idVenda){
-      
+      var nameCart = $('#cardName').val();
+      var numberCart = $('#cardNumber').val();
+      var select = $('#qtdParcelas').val().split(' ');
+      var valor = parseFloat(select[2].replace('R', '').replace('$','').replace(',','.'));
+      var qtdParcelas = select[0].replace('x','');
+      //alert(valor)
 
+
+
+
+      return JSON.stringify({
+        _nameCart: nameCart,
+        _number: numberCart,
+        _idVendaFk: idVenda,
+        _valor: valor,
+        _qtdParcelas: qtdParcelas,
+        _tipo: "cartao",
+      })
     }
     function jsonBoleto(idVenda){
+        var codBarras = $('#codBarras').text();
+        var valor =calcularTotal();
+
+        return JSON.stringify({
+          _numBoleto: codBarras,
+          _idVendaFk: idVenda,
+          _valor: valor,
+          _qtdParcelas: 1,
+          _tipo: "boleto",
+        })
 
     }
     function jsonPix(idVenda){
+      var valor =calcularTotal();
+
+
+      return JSON.stringify({
+        _tipo: "pix",
+        _idVendaFk: idVenda,
+        _valor: valor,
+        _qtdParcelas: 1
+      })
+      
 
     }
     function jsonMp(idVenda){
+      var email = $('#mpEmail').val();
+      var cpf = $('#mpCpf').val();
+      var qtdParcelas = 1;
+      var valor =calcularTotal();
+
+      return JSON.stringify({
+        _paypalEmail: email,
+        _paypalCpf: cpf,
+        _idVendaFk: idVenda,
+        _valor: valor,
+        _qtdParcelas: qtdParcelas,
+        _tipo: "mp",
+      })
 
     }
     function jsonPaypal(idVenda){
+      var email = $('#emailPaypal').val();
+      var cpf = $('#cpfPaypal').val();
+      var qtdParcelas = 1;
+      var valor =calcularTotal();
+
+      return JSON.stringify({
+        _mpEmail: email,
+        _mpCpf: cpf,
+        _idVendaFk: idVenda,
+        _valor: valor,
+        _qtdParcelas: qtdParcelas,
+        _tipo: "paypal",
+      })
 
     }
     
 
+    function vendaConcluida(){
+      $('#opcoesDeFrete').hide(1000);
+      $('#opcoesDePagamento').hide(1000);
+      $('#app').hide(1000);
+      $('#boletoGerado').hide(1000);
+      $('#mercadoPagoPagamento').hide(1000);
+      $('#payPalPagamento').hide(1000);
+      $('#pixPagamento').hide(1000);
+      $('#mudarEndereco').hide(1000);
+      
+
+      $('#numPedido').text(localStorage.getItem('pedido'));
+      $('#emailEnviado').text(retornarDados('email'));
+
+      
+
+
+    }
+
+
+
+  
+
+
+      function sendEmail(){
+        var pedido = localStorage.getItem('pedido');
+        var email = retornarDados('email');
+        var nome = retornarDados('nome');
+
+        var url = "http://localhost:8080/Email/order?email="+email+"&numPedido="+pedido+"&name="+nome;
+
+              
+    
+        $.ajax({
+            url: url,
+            type: 'POST',
+            timeout: 20000,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: data => {
+                       console.log('Email enviado') 
+            },
+            error: result => {
+                
+            }
+        });
+    
+    }

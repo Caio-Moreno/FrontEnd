@@ -67,7 +67,7 @@
                   <ul class="list-group mb-3">
                       <li class="list-group-item d-flex justify-content-between lh-condensed">
                         <div>
-                          <h6 id="emailEnviado" class="my-0">Confirmação de pedido enviado para:<strong>cvinicius.moreno@outlook.com</strong></h6>
+                          <h6 class="my-0">Confirmação de pedido enviado para: <strong id="emailEnviado">cvinicius.moreno@outlook.com</strong></h6>
                         </div>
                       </li>
                     </ul>  
@@ -81,7 +81,7 @@
                 <ul class="list-group mb-3">
                   <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
-                      <h1 id="numPedido" class="my-0">21-12345678</h1>
+                      <h1 id="numPedido" class="my-0"></h1>
                     </div>
                   </li>
                 </ul>
@@ -182,7 +182,7 @@
 
              
           </div>
-
+<div id="opcoesDeFrete">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
                 <span class="text-muted">Opções de frete</span>
               </h4>
@@ -240,10 +240,12 @@
                       </div>
                 </div>
                 </div>
+                </div>
 
                 <div class="row linhaEspaco mt-3"> </div>
 
                    <!--FIM ENDERECO E RESUMO-->
+                   <div id="opcoesDePagamento">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
                 <span class="text-muted">Opções de pagamento</span>
               </h4>
@@ -300,6 +302,7 @@
                   </ul>
                 </div>
                 </div>
+              </div>
 
                 <div class="wrapper" id="app">
                     <div class="card-form">
@@ -479,12 +482,12 @@
                   <form  id="mercadoPagoPagamento">
                     <div class="form-group">
                       <label for="exampleInputEmail1">Email mercado pago</label>
-                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="digite seu email">
+                      <input type="email" class="form-control" id="mpEmail" aria-describedby="emailHelp" placeholder="digite seu email">
                       <small id="emailHelp" class="form-text text-muted">Dados de acesso para mercado pago.</small>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">CPF</label>
-                      <input type="text" class="form-control" id="exampleInputPassword1" placeholder="CPF">
+                      <input type="text" class="form-control" id="mpCpf" placeholder="CPF">
                     </div>
                     
                   </form>
@@ -492,12 +495,12 @@
                   <form id="payPalPagamento">
                     <div class="form-group">
                       <label for="exampleInputEmail1">Email paypal</label>
-                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="digite seu email">
+                      <input type="email" class="form-control" id="emailPaypal" aria-describedby="emailHelp" placeholder="digite seu email">
                       <small id="emailHelp" class="form-text text-muted">Dados de acesso para PayPal.</small>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">CPF</label>
-                      <input type="text" class="form-control" id="exampleInputPassword1" placeholder="CPF">
+                      <input type="text" class="form-control" id="cpfPaypal" placeholder="CPF">
                     </div>
                     
                   </form>
