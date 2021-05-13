@@ -2,7 +2,9 @@
 
 $(document).ready(function () {
   var codigo = "";
+  
 
+  
   if(!(localStorage.getItem('pedido') == null)){
     $('#numeroPedido').show()
     $('#dadosPagamento').show()
@@ -173,6 +175,7 @@ Tratamento de selecao de frete
   });
 
 
+ 
 
 
 });
@@ -364,12 +367,20 @@ new Vue({
       qtdProdutos += produto._quantidade;
     }
       total = total.toFixed(2)
+
+      if(qtdProdutos == 0){
+        alert('Nenhum produto no carrinho')
+        window.location.href = "IndexLoja.html"
+        return;
+      }
     $('#qtdProdutos').text(qtdProdutos + ' produtos')
     $('#valorProds').text('R$ '+total)
 
     calcularTotal();
 
   }
+
+  
 
   function calcularTotal(){
     var valorFrete = 0.00;
@@ -813,4 +824,7 @@ new Vue({
     function ultimosDigitos(num){
       return num.substring(num.length - 4)
     }
+
+
+
 
