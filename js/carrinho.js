@@ -272,6 +272,8 @@
 			
 			$('#qtdProdutosResumo').text(qtdProdutos+' Produto(s)')
 
+			$('#contCarrinho').text(quantidade);
+
 			calcularTotal();
 		
 			tr2.append(tdTotal)
@@ -461,11 +463,21 @@
 
 
 			$('#btnFinalizarCompra').click(function(e){
+				var cont = parseInt($('#contCarrinho').text());
+
+
+				if(cont == 0){
+					alert('Você não possui nenhum item no carrinho');
+					return;
+				}
+
+
 				if(retornarDados('idCliente') == null){
 					window.location.href = 'Login.html?reason=NotAuthenticated'
 				}else{
 					window.location.href = 'Pagamento.html'
 				}
+
 				
 				
 

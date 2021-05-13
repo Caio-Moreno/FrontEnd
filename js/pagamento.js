@@ -805,7 +805,9 @@ new Vue({
         '</div>'+
         '</li>'
         )
-      } 
+      } else{
+        $('#tipoCompra').text('Tipo: pix');
+      }
     }
 
     function ultimosDigitos(num){
