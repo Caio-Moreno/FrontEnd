@@ -37,6 +37,7 @@
             $('#loading').hide()
             $('#alertaSucesso').hide()
             $('#alertaErro').hide()
+
         });
     </script>
 
@@ -60,42 +61,43 @@
         </nav>
 
         <div id="pedidosTable" class="card form-group col-md-9">
-            <div class="card-body">
-                <form>
-                    <div class="form-row">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTablePedidos" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Número</th>
-                                            <th>Data</th>
-                                            <th>Valor total</th>
-                                            <th>Status</th>
-                                            <th>Detalhe</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Número</th>
-                                            <th>Data</th>
-                                            <th>Valor total</th>
-                                            <th>Status</th>
-                                            <th>Detalhe</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+         
+
+        <!---->
 
 
-                    </div>
 
-
-                </form>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTablePedidos" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Número</th>
+                            <th>Data</th>
+                            <th>Valor total</th>
+                            <th>Status</th>
+                            <th>Forma de pagamento</th>
+                            <th>Detalhe</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Número</th>
+                            <th>Data</th>
+                            <th>Valor total</th>
+                            <th>Status</th>
+                            <th>Forma de pagamento</th>
+                            <th>Detalhe</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
         </div>
+
+
+
         </div>
         <!--Inicio cadastro-->
         <div id="updateDados" class="card form-group col-md-9">
@@ -178,7 +180,7 @@
                     <div class="form-row">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="dataTableEnderecos" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>Rua</th>
@@ -440,6 +442,10 @@
                 
         </div>
 
+        <!---->
+
+      
+
         
 
         </div>
@@ -469,6 +475,17 @@
             getClientePedidos(idUsuario)
         });
     </script>
+
+<script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="../js/demo/datatables-demo.js"></script>
+
+<script>
+  
+    
+</script>
 </body>
 
 </html>

@@ -226,7 +226,7 @@ function poupularCadastro(cliente) {
 
     } else {
         var status = document.getElementById('enderecoFatura');
-        status.checked = true;
+       // status.checked = true;
         $('#enderecoFaturaDiv').hide();
     }
 
@@ -337,7 +337,7 @@ function retornarLinha(response) {
     console.log(response);
 
     //instacio a tabela
-    var tabela = $('#dataTable');
+    var tabela = $('#dataTableEnderecos');
     //procuro o corpo da tabela e armazeno em uma variavel
     var body = tabela.find('tbody');
     //armazeno em uma variavel a linha tr = linha
@@ -458,7 +458,7 @@ function atualizarEndereco() {
             var mensagem = _._message;
             $('#mostrarModalEditarEndereco').modal('hide');
             alert(mensagem);
-            $("#dataTable td").remove();
+            $("#dataTableEnderecos td").remove();
             getEnderecosLista(id);
         },
         error: result => {
@@ -643,17 +643,21 @@ function retornarLinhaPedidos(response){
     var td2 = $('<td data-_dataVenda="' + response._dataVenda + '"></td>');
     var td3 = $('<td data-_valorTotal="' + response._valorTotal + '"></td>');
     var td4 = $('<td data-_status="' + response._status + '"></td>');
-    var td5 = $('<td onclick="mostrarModalPedidoDetalhado('+response._idVenda+')"><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>');
+    var td5 = $('<td data-_tipo="' + response._tipo + '"></td>');
+    
+    var td6 = $('<td onclick="mostrarModalPedidoDetalhado('+response._idVenda+')"><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>');
 
     td1.text(response._idVenda);
     td2.text(response._dataVenda)
     td3.text(response._valorTotal);
     td4.text(response._status);
+    td5.text(response._tipo);
     tr.append(td1)
     tr.append(td2)
     tr.append(td3)
     tr.append(td4)
     tr.append(td5)
+    tr.append(td6)
         //insiro no corpo a linha
     body.append(tr);
 
@@ -738,6 +742,7 @@ function retornarLinhaPedidosDetalhados(response){
 
 
 function mostrarModalPedidoDetalhado(idVenda) {
+    $("#dataTablePedidosDetalhado td").remove();
     getClientePedidosDetalhado(idVenda);
     $('#pedidosDetalhado').modal('show');
 
