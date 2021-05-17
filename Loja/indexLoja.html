@@ -37,8 +37,7 @@
 </head>
 
 <script>
-    
-    if(!(localStorage.getItem('pedido') == null)) localStorage.removeItem('pedido');
+    if (!(localStorage.getItem('pedido') == null)) localStorage.removeItem('pedido');
 </script>
 
 <body>
@@ -57,7 +56,7 @@
 
                 <!-- buscador -->
                 <form action="#" class="col-md-7 d-flex align-items-center">
-                    <input type="text" name="name" placeholder="Procurar jogos aqui">
+                    <input type="text" name="name" placeholder="Procurar Jogos aqui">
 
                     <button class="d-flex align-items-center">
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor"
@@ -71,7 +70,7 @@
                 </form>
 
                 <!-- administrativo do cliente -->
-                <ul  class="col-md-3 nav d-flex align-items-center justify-content-around">
+                <ul class="col-md-3 nav d-flex align-items-center justify-content-around">
                     <li id="entrarCliente" class="nav-item">
                         <a href="#">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -85,7 +84,7 @@
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd"
                   d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-              </svg> <span id="bemVindoCliente">Bem vindo</span><br> <span id="meusDados" style="text-decoration: underline; color: green;">Meus dados</span> <span id="sair" onclick="logout()" style="text-decoration: underline; color: green;">Sair</span> </a>
+              </svg> <span id="bemVindoCliente">Bem vindo</span><br> <span id="meusDados" style="text-decoration: underline; color: green;">Meus dados</span> <span id="sair" onclick="logout()" style="text-decoration: underline; color: green;">Sair</span>                            </a>
                     </li>
 
 
@@ -102,7 +101,7 @@
                 </ul>
                 <!-- end administrativo do cliente -->
 
-                
+
 
             </article>
             <!-- row -->
@@ -111,20 +110,20 @@
     </header>
     <!-- end header -->
 
-    <!-- menu do site
+    <!-- menu do site -->
     <nav class="container-fluid nav-produtos">
-       
+
         <section class="container">
-       
+
             <ul class="nav">
-       
+
                 <li class="col-xl-2 col-lg-3 col-md-12 nav-item d-flex align-items-center">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-list" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd"
               d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
-          </svg> jogos
+          </svg> Jogos
 
-                    
+
                     <ul class="nav flex-column">
                         <li class="nav-item">
                             <a href="#">
@@ -156,10 +155,10 @@
               </a>
                         </li>
                     </ul>
-               
+
                 </li>
 
-            
+
                 <li class="col-xl-2 col-lg-3 col-md-12 nav-item d-flex align-items-center">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-list" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd"
@@ -167,10 +166,10 @@
           </svg> Consoles
                 </li>
             </ul>
-         
+
         </section>
-        
-    </nav> -->
+
+    </nav>
     <!-- end menu do site -->
 
     <!-- main -->
@@ -202,27 +201,27 @@
         <!-- banners promocionais rotativos  -->
 
         <!-- banners promocionais com 6 colunas -->
-                <!-- banners promocionais com 6 colunas -->
-                <section class="container banners-promocionais-statico">
-                    <!-- row -->
-                    <section class="row">
-                        <!-- banner -->
-                        <article class="col-md-6">
-                            <div class="img-fluid">
-                                <img src="../assets/images/parcele-em-12x.jpg">
-                            </div>
-                        </article>
-        
-                        <!-- banner -->
-                        <article class="col-md-6">
-                            <div class="img-fluid">
-                                <img src="../assets/images/entrega-para-todo-brasil.jpg">
-        
-                            </div>
-                        </article>
-                    </section>
-                    <!-- end row -->
-                </section>
+        <!-- banners promocionais com 6 colunas -->
+        <section class="container banners-promocionais-statico">
+            <!-- row -->
+            <section class="row">
+                <!-- banner -->
+                <article class="col-md-6">
+                    <div class="img-fluid">
+                        <img src="../assets/images/parcele-em-12x.jpg">
+                    </div>
+                </article>
+
+                <!-- banner -->
+                <article class="col-md-6">
+                    <div class="img-fluid">
+                        <img src="../assets/images/entrega-para-todo-brasil.jpg">
+
+                    </div>
+                </article>
+            </section>
+            <!-- end row -->
+        </section>
         <!-- end banners promocionais com 6 colunas -->
 
         <!-- container produtos -->
@@ -243,26 +242,27 @@
     </main>
     <!-- end main -->
 
-<!-- SIDEBAR ABRE QUANDO CLICAMOS NO BOTÃO COMPRAR -->
-<div class="mini-cart" id="cart">
-    <h3>Carrinho</h3>
-    <div id="principalCarrinho" style="overflow-y: scroll; height: 550px;" >
+    <!-- SIDEBAR ABRE QUANDO CLICAMOS NO BOTÃO COMPRAR -->
+    <div class="mini-cart" id="cart">
+        <h3>Carrinho</h3>
+        <div id="principalCarrinho" style="overflow-y: scroll; height: 550px;">
 
-   
-  
-           
-       
-  
-       
+
+
+
+
+
+
+        </div>
+
+        <footer class="mini-cart-footer">
+            <p id="valorTotal"></p>
+            <hr>
+            <a href="#" class="btn btn-default btn-block btn-back" id="back-cart"> &#10094; Escolher mais produtos</a>
+            <a href="Carrinho.html" class="btn btn-success btn-block btn-lg btn-finish">Finalizar compra &#10095;</a>
+        </footer>
     </div>
-  
-    <footer class="mini-cart-footer">
-        <p id="valorTotal"></p>
-      <hr>
-      <a href="#" class="btn btn-default btn-block btn-back" id="back-cart"> &#10094; Escolher mais produtos</a>
-      <a href="Carrinho.html" class="btn btn-success btn-block btn-lg btn-finish">Finalizar compra &#10095;</a>
-    </footer>
-  </div> <!-- /mini-cart -->
+    <!-- /mini-cart -->
 
 
     <!-- Footer -->
@@ -279,15 +279,15 @@
                     <!-- links -->
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a href="tel:+5511999999999">(11) 9 9999 9999</a>
+                            <a href="tel:+5511999999999">(11) 9 2324 1232</a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="mailto:contato@sualoja.com.br">contato@sualoja.com.br</a>
+                            <a href="mailto:contato@sualoja.com.br">contato@bombapatch.com.br</a>
                         </li>
 
                         <li class="nav-item">
-                            Horário de atendimento on-line: Segunda à sexta das 9:00 até as 17:30h
+                            Horário de atendimento on-line: Segunda à sexta das 9:00 até as 18:00h
                         </li>
                     </ul>
                 </article>
@@ -345,19 +345,19 @@
                     <!-- links -->
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a href="#">Cropped rosa</a>
+                            <a href="#">GTA V</a>
                         </li>
 
                         <li class="nav-item ellipsis">
-                            <a href="#">Camiseta manga comprida</a>
+                            <a href="#">The Last Of Us 2</a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="#">Camiseta listrada</a>
+                            <a href="#">OutRiders</a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="#">Saia plisada</a>
+                            <a href="#">Diablo 3</a>
                         </li>
                     </ul>
                 </article>
@@ -383,7 +383,7 @@
             buscarCarrinho();
         });
     </script>
-    
+
     <script>
         $(document).ready(function() {
             getProdutosTotal();
