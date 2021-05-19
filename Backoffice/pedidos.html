@@ -295,7 +295,7 @@
           </button>
                 </div>
                 <div class="modal-body">
-                    Confirma a atualização do status deste usuario?
+                    Confirma a atualização do status deste pedido?
                     <input id="idPedidoAtualizarStatus" hidden="true" />
                     <input id="statusAtualizarPedido" hidden="true" />
 
@@ -309,110 +309,7 @@
     </div>
 
 
-    <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editar registro do usuário</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-                </div>
-                <div class="modal-body">
 
-                    <div class="container-fluid">
-
-                        <!--MODAL ALTERAR-->
-
-                        <form id="formulario">
-
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <label for="nomeFuncionario">Nome do Funcionário</label>
-                                    <input type="text" class="form-control" id="nomeUsuarioAlterar" placeholder="Nome">
-                                </div>
-                                <div class="alert alert-danger" id="erroNome" role="alert">
-                                    O nome do funcionário deve conter 5 caracteres.
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="CPF">CPF</label>
-                                    <input type="text" class="form-control" maxlength="11" id="cpfUsuarioAlterar" placeholder="CPF" disabled>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="Sexo">Sexo</label>
-                                    <select class="custom-select" id="sexoUsuarioAlterar" disabled>
-                                    <option value="M">Masculino</option>
-                                    <option value="F">Feminino</option>
-                                </select>
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="dataNascimento">Data de Nascimento</label>
-                                    <input type="text" class="form-control" id="dataNascimentoUsuarioAlterar" placeholder="Data de Nascimento" disabled>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="Senha">Senha</label>
-                                    <input type="password" class="form-control" id="senhaUsuarioAlterar" placeholder="Password" autocomplete="off">
-                                    <a onclick="verSenha()" id="mostrar"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                    <a onclick="esconderSenha()" id="naoMostrar"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
-                                    <div class="alert alert-danger" id="erroSenha" role="alert">
-                                        A senha deve conter 3 caracteres.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <label for="Email">Email</label>
-                                    <input type="text" class="form-control" id="emailUsuarioAlterar" placeholder="Email" disabled>
-                                </div>
-                            </div>
-
-
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="Cargo">Cargo</label>
-                                    <select class="custom-select" id="cargoUsuarioAlterar">
-                                        <option value="ADMIN">ADMIN</option>
-                                        <option value="ESTOQUISTA">ESTOQUISTA</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="alert alert-success" role="alert" id="alertaSucesso">
-                                <span>Funcionário cadastrado com sucesso</span>
-                            </div>
-                            <div class="alert alert-danger" role="alert" id="alertaErro">
-                                <span>Erro para cadastrar o novo funcionário, por favor contatar o suporte</span>
-                            </div>
-                            <!--<a class="btn btn-primary" onclick="enviarFuncionario()" id="addFuncionario" style="margin-left: 0px; color: white; cursor: pointer;">Cadastrar Funcionário</a>-->
-
-                            <div class="load-10" id="loading">
-                                <div class="bar"></div>
-                            </div>
-                        </form>
-
-                        <input id="idUsuarioAlterar" type="hidden" />
-                        <br>
-                        <div class="alert alert-success" role="alert" id="alertaAtualizado">
-                            Funcionário Atualizado com sucesso!
-                        </div>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="atualizarUsuario">Confirmar</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
     <script src="../assets/JQueyMask/src/jquery.mask.js"></script>
 
 </body>

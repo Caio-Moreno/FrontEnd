@@ -45,12 +45,21 @@ function retornarLinha(response) {
     var td1 = $('<td data-Num. Pedido="' + response._numPedido + '"></td>');
     var td2 = $('<td data-Data="' + response._dataVenda + '"></td>');
     var td3 = $('<td data-Valor="' + response._valorTotal + '"></td>');
-    if (response._status == 'APPROVED PAYMENT') {
-        var td4 = $('<td ondblclick="mostrarModalAtualizar(' + response._numPedido + ',\'A\')">  <i class="fa fa-check-square-o" aria-hidden="true"></i> </td>');
-        //console.log('<td ondblclick="mostrarModalAtualizar('+response._idProduto+',\'A\')">   <i class="fa fa-check-square-o" aria-hidden="true"></i> </td>')
 
-    } else if (response._status == 'PENDING PAYMENT') {
-        var td4 = $('<td ondblclick="mostrarModalAtualizar(' + response._numPedido + ',\'I\')" data-status="' + response._statusEnum + '"> <i class="fa fa-ban" aria-hidden="true"></i></td>');
+    if (response._status == 'PENDING PAYMENT') {
+        var td4 = $('<td ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'PENDING PAYMENT\')" data-status="' + response._statusEnum + '"> <i class="fas fa-spinner" aria-hidden="true"></i></td>');
+
+    } else if (response._status == 'REJECTED PAYMENT') {
+
+        var td4 = $('<td ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'REJECTED PAYMENT\')" data-status="' + response._statusEnum + '"> <i class="fa fa-ban" aria-hidden="true"></i></td>');
+
+    } else if (response._status == 'APPROVED PAYMENT') {
+        var td4 = $('<td ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'APPROVED PAYMENT\')"> <i class="fa fa-check-square-o" aria-hidden="true"></i> </td>');
+
+    } else if (response._status == 'DELIVERY IN PROGRESS') {
+        var td4 = $('<td ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'DELIVERY IN PROGRESS\')" data-status="' + response._statusEnum + '"> <i class="fas fa-truck" aria-hidden="true"></i></td>');
+    } else if (response._status == 'ORDER DELIVERED') {
+        var td4 = $('<td ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'ORDER DELIVERED\')" data-status="' + response._statusEnum + '"> <i class="fas fa-truck-loading" aria-hidden="true"></i></td>');
     }
 
     td1.text(response._numPedido);
@@ -71,23 +80,13 @@ function retornarLinha(response) {
     return;
 }
 
-/*function mostrarModalExclusao(idProduto) {
-    $("#nomeProduto").html(idProduto);
-    $("#codProduto").val(idProduto);
-    $('#modalExclusao').modal('show');
-}*/
 
-function mostrarModalAtualizar(idUsuario, StatusAtual) {
-    var dadosUsario = localStorage.getItem("dadosUsuario");
-    dadosUsario = dadosUsario.split(',');
-    if (dadosUsario[3] == 'ADMIN') {
-        console.log('ENTREI' + idUsuario + StatusAtual)
-        $('#idUsuarioAtualizarStatus').val(idUsuario);
-        $('#statusAtualizarUsuario').val(StatusAtual);
-        $('#modalAtualizaStatus').modal('show');
-    } else {
-        alert('Você não tem permissão para realizar está ação');
-    }
+
+function mostrarModalAtualizar(idVenda, StatusAtual) {
+    console.log('ENTREI ' + idVenda + StatusAtual)
+    $('#idPedidoAtualizarStatus').val(idVenda);
+    $('#statusAtualizarPedido').val(StatusAtual);
+    $('#modalAtualizaStatus').modal('show');
 }
 
 function atualizaStatus() {
@@ -97,18 +96,22 @@ function atualizaStatus() {
     var status = $('#statusAtualizarPedido').val();
     console.log(status)
 
-    if (status == 'A') {
-        status = 'I'
-    } else {
-        status = 'A'
+    if (status == 'PENDING PAYMENT') {
+        status = 'REJECTED PAYMENT'
+    } else if (status == 'REJECTED PAYMENT') {
+        status = 'APPROVED PAYMENT'
+    } else if (status == 'APPROVED PAYMENT') {
+        status = 'DELIVERY IN PROGRESS'
+    } else if (status == 'DELIVERY IN PROGRESS') {
+        status = 'ORDER DELIVERED'
     }
 
     var json = JSON.stringify({
-        _id: id,
+        _idVenda: id,
         _status: status
     })
 
-    var url = 'http://localhost:8080/administrador/atualizaStatus'
+    var url = 'http://localhost:8080/Pedidos/atualizaStatusPedido'
 
 
     $.ajax({
