@@ -40,7 +40,9 @@
 
 
         });
+
         getProdutosLista();
+        
 
         function atribuirValor(a) {
             document.getElementById('qualidadeProdutoAlterar').value = a;
@@ -483,10 +485,10 @@
                                 <div class="form-group col-md-3">
                                     <label for="preco">Plataforma</label>
                                     <select class="custom-select" id="plataformaProdutoAlterar">
-              <option value="PS4">PS4</option>
-              <option value="XBOX">XBOX</option>
-              <option value="PC">PC</option>
-          </select>
+                                     <option value="PS4">PS4</option>
+                                     <option value="XBOX">XBOX</option>
+                                     <option value="PC">PC</option>
+                                    </select>
 
                                 </div>
                             </div>
@@ -536,6 +538,12 @@
             </div>
         </div>
     </div>
+
+    <script>
+         $(document).ready(function() {
+            verificaEstoquista();
+        });
+    </script>
 
 </body>
 

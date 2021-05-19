@@ -1,3 +1,31 @@
+function verificaEstoquista() {
+    var dados = localStorage.getItem('dadosUsuario').split(',');
+    var tipo = dados[3];
+  
+
+    if(tipo == 'ESTOQUISTA'){
+        $("#nomeProdutoAlterar").attr("disabled", true);
+        $("#descricaoProdutoAlterar").attr("disabled", true);
+        $("#half-stars-example").attr("disabled", true);
+        $("#categoriaProdutoAlterar").attr("disabled", true);
+        $("#statusProdutoAlterar").attr("disabled", true);
+        $("#precoProdutoAlterar").attr("disabled", true);
+        $("#plataformaProdutoAlterar").attr("disabled", true);
+        $("#gallery-photo-add").attr("disabled", true);
+        $("#rating2-0").attr("disabled", true);
+        $("#rating2-05").attr("disabled", true);
+        $("#rating2-10").attr("disabled", true);
+        $("#rating2-15").attr("disabled", true);
+        $("#rating2-20").attr("disabled", true);
+        $("#rating2-25").attr("disabled", true);
+        $("#rating2-30").attr("disabled", true);
+        $("#rating2-35").attr("disabled", true);
+        $("#rating2-40").attr("disabled", true);
+        $("#rating2-45").attr("disabled", true);
+        $("#rating2-50").attr("disabled", true);
+    }
+}
+
 
 
 function getProdutosLista() {
