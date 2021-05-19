@@ -46,6 +46,7 @@ function retornarLinha(response) {
     var td2 = $('<td data-Data="' + response._dataVenda + '"></td>');
     var td3 = $('<td data-Valor="' + response._valorTotal + '"></td>');
 
+
     if (response._status == 'PENDING PAYMENT') {
         var td4 = $('<td ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'PENDING PAYMENT\')" data-status="' + response._statusEnum + '"> <i class="fas fa-spinner" aria-hidden="true"></i></td>');
 
@@ -56,10 +57,13 @@ function retornarLinha(response) {
     } else if (response._status == 'APPROVED PAYMENT') {
         var td4 = $('<td ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'APPROVED PAYMENT\')"> <i class="fa fa-check-square-o" aria-hidden="true"></i> </td>');
 
+    } else if (response._status == 'AWAITING COLLECTION') {
+        var td4 = $('<td ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'AWAITING COLLECTION\')"> <i class="fas fa-people-carry" aria-hidden="true"></i> </td>');
+
     } else if (response._status == 'DELIVERY IN PROGRESS') {
         var td4 = $('<td ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'DELIVERY IN PROGRESS\')" data-status="' + response._statusEnum + '"> <i class="fas fa-truck" aria-hidden="true"></i></td>');
     } else if (response._status == 'ORDER DELIVERED') {
-        var td4 = $('<td ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'ORDER DELIVERED\')" data-status="' + response._statusEnum + '"> <i class="fas fa-truck-loading" aria-hidden="true"></i></td>');
+        var td4 = $('<td><i class="fas fa-truck-loading" aria-hidden="true"></i></td>');
     }
 
     td1.text(response._numPedido);
@@ -101,6 +105,8 @@ function atualizaStatus() {
     } else if (status == 'REJECTED PAYMENT') {
         status = 'APPROVED PAYMENT'
     } else if (status == 'APPROVED PAYMENT') {
+        status = 'AWAITING COLLECTION'
+    } else if (status == 'AWAITING COLLECTION') {
         status = 'DELIVERY IN PROGRESS'
     } else if (status == 'DELIVERY IN PROGRESS') {
         status = 'ORDER DELIVERED'
