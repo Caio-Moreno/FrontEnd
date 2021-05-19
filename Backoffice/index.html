@@ -28,18 +28,20 @@
             window.location.href = '../login.html';
         }
 
+
+
         $(document).ready(function _() {
             var dadosUsuario = localStorage.getItem('dadosUsuario');
             dadosUsuario = dados.split(',');
-            console.log('entrei' + dadosUsuario[3])
+            //alert('entrei' + dadosUsuario[3])
             if (!(dadosUsuario[3] == 'ADMIN')) {
-                console.log('entrei' + dadosUsuario[3])
+              //  alert('entrei' + dadosUsuario[3])
                 $('#cadastroDoFuncionario').hide();
                 console.log('passei')
             }
-
-
         });
+
+
     </script>
 </head>
 
@@ -140,7 +142,7 @@
 
 
                         <h6 class="collapse-header">Funcionários:</h6>
-                        <a class="collapse-item" href="./cadastrarFuncionarios.html">Cadastrar</a>
+                        <a class="collapse-item" id="cadastroDoFuncionario" href="./cadastrarFuncionarios.html">Cadastrar</a>
                         <a class="collapse-item" href="./funcionarios.html">Listar</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Pedidos:</h6>
