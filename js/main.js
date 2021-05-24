@@ -47,7 +47,7 @@ $(document).ready(function () {
         }else {
             var splitar = sessionId.split(',')
             if(horaAtual() > splitar[1]){
-                console.log('token venceu');
+                
                 localStorage.removeItem('carrinho');
                 localStorage.removeItem('sessionId');
                 return false;
@@ -109,7 +109,7 @@ $(document).ready(function () {
 function getProdutos() {
 
     var url = tratarDadosgetProdutos();
-    console.log(url);
+    
 
     $.ajax({
         url: url,
@@ -118,12 +118,11 @@ function getProdutos() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: data => {
-            console.log(data);
+            
 
             var tamanho = data._produto.length;
             var produtos = data._produto;
-            console.log(tamanho);
-            console.log(produtos);
+       
             for (i = 0; i < 4; i++) {
                 var produto = produtos[i];
 
@@ -149,11 +148,10 @@ function getProdutosTotal() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: data => {
-            console.log(data);
+    
             var tamanho = data._produto.length;
             var produtos = data._produto;
-            console.log(tamanho);
-            console.log(produtos);
+        
 
             $("#botaoVejaMais").click(function() {
                 for (i = 4; i < tamanho; i++) {
@@ -184,7 +182,7 @@ function getProdutoEspecifico() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: data => {
-            console.log(data);
+  
             var produto = data._produto[0];
             popularTelaPrdutoEspecifico(produto);
         },
@@ -195,7 +193,7 @@ function getProdutoEspecifico() {
 }
 
 function popularTelaPrdutoEspecifico(produto) {
-    console.log('aqui')
+ 
     $('#nomeProdutoActive').text(produto._nomeProduto);
     $('#nomeProduto').text(produto._nomeProduto);
     $('#descricao').text(produto._descricao);
@@ -205,7 +203,7 @@ function popularTelaPrdutoEspecifico(produto) {
     
     var imagens = produto._imagem;
     Object.keys(imagens).forEach(function(item) {
-        console.log(item + " = " + imagens[item]);
+        
         if (imagens[item] != null) {
             if (item == 'caminhoImagem1') {
                 $('#imagensCarousel').append('<div class="carousel-item active">' +
@@ -223,10 +221,10 @@ function popularTelaPrdutoEspecifico(produto) {
 }
 
 function tratarDadosgetProdutos() {
-    var url1 = 'http://localhost:8080/Produtos'
+    var url1 = 'http://localhost:8080/Produtos/Loja'
     var filtro = $("#nomePesquisa").val();
     if (!(filtro == null || filtro == '')) {
-        console.log('entrei')
+        
         url1 += '?Nome=' + filtro;
     }
     return url1;
@@ -254,7 +252,7 @@ function mostrarEstrelas(qtdEstrela) {
         estrela += halfStar;
     }
 
-    console.log(estrela);
+    
     return estrela;
 
 
@@ -263,7 +261,8 @@ function mostrarEstrelas(qtdEstrela) {
 
 
 function retornarDiv(response) {
-    console.log(response)
+    
+    
     response._preco = response._preco.toFixed(2);
     return $("#divPrincipal").append(
         '<a href="' + 'produto-especifico.html?Id=' + response._idProduto + '" class="produtos-container col-md-3">' +
@@ -279,7 +278,7 @@ function retornarDiv(response) {
 
 
 function logout(){
-    console.log('entrei logout')
+    
     var url = 'http://localhost:8080/Login/logout';
     var dados = localStorage.getItem('dadosUsuario');
     dados = dados.split(',');
