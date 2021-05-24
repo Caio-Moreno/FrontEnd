@@ -41,6 +41,7 @@ function retornarLinha(response) {
     //armazeno em uma variavel a linha tr = linha
     var tr = $('<tr></tr>')
         //cada coluna da linha eu armazeno numa var também
+        
 
     var td1 = $('<td data-Num. Pedido="' + response._numPedido + '"></td>');
     var td2 = $('<td data-Data="' + response._dataVenda + '"></td>');
@@ -48,22 +49,22 @@ function retornarLinha(response) {
 
 
     if (response._status == 'PENDING PAYMENT') {
-        var td4 = $('<td ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'PENDING PAYMENT\')" data-status="' + response._statusEnum + '"> <i class="fas fa-spinner" aria-hidden="true"></i></td>');
+        var td4 = $('<td class="text-primary" ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'PENDING PAYMENT\')" data-status="' + response._statusEnum + '"> <i style="cursor: pointer;" class="fas fa-spinner" aria-hidden="true"></i></td>');
 
     } else if (response._status == 'REJECTED PAYMENT') {
 
-        var td4 = $('<td ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'REJECTED PAYMENT\')" data-status="' + response._statusEnum + '"> <i class="fa fa-ban" aria-hidden="true"></i></td>');
+        var td4 = $('<td class="text-danger"  ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'REJECTED PAYMENT\')" data-status="' + response._statusEnum + '"> <i style="cursor: pointer;" class="fa fa-ban" aria-hidden="true"></i></td>');
 
     } else if (response._status == 'APPROVED PAYMENT') {
-        var td4 = $('<td ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'APPROVED PAYMENT\')"> <i class="fa fa-check-square-o" aria-hidden="true"></i> </td>');
+        var td4 = $('<td class="text-success" ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'APPROVED PAYMENT\')"> <i style="cursor: pointer;" class="fa fa-check-square-o" aria-hidden="true"></i> </td>');
 
     } else if (response._status == 'AWAITING COLLECTION') {
-        var td4 = $('<td ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'AWAITING COLLECTION\')"> <i class="fas fa-people-carry" aria-hidden="true"></i> </td>');
+        var td4 = $('<td  class="text-info" ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'AWAITING COLLECTION\')"> <i style="cursor: pointer;" class="fas fa-people-carry" aria-hidden="true"></i> </td>');
 
     } else if (response._status == 'DELIVERY IN PROGRESS') {
-        var td4 = $('<td ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'DELIVERY IN PROGRESS\')" data-status="' + response._statusEnum + '"> <i class="fas fa-truck" aria-hidden="true"></i></td>');
+        var td4 = $('<td class="text-secondary" ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'DELIVERY IN PROGRESS\')" data-status="' + response._statusEnum + '"> <i style="cursor: pointer;" class="fas fa-truck" aria-hidden="true"></i></td>');
     } else if (response._status == 'ORDER DELIVERED') {
-        var td4 = $('<td><i class="fas fa-truck-loading" aria-hidden="true"></i></td>');
+        var td4 = $('<td class="text-warning"><i class="fas fa-truck-loading" aria-hidden="true"></i></td>');
     }
 
     td1.text(response._numPedido);
