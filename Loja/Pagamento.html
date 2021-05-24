@@ -18,7 +18,7 @@
     <script src="https://unpkg.com/vue-the-mask@0.11.1/dist/vue-the-mask.js"></script>
     
 
-    <link rel="sortcut icon" href="../assets/images/favicons/ms-icon-144x144.png" type="image/x-icon" />;
+    <link rel="sortcut icon" href="../assets/images/favicons/ms-icon-144x144.png" type="image/x-icon" />
 
     <title>Brazukas - Pagamento</title>
 </head>
@@ -71,7 +71,7 @@
                   <ul class="list-group mb-3">
                       <li class="list-group-item d-flex justify-content-between lh-condensed">
                         <div>
-                          <h6 class="my-0">Confirmação de pedido enviado para: <strong id="emailEnviado">cvinicius.moreno@outlook.com</strong></h6>
+                          <h6 class="my-0">Confirmação de pedido enviado para: <strong id="emailEnviado"></strong></h6>
                         </div>
                       </li>
                     </ul>  
@@ -96,7 +96,7 @@
 
 
             <div class="row linhaEspaco" id="enderecoResumo">
-                <div class="col-md-8 order-md-1 ">
+                <div id="enderecoClone" class="col-md-8 order-md-1 ">
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
                       <span class="text-muted">Endereço de entrega</span>
                     </h4>          
@@ -502,7 +502,6 @@
                       <label for="exampleInputPassword1">CPF</label>
                       <input type="text" class="form-control" id="cpfPaypal" placeholder="CPF">
                     </div>
-                    
                   </form>
 
                   <div class="container" id="pixPagamento">
@@ -512,10 +511,73 @@
                       <input type="hidden" id="tipoPagamento">
                   <!--FIM CONTAINER-->
           </div>
+          <br><br><br>
           
 
+<!-- Large modal 
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>
+-->
+          <div id="modalResumo" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div id="corpoModal" class="modal-content">
+                <h5 class="h5 text-center">Resumo do pedido</h5>
+                <br>
 
-         
+                <table id="tabelaProdutos" class="table table-bordered marginBottomTable">
+                  <thead>
+                      <tr class="linhaEspaco1px"> 
+                          <th scope="col">Imagem</th>
+                          <th scope="col">Nome</th>
+                          <th scope="col">Quantidade</th>
+                          <th scope="col">Preço</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      
+                  </tbody>
+              </table>
+
+              <!--DADOS ENDERECO-->
+             <div id="corpoEndereco">
+
+
+             </div>
+             <!--FIM DADOS ENDERECO-->
+            
+        <!--DADOS PAGAMENTO-->
+             <div class="row" id="dadosPagamentoResumo">
+              <div class="col-md-12 order-md-1 mt-3" id="divDadosPagamento">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                  <span class="text-muted">Dados do pagamento</span>
+                </h4>
+                  <ul class="list-group mb-3" id="listaDadosPagamentoResumo">
+                      <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                          <h6 id="tipoCompraResumo" class="my-0"></h6>
+                        </div>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                          <h6 id="qtdParcelasPagamentoResumo" class="my-0"></h6>
+                        </div>
+                      </li>
+                     
+                    </ul>  
+                </div>
+                <!--FIM DADOS PAGAMENTO-->
+
+              
+              
+              </div>
+    
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="finalizarConfirmado" class="btn btn-success">Finalizar pedido</button>
+              </div>
+              
+            </div>
+          </div>
 
     
     
@@ -533,13 +595,9 @@
 
             resumoCompra ();
 
-              validaCarrinho();
+          //    validaCarrinho();
             
       });
-
-     
-
-   
     </script>
 
 </body>

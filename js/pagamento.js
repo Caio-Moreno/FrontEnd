@@ -30,9 +30,9 @@ $(document).ready(function () {
 
    $('#cartaoDeCredito').click(function(e){
      $('#tipoPagamento').val('cartao');
-    $('#fecharPedido').show();
+
+      $('#fecharPedido').show();
       $('#app').show(500);
-      
       $('#boletoGerado').hide();
       $('#mercadoPagoPagamento').hide();
       $('#payPalPagamento').hide();
@@ -169,9 +169,20 @@ Tratamento de selecao de frete
   })
   
   $('#fecharPedido').click(function(e){
+      buscarCarrinhoFinal();
+      var minhaDiv = $('#enderecoClone').clone();
+      $('#corpoEndereco').html(minhaDiv);
+      preencherPagamentoResumo();
+      $('#modalResumo').modal('show');
+      
+    //montarVenda();
 
-    montarVenda();
+  });
 
+  
+
+  $('#finalizarConfirmado').click(function(e){
+     montarVenda();
   });
 
 
@@ -704,6 +715,7 @@ new Vue({
     
 
     function vendaConcluida(){
+      $('#modalResumo').modal('hide');
       $('#opcoesDeFrete').hide(1000);
       $('#opcoesDePagamento').hide(1000);
       $('#app').hide(1000);
@@ -712,12 +724,15 @@ new Vue({
       $('#payPalPagamento').hide(1000);
       $('#pixPagamento').hide(1000);
       $('#mudarEndereco').hide(1000);
+      $('#fecharPedido').hide(1000);
       
       $('#numeroPedido').show()
       $('#dadosPagamento').show()
 
       $('#numPedido').text(localStorage.getItem('pedido'));
       $('#emailEnviado').text(retornarDados('email'));
+
+      
 
       
 
@@ -746,6 +761,7 @@ new Vue({
             dataType: "json",
             success: data => {
                        console.log('Email enviado') 
+                       $('#emailEnviado').text(email);
             },
             error: result => {
                 
@@ -759,6 +775,8 @@ new Vue({
     function preencherPagamento(formaPagamento){
       console.log(formaPagamento)
       var lista = $('#listaDadosPagamento');
+      
+
 
       
       $('#qtdParcelasPagamento').text('Parcelas: '+formaPagamento._qtdParcelas+'x de R$'+ formaPagamento._valor);
@@ -825,6 +843,267 @@ new Vue({
       return num.substring(num.length - 4)
     }
 
+    function buscarCarrinhoFinal(){
+				
+      var dadosSession = localStorage.getItem('sessionId').split(',');
+      var sessionId = dadosSession[0];
+      var url = 'http://localhost:8080/Carrinho/getCart?session='+sessionId;
+
+
+      $.ajax({
+        url: url,
+        type: 'GET',
+        timeout: 20000,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: data => {		
+          console.log(data)
+            popularCarrinhoFinal(data);						
+        },
+        error: data => {
+          
+        }
+      
+      });
+
+    }
+
+    function popularCarrinhoFinal(carrinho){
+				
+      var total = 0.00;
+      var quantidade = carrinho._quantidade;
+      var cart = carrinho._carrinho;
+      var qtdProdutos= 0;
+      var tabela = $('#tabelaProdutos');
+
+      var body = tabela.find('tbody');
+
+      limpaTabela();
+
+      
+      var tr2 = $('<tr></tr>')
+      
+      for(let i = 0; i < quantidade; i++){
+        var tr = $('<tr  class="linhaEspaco1px"></tr>')
+        var produto = cart[i];
+        console.log('produto '+i);
+        console.log(produto);
+        var valorDoProd = parseFloat(produto._valor);
+        
+      
+        total += valorDoProd;
+        qtdProdutos += produto._quantidade;
+      
+        //alert(total)
+      
+        var td1 = $('<td style="text-align: center;"><img id="imagemAJuste" src="'+produto._imageProduto+'" class="imagemCarrinho"></td>')
+        var td2 = $('<td id="nomeProd">'+produto._nomeProduto+'</td>')
+        var td3 = $('<td>'+
+        '<div class="input-group mb-3">'+
+          
+          '<input class="text-center" type="text" id="qtdProdutoCart" value="'+produto._quantidade+'" readonly>'+
+          '</div>'+
+        '</td>')
+        var td4 = $('<td>R$'+produto._valor+'</td>')
+      
+        tr.append(td1);
+        tr.append(td2);
+        tr.append(td3);
+        tr.append(td4);
+        body.append(tr);
+      }
+
+
+    
+      total = total.toFixed(2)
+      
+
+      var tdTotal = $('<td colspan="3">Total</td>')
+      var tdTotal2 = $('<td>R$'+total+'</td>')
+      
+      $('#totalProdutoResumo').text('R$ '+total);
+      
+      $('#qtdProdutosResumo').text(qtdProdutos+' Produto(s)')
+      
+      $('#contCarrinho').text(quantidade);
+      
+      calcularTotal();
+      
+      tr2.append(tdTotal)
+      tr2.append(tdTotal2)
+      
+      
+      body.append(tr2)			
+    }
+    
 
 
 
+
+
+    function preencherPagamentoResumo(){
+      var formaPagamento = $('#tipoPagamento').val();
+      var lista = $('#listaDadosPagamentoResumo');
+      lista.empty()
+      
+      
+      //forma de pagamento cartao
+      if(formaPagamento == 'cartao'){
+        //tipo da compra
+        
+
+        //valor da compra e qtd de parcelas
+        var select = $('#qtdParcelas').val().split(' ');
+        var valor = parseFloat(select[2].replace('R', '').replace('$','').replace(',','.'));
+        var qtdParcelas = select[0].replace('x','');
+
+        //já preencho o valor
+        
+
+        var nameCart = $('#cardName').val();
+        
+        var numberCart = $('#cardNumber').val();
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+                     '<div>'+
+                     '<h6  class="my-0">Tipo: Cartão</h6>'+
+                     '</div>'+
+                     '</li>'
+        )
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+                     '<div>'+
+                     '<h6  class="my-0">Parcelas: '+qtdParcelas+'x de R$'+valor+'</h6>'+
+                     '</div>'+
+                     '</li>'
+        )
+
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+                     '<div>'+
+                     '<h6  class="my-0">Final num: **** **** **** '+ultimosDigitos(numberCart)+'</h6>'+
+                     '</div>'+
+                     '</li>'
+        )
+        
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+                     '<div>'+
+                     '<h6 class="my-0">Titular: '+nameCart+'</h6>'+
+                     '</div>'+
+                     '</li>'
+        )
+      }
+
+      //forma de pagamento boleto
+      else if(formaPagamento == 'boleto'){
+        
+
+        var codBarras = $('#codBarras').text();
+        var valor =calcularTotal();
+
+
+
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+        '<div>'+
+        '<h6  class="my-0">Tipo: Boleto</h6>'+
+        '</div>'+
+        '</li>'
+        )
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+        '<div>'+
+        '<h6  class="my-0">Valor: R$ '+valor+'</h6>'+
+        '</div>'+
+        '</li>'
+        )
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+                     '<div>'+
+                     '<h6 class="my-0">Número boleto: '+codBarras+'</h6>'+
+                     '</div>'+
+                     '</li>'
+        )
+      }
+      else if(formaPagamento == 'paypal'){
+        
+
+        var email = $('#emailPaypal').val();
+        var cpf = $('#cpfPaypal').val();
+       
+        var valor =calcularTotal();
+
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+        '<div>'+
+        '<h6 class="my-0">Tipo: Paypal</h6>'+
+        '</div>'+
+        '</li>'
+        )
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+        '<div>'+
+        '<h6 class="my-0">Valor: R$ '+valor+'</h6>'+
+        '</div>'+
+        '</li>'
+        )
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+                     '<div>'+
+                     '<h6 class="my-0">Titular Email: '+email+'</h6>'+
+                     '</div>'+
+                     '</li>'
+        )
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+        '<div>'+
+        '<h6 class="my-0">Titular CPF: '+cpf+'</h6>'+
+        '</div>'+
+        '</li>'
+        )
+
+      }
+      else if(formaPagamento == 'mp'){
+        $('#tipoCompra').text('Tipo: Mercado pago');
+
+        var email = $('#mpEmail').val();
+        var cpf = $('#mpCpf').val();
+    
+        var valor =calcularTotal();
+
+
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+        '<div>'+
+        '<h6 class="my-0">Tipo: Mercado pago</h6>'+
+        '</div>'+
+        '</li>'
+        )
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+        '<div>'+
+        '<h6 class="my-0">Valor: R$ '+valor+'</h6>'+
+        '</div>'+
+        '</li>'
+        )
+        $('#qtdParcelasPagamentoResumo').text('Valor: R$ '+valor);
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+                     '<div>'+
+                     '<h6 class="my-0">Titular Email: '+email+'</h6>'+
+                     '</div>'+
+                     '</li>'
+        )
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+        '<div>'+
+        '<h6 class="my-0">Titular CPF: '+cpf+'</h6>'+
+        '</div>'+
+        '</li>'
+        )
+
+      } else{
+        $('#tipoCompra').text('Tipo: pix');
+        var valor =calcularTotal();
+        
+
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+        '<div>'+
+        '<h6 class="my-0">Tipo: Pix</h6>'+
+        '</div>'+
+        '</li>'
+        )
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+        '<div>'+
+        '<h6 class="my-0">Valor: R$ '+valor+'</h6>'+
+        '</div>'+
+        '</li>'
+        )
+      }
+    }

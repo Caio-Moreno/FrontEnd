@@ -12,7 +12,7 @@ nav {
 
 .image {
     margin-top: 25px;
-    margin-left: 175px;
+    
     margin-right: auto;
 
 }
@@ -48,9 +48,7 @@ input {
 
 }
 
-form {
-    margin-left: 390px;
-}
+
 form div {
     text-align: left;
 }
@@ -72,9 +70,7 @@ form div {
 }
 
 
-.marginAjuste {
-   margin-left: 237px;
-}
+
 
 a {
     font-size: 13px;
@@ -86,7 +82,7 @@ button {
 }
 
 .meuDivider {
-    width: 50%;
+    width: 100%;
     height: 0;
     margin: .5rem 0;
     overflow: hidden;
@@ -94,9 +90,10 @@ button {
     opacity: 0.2;
 }
 
-.naoTemCadastro {
-    margin-left: 455px;
+.esqueceu {
+    margin-left: 990px;
 }
+
 
 .mudarColor {
     margin-left: 5px;
@@ -109,3 +106,13 @@ button {
     font-size: 10;
 }
 
+@media (max-width: 600px) {
+    .esqueceu {
+        margin-left: 250px;
+    }
+  }
+
+  .ajusteInput {
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }

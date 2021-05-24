@@ -12,23 +12,24 @@
     
     <title>Bomba Pacth Games - login</title>
 </head>
-<body>
-    <nav> 
+<body class="text-center">
+    <nav class="text-center"> 
         <a href="./indexLoja.html" class="col-md-2 d-flex justify-content-center">
             <img src="../assets/images/logo.svg" class="img-fluid image" alt="Logo da empresa - Bomba patch"> 
         </a>
         
     </nav>
     <div class="container">
+    
     <h1><i class="fa fa-user-o" aria-hidden="true"></i> Login do cliente</h1>
-    <form>
+    <form class="form-signin">
         <div class="mt-5">
             <label for="emailUser">Email:</label><br>
-            <input class="transicao" type="email" id="username" placeholder="Digite seu email" autocomplete="off">
+            <input class=" transicao form-control ajusteInput" type="email" id="username" placeholder="Digite seu email" autocomplete="off">
           </div>
           <div class="mt-4">
-            <label for="password">Senha:</label> <a href="ForgotPassword.html" class="marginAjuste">Esqueceu?</a><br>
-            <input class="transicao" type="password" id="password" placeholder="Senha de acesso" autocomplete="off">
+            <label for="password">Senha:</label> <a class="esqueceu"  href="ForgotPassword.html">Esqueceu?</a><br>
+            <input class=" transicao form-control ajusteInput" type="password" id="password" placeholder="Senha de acesso" autocomplete="off">
           </div>
 
           <button class="mt-4 btn btn-primary" id="login-buttonCliente">Continuar</button>
@@ -36,13 +37,10 @@
           <p class="meuDivider">
           </p>
     </form>
-        <div class="naoTemCadastro">
+        <div>
             <span class="minhaFonte">Não tem cadastro?</span><a class="mudarColor" href="Cadastro.html">cadastre-se</a>
         </div>
-    
-
     </div>
-    
 
     <script src="../js/login.js"></script>
 </body>

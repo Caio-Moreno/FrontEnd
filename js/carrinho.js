@@ -225,62 +225,62 @@
 				
 				var tr2 = $('<tr></tr>')
 				
-			for(let i = 0; i < quantidade; i++){
-				var tr = $('<tr  class="linhaEspaco1px"></tr>')
-				var produto = cart[i];
-				console.log('produto '+i);
-				console.log(produto);
-				var valorDoProd = parseFloat(produto._valor);
+				for(let i = 0; i < quantidade; i++){
+					var tr = $('<tr  class="linhaEspaco1px"></tr>')
+					var produto = cart[i];
+					console.log('produto '+i);
+					console.log(produto);
+					var valorDoProd = parseFloat(produto._valor);
+					
 				
-
-				total += valorDoProd;
-				qtdProdutos += produto._quantidade;
-
-				//alert(total)
-			
-				var td1 = $('<td style="text-align: center;"><img id="imagemAJuste" src="'+produto._imageProduto+'" class="imagemCarrinho"></td>')
-				var td2 = $('<td id="nomeProd">'+produto._nomeProduto+'</td>')
-				var td3 = $('<td>'+
-				'<div class="input-group mb-3">'+
-					'<div class="input-group-prepend">'+
-					  '<span onclick="decrementaFinal('+produto._idProduto+')" id="increment" class="input-group-text bg-dark" >-</span>'+
-					'</div>'+
-					'<input class="text-center" type="text" id="qtdProdutoCart" value="'+produto._quantidade+'" readonly>'+
-					'<div class="input-group-append">'+
-					  '<span onclick="incrementaFinal('+produto._idProduto+')" id="decrement" class="input-group-text bg-dark" >+</span>'+
-					'</div>'+
-				  '</div>'+
-				'</td>')
-				var td4 = $('<td>R$'+produto._valor+'</td>')
-
-				tr.append(td1);
-				tr.append(td2);
-				tr.append(td3);
-				tr.append(td4);
-				body.append(tr);
-			}
+					total += valorDoProd;
+					qtdProdutos += produto._quantidade;
+				
+					//alert(total)
+				
+					var td1 = $('<td style="text-align: center;"><img id="imagemAJuste" src="'+produto._imageProduto+'" class="imagemCarrinho"></td>')
+					var td2 = $('<td id="nomeProd">'+produto._nomeProduto+'</td>')
+					var td3 = $('<td>'+
+					'<div class="input-group mb-3">'+
+						'<div class="input-group-prepend">'+
+						  '<span onclick="decrementaFinal('+produto._idProduto+')" id="increment" class="input-group-text bg-dark" >-</span>'+
+						'</div>'+
+						'<input class="text-center" type="text" id="qtdProdutoCart" value="'+produto._quantidade+'" readonly>'+
+						'<div class="input-group-append">'+
+						  '<span onclick="incrementaFinal('+produto._idProduto+')" id="decrement" class="input-group-text bg-dark" >+</span>'+
+						'</div>'+
+					  '</div>'+
+					'</td>')
+					var td4 = $('<td>R$'+produto._valor+'</td>')
+				
+					tr.append(td1);
+					tr.append(td2);
+					tr.append(td3);
+					tr.append(td4);
+					body.append(tr);
+				}
 
 
 			
 				total = total.toFixed(2)
 				
 
-			var tdTotal = $('<td colspan="3">Total</td>')
-			var tdTotal2 = $('<td>R$'+total+'</td>')
-
-			$('#totalProdutoResumo').text('R$ '+total);
-			
-			$('#qtdProdutosResumo').text(qtdProdutos+' Produto(s)')
-
-			$('#contCarrinho').text(quantidade);
-
-			calcularTotal();
-		
-			tr2.append(tdTotal)
-			tr2.append(tdTotal2)
-			
-			
-			body.append(tr2)			
+				var tdTotal = $('<td colspan="3">Total</td>')
+				var tdTotal2 = $('<td>R$'+total+'</td>')
+				
+				$('#totalProdutoResumo').text('R$ '+total);
+				
+				$('#qtdProdutosResumo').text(qtdProdutos+' Produto(s)')
+				
+				$('#contCarrinho').text(quantidade);
+				
+				calcularTotal();
+				
+				tr2.append(tdTotal)
+				tr2.append(tdTotal2)
+				
+				
+				body.append(tr2)			
 			}
 			
 			function buscarCarrinhoFinal(){
