@@ -240,6 +240,7 @@
                         </div>
                       </div>
                 </div>
+                <input type="hidden" id="tipoDeFrete">
                 </div>
                 </div>
 
@@ -595,6 +596,14 @@
             buscaEnderecos();
 
             resumoCompra ();
+
+
+            $('#mpCpf').mask('000.000.000-00', {
+              placeholder: "999.999.999-99"
+             });
+             $('#cpfPaypal').mask('000.000.000-00', {
+              placeholder: "999.999.999-99"
+             });
 
           //    validaCarrinho();
             

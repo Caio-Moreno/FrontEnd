@@ -639,24 +639,24 @@ function retornarLinhaPedidos(response){
     //armazeno em uma variavel a linha tr = linha
     var tr = $('<tr></tr>')
         //cada coluna da linha eu armazeno numa var também
-    var td1 = $('<td data-id="' + response._idVenda + '"></td>');
+    var td1 = $('<td data-id="' + response._numPedido + '"></td>');
     var td2 = $('<td data-_dataVenda="' + response._dataVenda + '"></td>');
     var td3 = $('<td data-_valorTotal="' + response._valorTotal + '"></td>');
     var td4 = $('<td data-_status="' + response._status + '"></td>');
-    var td5 = $('<td data-_tipo="' + response._tipo + '"></td>');
+    
     
     var td6 = $('<td onclick="mostrarModalPedidoDetalhado('+response._idVenda+')"><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>');
 
-    td1.text(response._idVenda);
+    td1.text(response._numPedido);
     td2.text(response._dataVenda)
     td3.text(response._valorTotal);
     td4.text(response._status);
-    td5.text(response._tipo);
+    
     tr.append(td1)
     tr.append(td2)
     tr.append(td3)
     tr.append(td4)
-    tr.append(td5)
+    
     tr.append(td6)
         //insiro no corpo a linha
     body.append(tr);
@@ -683,20 +683,27 @@ function getClientePedidosDetalhado(idVenda) {
         success: data => {
             console.log("sucesso")
             console.log(data)
+            var pedidos = data._produtos;
+            var endereco = data._endereco;
+            var pagamento = data._pagamento;
 
-            var tamanho = data._pedidos.length;
-            console.log(tamanho)
-
-
-            var pedidos = data._pedidos;
-            console.log(pedidos)
-
-
-            for (i = 0; i < tamanho; i++) {
-                var pedido = pedidos[i];
-
-                retornarLinhaPedidosDetalhados(pedido);
+            retornarLinhaPedidosDetalhados(pedidos);
+            if (endereco != null){
+                $('#enderecoDivCaso').show();
+                $('#enderecoCaso').text('Endereço de entrega')
+                mostrarEnderecoPedido(endereco)
+            }else{
+                $('#enderecoCaso').text('Endereço de entrega (Retirada na loja)')
+                $('#enderecoDivCaso').hide();
             }
+            
+            if(pagamento != null) {
+                preencherPagamento(pagamento);
+            }
+
+
+
+           
 
 
         },
@@ -706,6 +713,10 @@ function getClientePedidosDetalhado(idVenda) {
     });
 }
 
+
+
+
+
 function tratarDadosgetPedidosDetalhados(idVenda) {
     var url1 = 'http://localhost:8080/Pedidos/getPedidos/detalhado?idVenda=' + idVenda;
     return url1;
@@ -713,31 +724,67 @@ function tratarDadosgetPedidosDetalhados(idVenda) {
 
 
 function retornarLinhaPedidosDetalhados(response){
+    var tamanho = response.length;
+    var total = 0.00;
 
     console.log('meuResponse')
     console.log(response);
+    
 
     //instacio a tabela
-    var tabela = $('#dataTablePedidosDetalhado');
+    var tabela = $('#tabelaProdutos');
     //procuro o corpo da tabela e armazeno em uma variavel
     var body = tabela.find('tbody');
-    //armazeno em uma variavel a linha tr = linha
-    var tr = $('<tr></tr>')
-        //cada coluna da linha eu armazeno numa var também
-    var td1 = $('<td data-nome="' + response._nome + '"></td>');
-    var td2 = $('<td data-valor="' + response._valor + '"></td>');
-    var td3 = $('<td data-quantidade="' + response._quantidade + '"></td>');
 
-    td1.text(response._nome);
-    td2.text(response._valor)
-    td3.text(response._quantidade);
-    tr.append(td1)
-    tr.append(td2)
-    tr.append(td3)
+    limpaTabela();
+
+    for(let i = 0; i < tamanho; i++){
+        
+        var produto = response[i];
+        
+        console.log(produto);
+
+        var valorDoProd = parseFloat(produto._valor);
+
+        total += valorDoProd;
+
+        var tr = $('<tr></tr>')
+        //cada coluna da linha eu armazeno numa var também
+        var td1 = $('<td>'+produto._nome+'</td>')
+        var td2 = $('<td> R$ '+produto._valor.toFixed(2)+'</td>')
+        var td3 = $('<td>'+produto._quantidade+'</td>')
+
+        tr.append(td1)
+        tr.append(td3)
+        tr.append(td2)
+     
+        body.append(tr);
+    }
+
+    total = total.toFixed(2);
+
+    var tr2 = $('<tr></tr>')
+    var tdTotal = $('<td colspan="2">Total</td>')
+	var tdTotal2 = $('<td>R$'+total+'</td>')
+
+    tr2.append(tdTotal)
+    tr2.append(tdTotal2)
+    
+    
+    body.append(tr2)	
+
         //insiro no corpo a linha
-    body.append(tr);
+    
     return;
 
+}
+
+function limpaTabela(){
+
+    var tabela = $('#tabelaProdutos');
+
+    var body = tabela.find('tbody');
+    body.empty();
 }
 
 
@@ -747,3 +794,135 @@ function mostrarModalPedidoDetalhado(idVenda) {
     $('#pedidosDetalhado').modal('show');
 
 }
+
+function preencherPagamento(formaPagamento){
+    console.log(formaPagamento)
+    var lista = $('#listaDadosPagamento');
+    lista.empty();
+
+    if(formaPagamento._tipo == 'cartao'){
+      lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+                   '<div>'+
+                   '<h6  class="my-0">Tipo: Cartão</h6>'+
+                   '</div>'+
+                   '</li>'
+      )
+      lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+                   '<div>'+
+                   '<h6  class="my-0">Parcelas: '+formaPagamento._qtdParcelas+'x de R$'+ formaPagamento._valor+'</h6>'+
+                   '</div>'+
+                   '</li>'
+      )
+      lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+                   '<div>'+
+                   '<h6  class="my-0">Digítos cartão: **** **** **** '+ultimosDigitos(formaPagamento._numberCart)+'</h6>'+
+                   '</div>'+
+                   '</li>'
+      )
+      lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+                   '<div>'+
+                   '<h6 class="my-0">Titular: '+formaPagamento._nameCart+'</h6>'+
+                   '</div>'+
+                   '</li>'
+      )
+    }
+    else if(formaPagamento._tipo == 'boleto'){
+      lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+                   '<div>'+
+                   '<h6  class="my-0">Tipo: Boleto</h6>'+
+                   '</div>'+
+                   '</li>'
+      )
+      lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+                   '<div>'+
+                   '<h6  class="my-0">Parcelas: '+formaPagamento._qtdParcelas+'x de R$'+ formaPagamento._valor+'</h6>'+
+                   '</div>'+
+                   '</li>'
+      )
+      lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+                   '<div>'+
+                   '<h6 class="my-0">Número boleto: '+formaPagamento._numBoleto+'</h6>'+
+                   '</div>'+
+                   '</li>'
+      )
+    }
+    else if(formaPagamento._tipo == 'paypal'){
+     lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+                   '<div>'+
+                   '<h6  class="my-0">Tipo: Paypal</h6>'+
+                   '</div>'+
+                   '</li>'
+      )
+      lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+                   '<div>'+
+                   '<h6  class="my-0">Parcelas: '+formaPagamento._qtdParcelas+'x de R$'+ formaPagamento._valor+'</h6>'+
+                   '</div>'+
+                   '</li>'
+      )
+      lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+                   '<div>'+
+                   '<h6 class="my-0">Titular: '+formaPagamento._paypalEmail+'</h6>'+
+                   '</div>'+
+                   '</li>'
+      )
+      lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+      '<div>'+
+      '<h6 class="my-0">Titular CPF: '+formaPagamento._paypalCpf+'</h6>'+
+      '</div>'+
+      '</li>'
+      )
+    }
+    else if(formaPagamento._tipo == 'mp'){
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+        '<div>'+
+        '<h6  class="my-0">Tipo: Mercado pago</h6>'+
+        '</div>'+
+        '</li>'
+        )
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+        '<div>'+
+        '<h6  class="my-0">Parcelas: '+formaPagamento._qtdParcelas+'x de R$'+ formaPagamento._valor+'</h6>'+
+        '</div>'+
+        '</li>'
+        )
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+                   '<div>'+
+                   '<h6 class="my-0">Titular: '+formaPagamento._paypalEmail+'</h6>'+
+                   '</div>'+
+                   '</li>'
+        )
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+        '<div>'+
+        '<h6 class="my-0">Titular: '+formaPagamento._paypalCpf+'</h6>'+
+        '</div>'+
+        '</li>'
+        )
+    } else{
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+                '<div>'+
+                '<h6  class="my-0">Tipo: Pix</h6>'+
+                '</div>'+
+                '</li>'
+        )
+        lista.append(' <li class="list-group-item d-flex justify-content-between lh-condensed">'+
+                '<div>'+
+                '<h6  class="my-0">Parcelas: '+formaPagamento._qtdParcelas+'x de R$'+ formaPagamento._valor+'</h6>'+
+                '</div>'+
+                '</li>'
+        )
+    }
+  }
+
+
+  function mostrarEnderecoPedido(endereco){
+
+    $('#logradouroDetalhado').text('Logradouro: '+endereco._logradouro + ','+endereco._numero);
+    $('#bairroDetalhado').text('Bairro: '+endereco._bairro);
+    $('#UFCidadeDetalhado').text('Cidade: '+endereco._estado + ' - ' + endereco._cidade);
+    $('#complementoDetalhado').text('Complemento: '+endereco._complemento)
+    $('#cepDetalhado').text('CEP - '+ endereco._cep);
+}
+
+function ultimosDigitos(num){
+    return num.substring(num.length - 4)
+  }

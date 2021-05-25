@@ -146,9 +146,6 @@ $(document).ready(function() {
         }
     });
 
-    $('#numero').keypress(function(e) {
-        return somenteNumeros(e);
-    });
 
     $('#numero').blur(function(e) {
         var numero = $('#numero').val().trim();
@@ -168,9 +165,7 @@ $(document).ready(function() {
         }
     });
 
-    $('#numeroFatura').keypress(function(e) {
-        return somenteNumeros(e);
-    });
+
 
     $('#numeroFatura').blur(function(e) {
         var numero = $('#numeroFatura').val().trim();
@@ -212,21 +207,6 @@ $(document).ready(function() {
 
     });
 
-    $('#cpf').keydown(function(e) {
-        var cpf = document.getElementById('cpf').value;
-        var tamanhoCpf = cpf.length;
-        if (somenteNumeros(e)) {
-            if (tamanhoCpf == 3 || tamanhoCpf == 7) {
-                document.getElementById('cpf').value = cpf + '.';
-            }
-            if (tamanhoCpf == 11) {
-                document.getElementById('cpf').value = cpf + '-';
-            }
-        } else {
-            return false;
-        }
-    });
-
 
     $('#nome').blur(function(e) {
 
@@ -247,18 +227,6 @@ $(document).ready(function() {
 
     });
 
-    $('#dataNascimento').keypress(function(e) {
-
-        var dataNascimento = document.getElementById('dataNascimento').value;
-        var tamanhoData = dataNascimento.length;
-        if (somenteNumeros(e)) {
-            if (tamanhoData == 2 || tamanhoData == 5) {
-                document.getElementById('dataNascimento').value = dataNascimento + '/';
-            }
-        } else {
-            return false;
-        }
-    });
 
     $('#dataNascimento').blur(function(e) {
         var dataNascimento = $('#dataNascimento').val();
@@ -328,23 +296,6 @@ $(document).ready(function() {
         }
     });
 
-    $('#celular').keypress(function(e) {
-        var celular = $('#celular').val();
-        var celularTamanho = celular.length;
-        if (somenteNumeros(e)) {
-            if (celularTamanho == 0) {
-                document.getElementById('celular').value = '(' + celular;
-            }
-            if (celularTamanho == 3) {
-                document.getElementById('celular').value = celular + ')';
-            }
-            if (celularTamanho == 9) {
-                document.getElementById('celular').value = celular + '-';
-            }
-        } else {
-            return false;
-        }
-    });
 
 
     $('#email').blur(function(e) {

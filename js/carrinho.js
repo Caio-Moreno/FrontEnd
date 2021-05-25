@@ -99,7 +99,7 @@
 						  '<img src="'+produto._imageProduto+'" class="img-ph" >'+
 					  '</div>'+
 					'</div>'+
-					'<div class="col-md-4 col-xs-4">'+
+					'<div>'+
 						'<p>'+produto._nomeProduto+'</p>'+
 						'<label>Quantidade:</label> <button type="button" class="btn btn-dark buttonDefault" onclick="decrementa('+produto._idProduto+')">-</button> <input value="'+produto._quantidade+'" style="width: 30px; text-align: center;" readonly> <button type="button" class="btn btn-dark buttonDefault" onclick="incrementa('+produto._idProduto+')">+</button>'+
 						'<p>valor:'+produto._valor+'</p>'+

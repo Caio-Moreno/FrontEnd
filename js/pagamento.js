@@ -102,7 +102,7 @@ Tratamento de selecao de frete
 
 
   $('#rapidoNaoMarcado').click(function(e){
-    
+    $('#tipoDeFrete').val('rapido');
     e.preventDefault();
     
 
@@ -124,7 +124,7 @@ Tratamento de selecao de frete
   })
 
   $('#normalNaoMarcado').click(function(e){
-    
+    $('#tipoDeFrete').val('normal');
     e.preventDefault();
 
 
@@ -147,6 +147,7 @@ Tratamento de selecao de frete
   })
 
   $('#retiradaNaoMarcado').click(function(e){
+    $('#tipoDeFrete').val('gratis');
     e.preventDefault();
 
 
@@ -169,6 +170,13 @@ Tratamento de selecao de frete
   })
   
   $('#fecharPedido').click(function(e){
+
+    if(!verificaPagamento()){
+      alert('Verifique os dados do pagamento!')
+      return;
+    }
+      
+
       buscarCarrinhoFinal();
       var minhaDiv = $('#enderecoClone').clone();
       $('#corpoEndereco').html(minhaDiv);
@@ -179,7 +187,39 @@ Tratamento de selecao de frete
 
   });
 
-  
+  function verificaPagamento(){
+    var tipo = $('#tipoPagamento').val();
+
+    if(tipo == 'cartao'){
+
+      if($('#cardNumber').val() == '' || $('#cardNumber').val().length < 19 || $('#cardNumber').val() == null
+      || $('#cardName').val() == '' || $('#cardName').val().trim().length < 5 ||  $('#cardName').val() == null
+      || $('#cardMonth').val() == null
+      || $('#cardYear').val() == null
+      || $('#cardCvv').val() == null || $('#cardCvv').val() == '' || $('#cardCvv').val().trim().length < 3
+      ) return false;
+
+
+      return true;
+    }
+    else if(tipo == 'paypal'){
+
+      if($('#emailPaypal').val() == '' || !($('#emailPaypal').val().includes('@')) || $('#emailPaypal').val().trim().length < 5 || $('#emailPaypal').val().includes(' ')
+      || $('#cpfPaypal').val() == ''  || $('#cpfPaypal').val().trim().length < 11 || $('#cpfPaypal').val().includes(' ')
+      ) return false;
+
+      return true;
+    }
+    else if(tipo == 'mp'){
+      if($('#mpEmail').val() == '' || !($('#mpEmail').val().includes('@')) || $('#mpEmail').val().trim().length < 5 || $('#mpEmail').val().includes(' ')
+      || $('#mpCpf').val() == ''  || $('#mpCpf').val().trim().length < 11 || $('#mpCpf').val().includes(' ')) return false;
+
+      return true;
+    }
+
+    return true;
+
+  }
 
   $('#finalizarConfirmado').click(function(e){
      montarVenda();
@@ -473,6 +513,10 @@ new Vue({
       var qtdProdutosTotal = qtdProdutos();
       var total = calcularTotal();
       var idEndereco = $('#idEnderecoHidden').val();
+      var tipo = $('#tipoDeFrete').val();
+
+      if(tipo == 'gratis') idEndereco = 0;
+
       var venda = {
         _idCliente: idCliente,
         _quantidade: qtdProdutosTotal,

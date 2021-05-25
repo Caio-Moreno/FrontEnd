@@ -23,7 +23,10 @@
 <body>
     <body class="index">
         <nav> 
-            <img src="../assets/images/logo.svg" class="img-fluid image" alt="Logo da empresa - Bomba patch"> 
+            <a href="./indexLoja.html">
+                <img src="../assets/images/logo.svg" class="img-fluid image" alt="Logo da empresa - Bomba patch"> 
+            </a>
+            
         </nav>
         <div class="content" id="colors">
             <div  class="container-alert">
@@ -352,8 +355,29 @@
        </section>
     
     
-    
+       <script src="../assets/JQueyMask/src/jquery.mask.js"></script>
        <script src="../js/tratamentosCadastro.js"></script>
+
+       <script>
+        $(document).ready(function () {
+
+            $('#dataNascimento').mask("00/00/0000", {
+                placeholder: "__/__/____"
+             });
+            $('#cpf').mask('000.000.000-00', {
+                placeholder: "999.999.999-99"
+            });
+
+            $('#celular').mask('(00) 00000-0000', {
+                placeholder: "(11) 94787-4059"
+            });
+
+            $('#cep').mask('00000-000', {
+                placeholder: "00000-000"
+            });
+
+        });
+      </script>
     </body>
     
 </body>

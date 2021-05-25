@@ -22,6 +22,7 @@
     <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/listaProdutos.css">
     <link rel="stylesheet" href="../css/star.css">
+    <link rel="stylesheet" href="../css/Loja/atualizar.css">
     <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../js/listaProdutos.js"></script>
     <script src="../js/atualizarDados.js"></script>
@@ -76,20 +77,9 @@
                             <th>Data</th>
                             <th>Valor total</th>
                             <th>Status</th>
-                            <th>Forma de pagamento</th>
-                            <th>Detalhe</th>
+                            <th>Ver mais</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>Número</th>
-                            <th>Data</th>
-                            <th>Valor total</th>
-                            <th>Status</th>
-                            <th>Forma de pagamento</th>
-                            <th>Detalhe</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                     </tbody>
                 </table>
@@ -405,40 +395,80 @@
    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>-->
 
         <div id="pedidosDetalhado" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             
-            <h5 class="modal-title">Produtos do pedido</h5>
+            <h5 class="h5 text-center">Resumo do pedido</h5>
 
             <div class="card-body">
-                <form>
-                    <div class="form-row">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTablePedidosDetalhado" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Nome</th>
-                                            <th>Valor</th>
-                                            <th>Quantidade</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Nome</th>
-                                            <th>Valor</th>
-                                            <th>Quantidade</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </div>
+                <div class="row">
+                    <div class="col-md-12 order-md-1">
+                       
+    
+                        <table id="tabelaProdutos" class="table table-bordered marginBottomTable">
+                            <thead>
+                                <tr class="linhaEspaco1px"> 
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Quantidade</th>
+                                    <th scope="col">Preço</th>
+                                </tr>
+                            </thead>
+                            <tbody>     
+                            </tbody>
+                        </table>
+              
+                      
+                      </div>
+
+                      <div id="enderecoClone" class="col-md-12 order-md-1 ">
+                        <h4 class="d-flex justify-content-between align-items-center mb-3">
+                          <span id="enderecoCaso" class="text-muted">Endereço de entrega</span>
+                        </h4>
+                        <div id="enderecoDivCaso" style="border: 1px solid gray; border-radius: 1%;">
+                        <ul class="list-group mb-3" >
+                            <li class="list-group-item d-flex justify-content-between lh-condensed" style="border: none;">
+                              <div>
+                                <h6 id="logradouroDetalhado" class="my-0"></h6>
+                              </div>
+                             
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-condensed" style="border: none;">
+                              <div>
+                                <h6 id="bairroDetalhado" class="my-0"></h6>
+                              </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-condensed" style="border: none;">
+                              <div>
+                                <h6 id="UFCidadeDetalhado" class="my-0"></h6>
+                              </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-condensed" style="border: none;">
+                                <div>
+                                  <h6 id="complementoDetalhado" class="my-0"></h6>
+                                </div>
+                              </li>
+                            <li class="list-group-item d-flex justify-content-between lh-condensed" style="border: none;">
+                                <div>
+                                  <h6 id="cepDetalhado" class="my-0"></h6>
+                                </div>
+                            </li>
+                          </ul> 
+                        </div>           
+                      </div>
+
+                      <div class="col-md-12 order-md-1 mt-3" id="divDadosPagamento">
+                        <h4 class="d-flex justify-content-between align-items-center mb-3">
+                          <span class="text-muted">Dados do pagamento</span>
+                        </h4>
+                          <ul class="list-group mb-3" id="listaDadosPagamento">
+                             
+                            </ul>  
                         </div>
 
 
-                    </div>
-                </form>
+                </div>
+
+
                 
         </div>
 
