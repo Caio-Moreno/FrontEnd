@@ -295,7 +295,7 @@ new Vue({
     var token = localStorage.getItem('token');
 
 
-    var url = 'http://localhost:8080/Clientes//BuscarCliente/Ativos?id='+dados[0]
+    var url = 'http://localhost:8080/Clientes/BuscarCliente/Ativos?id='+dados[0]
 
     $.ajax({
       url: url,
@@ -328,6 +328,7 @@ new Vue({
         if(meuEnderecoComparar._tipo == 'E'){
           endereco = enderecos[i];
         }
+
       }
     }
 
@@ -335,6 +336,7 @@ new Vue({
     $('#bairro').text(endereco._bairro);
     $('#UFCidade').text(endereco._estado + ' - ' + endereco._cidade);
     $('#cep').text('CEP - '+ endereco._cep);
+    $('#idEnderecoHidden').val(endereco._id);
 
     calcularFrete(endereco._estado);
 
@@ -470,10 +472,12 @@ new Vue({
       var idCliente = retornarDados('idCliente');
       var qtdProdutosTotal = qtdProdutos();
       var total = calcularTotal();
+      var idEndereco = $('#idEnderecoHidden').val();
       var venda = {
         _idCliente: idCliente,
         _quantidade: qtdProdutosTotal,
-        _valorTotal: total
+        _valorTotal: total,
+        _idEndereco: idEndereco
       }
       
 
