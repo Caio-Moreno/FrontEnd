@@ -2,3 +2,10 @@
 .meuCadastroAjuste {
     margin-bottom: -40px;
 }
+
+
+@media (max-width: 600px) {
+    .meuCadastroAjuste {
+        margin-bottom: 0px;
+    }
+  }
