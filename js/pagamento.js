@@ -2,6 +2,8 @@
 
 $(document).ready(function () {
   var codigo = "";
+
+  
   
 
   
@@ -24,9 +26,24 @@ $(document).ready(function () {
  $('#normalNaoMarcado').hide();
  $('#rapidoMarcado').hide();
  $('#retiradaMarcado').hide();
+ $('#meusPedidos').hide();
 
 
+  $('#meusPedidos').click(function(e){
 
+    var dadosUsuario = localStorage.getItem('dadosUsuario');
+    if(dadosUsuario == null || dadosUsuario == '' || dadosUsuario == undefined){
+       alert('Você não está logado!');
+       window.location.href = "login.html";
+    }else{
+        var user = dadosUsuario.split(',')
+        //alert(user[0]);
+        var idCliente = user[0];
+
+        window.location.href = 'Atualizar.html?id='+idCliente+'&tag=order';
+    }
+
+  });
 
    $('#cartaoDeCredito').click(function(e){
      $('#tipoPagamento').val('cartao');
@@ -776,6 +793,7 @@ new Vue({
       
       $('#numeroPedido').show()
       $('#dadosPagamento').show()
+      $('#meusPedidos').show();
 
       $('#numPedido').text(localStorage.getItem('pedido'));
       $('#emailEnviado').text(retornarDados('email'));

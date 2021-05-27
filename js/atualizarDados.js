@@ -8,6 +8,23 @@ $(document).ready(function(e) {
         $('#voltarPagamento').show();
     }
 
+    if(queryString.includes('order')){
+          
+        $("#updateEndereco").fadeOut(500, function() {
+
+            $("#updateDados").fadeOut(500, function() {
+
+                $("#pedidosTable").fadeIn(500, function() {
+
+                
+
+                });
+                
+
+            });
+        });
+    }
+
     $("#updateEndereco").hide();
     $('#inserirEndereco').hide();
     $("#pedidosTable").hide();
