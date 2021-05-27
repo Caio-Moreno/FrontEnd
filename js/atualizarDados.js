@@ -338,6 +338,14 @@ function getEnderecosLista(id) {
                 retornarLinha(endereco);
             }
 
+            
+
+            $('#dataTableEnderecos').DataTable({
+                language: {
+                    url: '../assets/dataTables/traducaoDt.json'
+                }
+            });
+
 
         },
         error: result => {

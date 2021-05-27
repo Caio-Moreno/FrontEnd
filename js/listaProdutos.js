@@ -49,6 +49,12 @@ function getProdutosLista() {
                 retornarLinha(produto);
             }
 
+            $('#dataTable').DataTable({
+                language: {
+                    url: '../assets/dataTables/traducaoDt.json'
+                }
+            });
+
 
         },
         error: result => {
@@ -195,6 +201,11 @@ function mostrarProduto(id) {
 function atualizarProduto() {
     var token = localStorage.getItem('token');
     console.log(token);
+
+    if( $('#quantidadeProdutoAlterar').val() < 0){
+        alert('Quantidade não pode ser menor que 0')
+        return;
+    }
 
     var data = retornarObjUpdate();
     var id = $('#idProdutoAlterar').val();
