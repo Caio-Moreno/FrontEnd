@@ -1,5 +1,7 @@
 $(document).ready(function(e) {
 
+    
+
     $('#voltarPagamento').hide();
 
     var queryString = window.location.search;
@@ -631,7 +633,11 @@ function getClientePedidos(id) {
                 retornarLinhaPedidos(pedido);
             }
 
-
+            $('#dataTablePedidos').DataTable({
+                language: {
+                    url: '../assets/dataTables/traducaoDt.json'
+                }
+            });
         },
         error: result => {
             alert(result.status + ' ' + result.statusText);

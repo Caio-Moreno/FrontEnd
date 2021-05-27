@@ -19,19 +19,20 @@
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
 
     <!-- Custom styles for this page -->
-    <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <!--<link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">-->
     <link rel="stylesheet" href="../css/listaProdutos.css">
     <link rel="stylesheet" href="../css/star.css">
     <link rel="stylesheet" href="../css/Loja/atualizar.css">
+    <link rel="stylesheet" href="../assets/dataTables/jquery.datatables.min.css">
     <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../js/listaProdutos.js"></script>
     <script src="../js/atualizarDados.js"></script>
     <script src="../js/tratamentosCadastro.js"></script>
-    <script src="../js/cadastrarImagem.js"></script>
+    
     <script src="../js/login.js"></script>
-    <script src="../js/utils.js"></script>
-    <script src="../css/bootstrap_4_3/js/bootstrap.min.js">
-    </script>
+    
+    <script src="../css/bootstrap_4_3/js/bootstrap.min.js"></script>
+    <script src="../assets/dataTables/jquery.datables.min.js"></script>
 
     <script>
         $(document).ready(function esconder() {
@@ -504,17 +505,20 @@
         var idUsuario = user[0];
 
         $(document).ready(function() {
+           
+
+
             getEnderecosLista(idUsuario);
             getClientePedidos(idUsuario)
         });
     </script>
 
-<script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-<script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<!--<script src="../vendor/datatables/jquery.dataTables.min.js"></script>-->
+<!--<script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>-->
 
-<!-- Page level custom scripts -->
+<!-- Page level custom scripts 
 <script src="../js/demo/datatables-demo.js"></script>
-
+-->
 <script>
   
     
