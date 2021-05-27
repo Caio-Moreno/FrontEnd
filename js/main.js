@@ -8,7 +8,12 @@ $(document).ready(function () {
         user = dadosUsuario.split(',')
         $('#clienteLogado').show();
         $("#entrarCliente").hide();   
-
+        if(user[5] == undefined){
+            $('#clienteLogado').hide();
+            $("#entrarCliente").show(); 
+            localStorage.removeItem('dadosUsuario');
+            localStorage.removeItem('token');
+        }
         $('#bemVindoCliente').html('Bem-vindo ' + user[5]);
     }
 
