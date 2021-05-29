@@ -18,8 +18,6 @@ $(document).ready(function(e) {
 
                 $("#pedidosTable").fadeIn(500, function() {
 
-                
-
                 });
                 
 

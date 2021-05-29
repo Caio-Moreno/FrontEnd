@@ -17,9 +17,12 @@
 			e.preventDefault();
 		});
 
+		//adicionarProduto no carrinho
 		function addCart(){
 
 
+
+			//verifica se está logado
 			if(localStorage.getItem('dadosUsuario') == null){
 
 				var url = 'http://localhost:8080/Carrinho/Deslogado';
@@ -47,7 +50,7 @@
 				}
 			
 			});
-			}
+		}
 
 			function buscarCarrinho(){
 				var url = "";

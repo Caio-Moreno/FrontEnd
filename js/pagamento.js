@@ -3,13 +3,10 @@
 $(document).ready(function () {
   var codigo = "";
 
-  
-  
-
-  
   if(!(localStorage.getItem('pedido') == null)){
     $('#numeroPedido').show()
     $('#dadosPagamento').show()
+    $('#meusPedidos').show();
     vendaConcluida();
   }else{
     $('#numeroPedido').hide()
@@ -105,9 +102,11 @@ $(document).ready(function () {
     $('#mercadoPagoPagamento').hide();
     $('#pixPagamento').hide();
   });
+
   $('#mudarEndereco').click(function(e){
    
     window.location.href = 'Atualizar.html?id='+ retornarDados('idCliente')+'&reason=pagamento';
+
   });
   
 
@@ -143,8 +142,6 @@ Tratamento de selecao de frete
   $('#normalNaoMarcado').click(function(e){
     $('#tipoDeFrete').val('normal');
     e.preventDefault();
-
-
 
     $('#normalNaoMarcado').hide();
     $('#normalMarcado').show();
