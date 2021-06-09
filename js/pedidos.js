@@ -48,22 +48,22 @@ function retornarLinha(response) {
     var td3 = $('<td data-Valor="' + response._valorTotal + '"></td>');
 
 
-    if (response._status == 'PENDING PAYMENT') {
-        var td4 = $('<td class="text-primary" ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'PENDING PAYMENT\')" data-status="' + response._statusEnum + '"> <i style="cursor: pointer;" class="fas fa-spinner" aria-hidden="true"></i></td>');
+    if (response._status == 'PAGAMENTO PENDENTE') {
+        var td4 = $('<td class="text-primary" ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'PAGAMENTO PENDENTE\')" data-status="' + response._statusEnum + '"> <i style="cursor: pointer;" class="fas fa-spinner" aria-hidden="true"></i></td>');
 
-    } else if (response._status == 'REJECTED PAYMENT') {
+    } else if (response._status == 'PAGAMENTO NÃO APROVADO') {
 
-        var td4 = $('<td class="text-danger"  ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'REJECTED PAYMENT\')" data-status="' + response._statusEnum + '"> <i style="cursor: pointer;" class="fa fa-ban" aria-hidden="true"></i></td>');
+        var td4 = $('<td class="text-danger"  ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'PAGAMENTO NÃO APROVADO\')" data-status="' + response._statusEnum + '"> <i style="cursor: pointer;" class="fa fa-ban" aria-hidden="true"></i></td>');
 
-    } else if (response._status == 'APPROVED PAYMENT') {
-        var td4 = $('<td class="text-success" ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'APPROVED PAYMENT\')"> <i style="cursor: pointer;" class="fa fa-check-square-o" aria-hidden="true"></i> </td>');
+    } else if (response._status == 'PAGAMENTO APROVADO') {
+        var td4 = $('<td class="text-success" ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'PAGAMENTO APROVADO\')"> <i style="cursor: pointer;" class="fa fa-check-square-o" aria-hidden="true"></i> </td>');
 
-    } else if (response._status == 'AWAITING COLLECTION') {
-        var td4 = $('<td  class="text-info" ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'AWAITING COLLECTION\')"> <i style="cursor: pointer;" class="fas fa-people-carry" aria-hidden="true"></i> </td>');
+    } else if (response._status == 'AGUARDANDO RETIRADA') {
+        var td4 = $('<td  class="text-info" ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'AGUARDANDO RETIRADA\')"> <i style="cursor: pointer;" class="fas fa-people-carry" aria-hidden="true"></i> </td>');
 
-    } else if (response._status == 'DELIVERY IN PROGRESS') {
-        var td4 = $('<td class="text-secondary" ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'DELIVERY IN PROGRESS\')" data-status="' + response._statusEnum + '"> <i style="cursor: pointer;" class="fas fa-truck" aria-hidden="true"></i></td>');
-    } else if (response._status == 'ORDER DELIVERED') {
+    } else if (response._status == 'PEDIDO A CAMINHO') {
+        var td4 = $('<td class="text-secondary" ondblclick="mostrarModalAtualizar(' + response._idVenda + ',\'PEDIDO A CAMINHO\')" data-status="' + response._statusEnum + '"> <i style="cursor: pointer;" class="fas fa-truck" aria-hidden="true"></i></td>');
+    } else if (response._status == 'PEDIDO ENTREGUE') {
         var td4 = $('<td class="text-warning"><i class="fas fa-truck-loading" aria-hidden="true"></i></td>');
     }
 
@@ -101,18 +101,18 @@ function atualizaStatus() {
     var status = $('#statusAtualizarPedido').val();
     console.log(status)
 
-    if (status == 'PENDING PAYMENT') {
-        status = 'REJECTED PAYMENT'
-    } else if (status == 'REJECTED PAYMENT') {
-        status = 'APPROVED PAYMENT'
-    } else if (status == 'APPROVED PAYMENT') {
-        status = 'AWAITING COLLECTION'
-    } else if (status == 'AWAITING COLLECTION') {
-        status = 'DELIVERY IN PROGRESS'
-    } else if (status == 'DELIVERY IN PROGRESS') {
-        status = 'ORDER DELIVERED'
+    if (status == 'PAGAMENTO PENDENTE') {
+        status = 'PAGAMENTO NÃO APROVADO'
+    } else if (status == 'PAGAMENTO NÃO APROVADO') {
+        status = 'PAGAMENTO APROVADO'
+    } else if (status == 'PAGAMENTO APROVADO') {
+        status = 'AGUARDANDO RETIRADA'
+    } else if (status == 'AGUARDANDO RETIRADA') {
+        status = 'PEDIDO A CAMINHO'
+    } else if (status == 'PEDIDO A CAMINHO') {
+        status = 'PEDIDO ENTREGUE'
     }
-
+    
     var json = JSON.stringify({
         _idVenda: id,
         _status: status

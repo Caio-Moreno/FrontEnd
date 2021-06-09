@@ -245,11 +245,11 @@
 					var td2 = $('<td id="nomeProd">'+produto._nomeProduto+'</td>')
 					var td3 = $('<td>'+
 					'<div class="input-group mb-3">'+
-						'<div class="input-group-prepend">'+
+						'<div class="input-group-prepend"  style="width: 30px;">'+
 						  '<span onclick="decrementaFinal('+produto._idProduto+')" id="increment" class="input-group-text bg-dark" >-</span>'+
 						'</div>'+
-						'<input class="text-center" type="text" id="qtdProdutoCart" value="'+produto._quantidade+'" readonly>'+
-						'<div class="input-group-append">'+
+						'<input class="text-center" type="text" style="width: 25px;" id="qtdProdutoCart" value="'+produto._quantidade+'" readonly>'+
+						'<div class="input-group-append" style="width: 20px;">'+
 						  '<span onclick="incrementaFinal('+produto._idProduto+')" id="decrement" class="input-group-text bg-dark" >+</span>'+
 						'</div>'+
 					  '</div>'+

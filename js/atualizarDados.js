@@ -1,7 +1,6 @@
 $(document).ready(function(e) {
-
     
-
+   
     $('#voltarPagamento').hide();
 
     var queryString = window.location.search;
@@ -208,8 +207,9 @@ function poupularCadastro(cliente) {
     console.log(enderecos)
     var enderecoEntrega = enderecos[0];
 
-
+    //alert('NOME -->'+cliente._nome);
     $('#nome').val(cliente._nome);
+    //alert($('#nome').val())
     $('#idDadosClienteAlterar').val(cliente._id);
     $('#email').val(cliente._email);
     $('#cpf').val(cliente._cpf);
@@ -329,6 +329,11 @@ function getEnderecosLista(id) {
             var enderecos = data._enderecos;
             console.log(enderecos)
 
+            /*$('#dataTableEnderecos').DataTable({
+                language: {
+                    url: '../assets/dataTables/traducaoDt.json'
+                }
+            });*/
 
             for (i = 0; i < tamanho; i++) {
                 var endereco = enderecos[i];
@@ -338,11 +343,7 @@ function getEnderecosLista(id) {
 
             
 
-            $('#dataTableEnderecos').DataTable({
-                language: {
-                    url: '../assets/dataTables/traducaoDt.json'
-                }
-            });
+
 
 
         },

@@ -24,6 +24,7 @@ function enviarProduto() {
         },
         error: result => {
             console.log(result)
+            alert('Alert')
             $('#loading').hide(100)
             $('#alertaErro').show(200)
             $('#addProduct').show(100)
@@ -72,6 +73,7 @@ function enviarImagens(produto) {
     $.ajax({
         url: 'http://localhost:8080/imagem?id=' + produto._idProduto,
         type: 'post',
+        cache: false,
         data: formData,
         contentType: false,
         processData: false,
@@ -88,6 +90,7 @@ function enviarImagens(produto) {
             //window.location.reload();
         },
         error: data => {
+            console.log(data)
             $('#alertaErro').show(200)
             $('#loading').hide(100)
             $('#addProduct').show(100)

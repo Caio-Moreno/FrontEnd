@@ -49,11 +49,7 @@ function getProdutosLista() {
                 retornarLinha(produto);
             }
 
-            $('#dataTable').DataTable({
-                language: {
-                    url: '../assets/dataTables/traducaoDt.json'
-                }
-            });
+    
 
 
         },
@@ -169,7 +165,7 @@ function mostrarProduto(id) {
         dataType: "json",
         success: data => {
             var produto = data._produto[0];
-
+            $('#idProdutoAlterar').val(id);
             $('#nomeProdutoAlterar').val(produto._nomeProduto);
             $('#descricaoProdutoAlterar').val(produto._descricao);
             $('#qualidadeProdutoAlterar').val(produto._qualidadeProduto);
@@ -183,7 +179,7 @@ function mostrarProduto(id) {
             $('#image3').attr('src', produto._imagem.caminhoImagem3);
             $('#image4').attr('src', produto._imagem.caminhoImagem4);
 
-            $('#idProdutoAlterar').val(id);
+            
             mostrarEstrela();
 
             console.log(produto);
@@ -336,6 +332,7 @@ function enviarImagens(produto) {
         url: 'http://localhost:8080/imagem?id=' + produto._idProduto,
         type: 'POST',
         data: formData,
+        cache: false,
         contentType: false,
         processData: false,
         success: function(response) {
@@ -351,6 +348,7 @@ function enviarImagens(produto) {
             //window.location.reload();
         },
         error: data => {
+            alert(data)
             $('#alertaErro').show(200)
             $('#loading').hide(100)
             $('#addProduct').show(100)
