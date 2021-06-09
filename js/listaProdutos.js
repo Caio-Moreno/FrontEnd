@@ -98,7 +98,7 @@ function retornarLinha(response) {
     var td10 = $('<td data-plataforma="' + response._plataforma + '"></td>');
     var td11 = $('<td onclick="mostrarModalEditar(' + response._idProduto + ')"><a href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>')
         //var td12 = $('<td onclick="mostrarModalExclusao(' + response._idProduto + ')" ><a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></td>')
-    var td13 = $('<td> <a href="produto-especifico.html?Id=' + response._idProduto + '" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a> </td>')
+    var td13 = $('<td> <a href="../Loja/produto-especifico.html?Id=' + response._idProduto + '" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a> </td>')
         //passo os valores de cada coluna
     td1.text(response._idProduto);
     td2.text(response._nomeProduto)

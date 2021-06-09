@@ -31,7 +31,13 @@
             $('#loading').hide()
             $('#alertaSucesso').hide()
             $('#alertaErro').hide()
+
+            $('#preco').mask('000.000.000.000.000.00', {reverse: true});
+
+
+            $("#naoMostrar").hide();
         });
+
 
         function atribuirValor(a) {
             document.getElementById('ficarEscondido').value = a;
@@ -42,7 +48,7 @@
         var dados = localStorage.getItem('dadosUsuario');
         console.log(dados);
         if (dados == null || dados == '' || dados == undefined) {
-            window.location.href = 'login.html';
+            window.location.href = '../Login.html';
         }
     </script>
 
@@ -265,7 +271,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <label for="preco">Preço</label>
-                                <input type="text" class="form-control" id="preco" placeholder="Ex: 20.00">
+                                <input type="text" class="form-control" id="preco" placeholder="Ex: R$ 20.00">
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="preco">Plataforma</label>
@@ -357,6 +363,7 @@
 
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin-2.min.js"></script>
+    <script src="../assets/JQueyMask/src/jquery.mask.js"></script>
 
 </body>
 

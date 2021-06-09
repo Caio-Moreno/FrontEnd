@@ -166,25 +166,3 @@ function buscaDados(){
 
 
 }
-
-function updateConfigAsNewObject(chart) {
-  chart.options = {
-      responsive: true,
-      plugins: {
-          title: {
-              display: true,
-              text: 'Chart.js'
-          }
-      },
-      scales: {
-          x: {
-              display: true
-          },
-          y: {
-              display: true
-          }
-      }
-  };
-  chart.update();
-}
-
